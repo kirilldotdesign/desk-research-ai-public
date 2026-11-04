@@ -176,16 +176,17 @@ const state = { view: "feed", period: "all", company: "all", open: null, feedScr
 
 const PERIODS = [
   { key: "all", name: "Все", days: Infinity },
-  { key: "today", name: "Сегодня", days: 1 },
+  { key: "today", name: "24 часа", days: 1 },
   { key: "week", name: "Неделя", days: 7 },
-  { key: "month", name: "Месяц", days: 31 },
+  { key: "month", name: "14 дней", days: 15 },
 ];
-const inPeriod = (f, key) => (Date.now() - new Date(f.date).getTime()) / 864e5 <= PERIODS.find((x) => x.key === key).days;
+// SPEC 1: events lie ahead, so the period counts forward from now
+const inPeriod = (f, key) => (new Date(f.date).getTime() - Date.now()) / 864e5 <= PERIODS.find((x) => x.key === key).days;
 const companies = [...new Set(findings.map((f) => f.reason).filter(Boolean))].sort((a, b) => findings.filter((f) => f.reason === b).length - findings.filter((f) => f.reason === a).length);
 const byCompany = (f, c) => c === "all" || f.reason === c;
 const visible = () => findings
   .filter((f) => inPeriod(f, state.period) && byCompany(f, state.company))
-  .sort((a, b) => b.date.localeCompare(a.date));
+  .sort((a, b) => a.date.localeCompare(b.date));
 
 /* ---------- filters ---------- */
 function renderFilters() {
@@ -198,7 +199,7 @@ function renderFilters() {
   }).join("");
   $("#sources").innerHTML = ["all", ...companies].map((c) => {
     const n = findings.filter((f) => inPeriod(f, state.period) && byCompany(f, c)).length;
-    return `<button class="chip" data-company="${esc(c)}" aria-pressed="${state.company === c}">${c === "all" ? "Все компании" : esc(c)}<span class="num">${n}</span></button>`;
+    return `<button class="chip" data-company="${esc(c)}" aria-pressed="${state.company === c}">${c === "all" ? "Все клубы" : esc(c)}<span class="num">${n}</span></button>`;
   }).join("");
   document.querySelectorAll("[data-period]").forEach((b) => b.onclick = () => { state.period = b.dataset.period; haptic(); render(); });
   document.querySelectorAll("[data-company]").forEach((b) => b.onclick = () => { state.company = b.dataset.company; haptic(); render(); });
@@ -207,7 +208,7 @@ function renderFilters() {
 /* ---------- feed ---------- */
 function renderFeed() {
   if (!findings.length) {
-    return `<div class="empty"><p>Находок пока нет.</p><p class="label">Они появятся после ближайшего сбора и разбора моделью</p></div>`;
+    return `<div class="empty"><p>Событий на ближайшие 14 дней пока нет.</p><p class="label">Они появятся после ближайшего сбора и разбора моделью</p></div>`;
   }
   const list = visible();
   if (!list.length) {
@@ -217,10 +218,10 @@ function renderFeed() {
     <li><button class="item" data-open="${f.id}">
       <span class="line1">
         ${f.run_id === lastRun ? `<span class="new" title="из последнего прогона"></span>` : ""}
-        <span class="src">${esc(f.source)}</span><span>· ${day(f.date)}</span>
-        ${tags(f).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}
+        <span class="src">${esc(f.reason || f.source)}</span>
+        ${f.event_type ? `<span class="tag">${esc(f.event_type)}</span>` : ""}
       </span>
-      <p>${esc(f.summary)}</p>
+      <p>${esc(f.line || f.summary)}</p>
     </button></li>`).join("")}</ul>`;
 }
 
@@ -240,8 +241,8 @@ function renderDetail(f) {
       </div>
     </div>
     <span class="label">${esc(f.source)} · ${day(f.date)}${f.run_id === lastRun ? " · новое" : ""}</span>
-    <h2>${esc(f.summary)}</h2>
-    ${same ? "" : `<p class="orig">${esc(f.title)}</p>`}
+    <h2>${esc(f.title)}</h2>
+    <p class="orig">${esc(f.line || f.summary)}</p>
     ${text ? `<p class="excerpt">${text}</p>` : ""}
     ${tags(f).length ? `<div class="tags">${tags(f).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
     ${inTelegram ? "" : `<button class="btn main" data-url="${esc(f.url)}">Открыть материал</button>`}

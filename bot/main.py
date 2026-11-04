@@ -18,6 +18,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 import db
+from bot.events import event_line, window
 
 SERVICE = "bot"
 HERE = Path(__file__).resolve().parent
@@ -278,15 +279,21 @@ def page_data(conn):
         "text",
         "sent_at",
         "model",
+        "event_type",
     )
+    first, last = window()
     findings = []
+    # SPEC 1: only upcoming events in the 14-day window, the soonest first
     for row in conn.execute(
-        "SELECT f.id, m.id, f.summary, f.entity, m.title, m.url, coalesce(m.published_at, m.collected_at), m.run_id,"
-        " s.id, s.name, s.url, left(m.text, 600), f.sent_at, f.model"
+        "SELECT f.id, m.id, f.summary, coalesce(m.venue, f.entity), m.title, m.url, m.starts_at, m.run_id,"
+        " s.id, s.name, s.url, left(m.text, 600), f.sent_at, f.model, f.event_type"
         " FROM findings f JOIN materials m ON m.id = f.material_id JOIN sources s ON s.id = m.source_id"
-        " ORDER BY f.id DESC LIMIT 300"
+        " WHERE m.starts_at >= %s AND m.starts_at < %s"
+        " ORDER BY m.starts_at, m.venue LIMIT 500",
+        (first, last),
     ):
         finding = dict(zip(fields, row))
+        finding["line"] = event_line(finding["date"], finding["reason"], finding["title"], finding["summary"])
         finding["date"], finding["sent_at"] = (
             iso(finding["date"]),
             iso(finding["sent_at"]),
