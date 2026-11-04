@@ -11,7 +11,13 @@ from pathlib import Path
 
 SCHEMA = Path(__file__).resolve().parents[1] / "db" / "schema.sql"
 AI_SOURCES = ["Hacker News", "Hacker News: Anthropic", "Hacker News: OpenAI", "arXiv cs.AI", "Хабр: ИИ"]
-CLUBS = {"Grünspan": "gruenspan", "Uebel & Gefährlich": "uebel", "Molotow": "molotow", "Knust": "knust"}
+CLUBS = {
+    "Grünspan": "gruenspan",
+    "Uebel & Gefährlich": "uebel",
+    "Molotow": "molotow",
+    "Knust": "knust",
+    "oh schon hell": "ohschonhell",
+}
 
 
 class SchemaTextTest(unittest.TestCase):

@@ -37,7 +37,7 @@ class DedupDatabaseTest(unittest.TestCase):
         self.conn = psycopg.connect(os.environ["TEST_DATABASE_URL"], autocommit=True)
         self.conn.execute("DROP SCHEMA public CASCADE; CREATE SCHEMA public;")
         self.conn.execute((Path(__file__).resolve().parents[1] / "db" / "schema.sql").read_text())
-        self.conn.execute("INSERT INTO sources (name, kind, url) VALUES ('oh schon hell', 'ohschonhell', 'x')")
+        # 'oh schon hell' (aggregator) is seeded by the schema since SPEC 3 T1
 
     def tearDown(self):
         self.conn.close()

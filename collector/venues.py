@@ -169,7 +169,31 @@ def parse_knust(page):
     return events
 
 
+# ---------- ohschonhell.de (aggregator): JSON behind the calendar page ----------
+
+OHSCHONHELL = "https://ohschonhell.de"
+
+
+def parse_ohschonhell(page):
+    data = json.loads(page)
+    found = {}
+    days = [day for month in data.get("months", []) for day in month.get("month_days", [])]
+    for day in days + data.get("days", []):
+        for e in day.get("events") or []:
+            if not (e.get("name") and e.get("date") and e.get("event_post") and e.get("location_name")):
+                continue
+            found[e["event_id"]] = {
+                "url": OHSCHONHELL + e["event_post"],
+                "title": clean(e["name"]),
+                "text": clean((e.get("lineup") or "").replace("<br />", " "))[:1500],
+                "starts_at": at(e["date"], e.get("event_time") or None),
+                "venue": clean(e["location_name"]),
+            }
+    return list(found.values())
+
+
 PARSERS = {
+    "ohschonhell": parse_ohschonhell,
     "gruenspan": parse_gruenspan,
     "uebel": parse_uebel,
     "molotow": parse_molotow,

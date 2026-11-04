@@ -78,3 +78,8 @@ INSERT INTO sources (name, kind, url) VALUES
 ON CONFLICT (name) DO NOTHING;
 -- T5: Knust dates are on the programme page, not in the API
 UPDATE sources SET url = 'https://knusthamburg.de/programm/' WHERE name = 'Knust';
+
+-- SPEC 3: the whole Hamburg club scene (aggregators lose to a venue's own site on duplicates)
+INSERT INTO sources (name, kind, url) VALUES
+    ('oh schon hell', 'ohschonhell', 'https://ohschonhell.de/ajax/data_cache_db.php?load=initial&osh_page=hamburg')
+ON CONFLICT (name) DO NOTHING;
