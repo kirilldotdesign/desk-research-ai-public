@@ -8,7 +8,7 @@ import re
 import unicodedata
 from difflib import SequenceMatcher
 
-AGGREGATORS = {"ohschonhell", "clubkombinat", "concertnews", "sperrstunde", "rausgegangen"}  # source kinds that list other venues' events
+AGGREGATORS = {"ohschonhell", "clubkombinat", "concertnews", "sperrstunde", "rausgegangen", "krach", "vamh"}  # source kinds that list other venues' events
 
 
 UMLAUTS = str.maketrans({"ä": "ae", "ö": "oe", "ü": "ue", "ß": "ss", "Ä": "ae", "Ö": "oe", "Ü": "ue"})
@@ -39,6 +39,10 @@ VENUE_ALIASES = {
     "suedpol hamburg": "Südpol",
     "grosse freiheit": "Grosse Freiheit 36",
     "ms stubnitz hamburg": "MS Stubnitz",
+    "kent club hamburg": "KENT Club",
+    "frau hedis tanzkaffee": "Frau Hedi",
+    "markthalle hamburg": "Markthalle",
+    "fabrik hamburg": "Fabrik",
 }
 
 
@@ -62,7 +66,12 @@ def same_title(a, b):
         return True
     # "Radwan Ghazi Moumneh (Jerusalem In My Heart) …" vs "Radwan Ghazi Moumneh & …": same long beginning
     common = len(os.path.commonprefix([a, b]))
-    return common >= 15
+    if common >= 15:
+        return True
+    # "Holy Mother - The Holy Storm Tour" vs "Holy Mother + Wicked Maraya – …": same first two words
+    # (only ever compared within one venue and one day, across different sources)
+    wa, wb = a.split(), b.split()
+    return len(wa) >= 2 and len(wb) >= 2 and wa[:2] == wb[:2] and len(" ".join(wa[:2])) >= 8
 
 
 def find_duplicates(event, candidates):

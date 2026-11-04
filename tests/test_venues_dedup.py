@@ -27,6 +27,9 @@ class AliasTest(unittest.TestCase):
             "Radwan Ghazi Moumneh & Frédéric D. Oberland (lb/fr), support: Jessica Moss (ca)",
         ))
         self.assertFalse(same_title("Afrotronic", "Afro House Night"))
+        self.assertTrue(same_title("Holy Mother - The Holy Storm Tour 2026 plus Support", "Holy Mother + Wicked Maraya – The Holy Storm Tour"))
+        self.assertTrue(same_title("Billy Zach + Support: Snakevision", "Billy Zach („A little Hope“ Release Konzert) + Snakevision"))
+        self.assertFalse(same_title("Top Ten", "Top Gun Night"))
 
     def test_fabrik_is_not_gaengeviertel(self):
         self.assertFalse(same_venue("Fabrik", "Fabrik Im Gängeviertel"))

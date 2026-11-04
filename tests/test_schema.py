@@ -25,6 +25,15 @@ CLUBS = {
     "Rote Flora": "roteflora",
     "MS Stubnitz": "stubnitz",
     "Elbphilharmonie": "elbphilharmonie",
+    "KRACH Metal": "krach",
+    "Markthalle": "markthalle",
+    "Kampnagel": "kampnagel",
+    "VAMH": "vamh",
+    "Fabrik": "fabrik",
+    "Frau Hedi": "frauhedi",
+    "Pony Bar": "ponybar",
+    "KENT Club": "kentclub",
+    "Cascadas": "cascadas",
 }
 
 

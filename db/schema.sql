@@ -100,3 +100,16 @@ UPDATE sources SET active = TRUE WHERE name = 'sperrstunde' AND NOT active;
 -- (traditional / world music). Only the first programme page (≈ next 1–2 days).
 INSERT INTO sources (name, kind, url) VALUES ('Elbphilharmonie', 'elbphilharmonie', 'https://www.elbphilharmonie.de/de/programm/')
 ON CONFLICT (name) DO NOTHING;
+
+-- SPEC 4 (sources, part 2) — Kirill 04.11: "делай, спеку потом"
+INSERT INTO sources (name, kind, url) VALUES
+    ('KRACH Metal',   'krach',      'https://krach.app/de/metal-konzerte-hamburg'),
+    ('Markthalle',    'markthalle', 'https://markthalle-hamburg.de/'),
+    ('Kampnagel',     'kampnagel',  'https://kampnagel.de/kalender'),
+    ('VAMH',          'vamh',       'https://vamh.de/gigs'),
+    ('Fabrik',        'fabrik',     'https://www.fabrik.de/programm'),
+    ('Frau Hedi',     'frauhedi',   'https://frauhedi.de/'),
+    ('Pony Bar',      'ponybar',    'https://programm.ponybar.de/'),
+    ('KENT Club',     'kentclub',   'https://www.kentclub.de/programm'),
+    ('Cascadas',      'cascadas',   'https://cascadas.club/programm/')
+ON CONFLICT (name) DO NOTHING;

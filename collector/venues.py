@@ -443,7 +443,281 @@ def parse_elbphilharmonie(page):
     return events
 
 
+# ================= SPEC 4 (sources, part 2; spec written afterwards, Kirill 04.11) =================
+
+# ---------- KRACH (aggregator): metal / hardcore concerts in Hamburg, genre chips on every card ----------
+
+KRACH = "https://krach.app"
+
+
+def parse_krach(page):
+    events, seen = [], set()
+    for href, card in re.findall(r'<a class="block group[^"]*" href="(/de/events/[^"]+)">(.*?)</article></a>', page, re.S):
+        day = re.search(r"-(\d{4}-\d{2}-\d{2})-", href + "-")
+        title = re.search(r'<h3[^>]*>\s*<span class="truncate">(.*?)</span>', card, re.S)
+        place = re.search(r'<p class="mt-1 text-sm text-muted[^"]*">(.*?)</p>', card, re.S)
+        if not (day and title and place) or href in seen:
+            continue
+        seen.add(href)
+        venue = clean(place.group(1)).rsplit(",", 1)[0].strip()
+        artists = re.search(r'<p class="mt-0\.5 text-sm text-muted[^"]*">(.*?)</p>', card, re.S)
+        genres = [clean(g) for g in re.findall(r'<span class="px-2 py-0\.5 text-xs[^"]*">(.*?)</span>', card, re.S)]
+        time = re.search(r"(\d{1,2}:\d{2}) Uhr", card)
+        events.append(
+            {
+                "url": KRACH + href,
+                "title": clean(title.group(1)),
+                "text": "; ".join(x for x in (", ".join(genres), clean(artists.group(1)) if artists else "") if x),
+                "starts_at": at(day.group(1), time.group(1) if time else None),
+                "venue": venue,
+            }
+        )
+    return events
+
+
+# ---------- Markthalle: event boxes, date "16. November 2026", no time ----------
+
+
+def parse_markthalle(page):
+    events, seen = [], set()
+    for box in re.findall(r'<div class="event-box">(.*?)<div class="event-box__date">(.*?)</div>', page, re.S):
+        body, when = box
+        link = re.search(r'class="event-box__permalink" href="([^"]+)"', body)
+        title = re.search(r"<h3>(.*?)</h3>", body, re.S)
+        if not (link and title) or link.group(1) in seen or not re.search(r"\d{4}", when):
+            continue
+        seen.add(link.group(1))
+        sub = re.search(r"<h4>(.*?)</h4>", body, re.S)
+        events.append(
+            {
+                "url": link.group(1),
+                "title": clean(title.group(1)),
+                "text": clean(sub.group(1)).lstrip("- ").strip() if sub else "",
+                "starts_at": at(de_long_date(clean(when))),
+                "venue": "Markthalle",
+            }
+        )
+    return events
+
+
+# ---------- Kampnagel: /kalender day blocks; theatre and dance dominate → keep music only ----------
+
+KAMPNAGEL_MUSIC = re.compile(r"konzert|jazz|party|club|\bdj|band\b|tunes|chor\b|oud|diarfest|rave|orchester", re.I)
+KAMPNAGEL_NOT_MUSIC = re.compile(r"krimi|lesung|führung|podcast|vortrag|talk", re.I)
+
+
+def parse_kampnagel(page):
+    events, seen = [], set()
+    for block in re.split(r'<div\s+class="calendar-block\s', page)[1:]:
+        day = re.search(r'calendar-block__headline.*?(\d{2})\.(\d{2})\.(\d{2})</h3>', block, re.S)
+        if not day:
+            continue
+        iso = f"20{day.group(3)}-{day.group(2)}-{day.group(1)}"
+        for href, body in re.findall(r'<a\s+href="([^"]+)"[^>]*class="calendar-teaser__link">(.*?)</a>', block, re.S):
+            title = re.search(r'<h2>\s*<span[^>]*>(.*?)</span>\s*</h2>', body, re.S)
+            if not title or not href.startswith("https://kampnagel.de/") or href in seen:
+                continue
+            topline = re.search(r'<h3\s+class="text text--link[^"]*"[^>]*>(.*?)</h3>', body, re.S)
+            copy = re.search(r'text--copy[^>]*>(.*?)</p>', body, re.S)
+            text = "; ".join(clean(m.group(1)) for m in (topline, copy) if m)
+            haystack = f"{clean(title.group(1))} {text} {href}"
+            if not KAMPNAGEL_MUSIC.search(haystack) or KAMPNAGEL_NOT_MUSIC.search(haystack):
+                continue
+            seen.add(href)
+            time = re.search(r'calendar-teaser__time"[^>]*>\s*(\d{1,2}:\d{2})', body)
+            events.append(
+                {
+                    "url": href,
+                    "title": clean(title.group(1)),
+                    "text": text[:1500],
+                    "starts_at": at(iso, time.group(1) if time else None),
+                    "venue": "Kampnagel",
+                }
+            )
+    return events
+
+
+# ---------- VAMH (aggregator, experimental / noise): /gigs teasers ----------
+
+VAMH = "https://vamh.de"
+
+
+def parse_vamh(page):
+    events = []
+    for body in re.split(r'<div class="row teaser">', page)[1:]:
+        link = re.search(r'<a href="(/gigs/\d+)">', body)
+        when = re.search(r"<h3>\s*\w+ (\d{2}\.\d{2}\.\d{4}),\s*<span[^>]*>(\d{1,2}:\d{2})", body)
+        heads = re.findall(r"<h3>(.*?)</h3>", body, re.S)
+        place = re.search(r"<strong>Ort:</strong>\s*(?:<a[^>]*>)?(.*?)(?:</a>)?</div>", body, re.S)
+        if not (link and when and len(heads) > 1):
+            continue
+        text = re.search(r'<p class="wrapped-text">(.*?)<a ', body, re.S)
+        events.append(
+            {
+                "url": VAMH + link.group(1),
+                "title": clean(heads[1]),
+                "text": clean(text.group(1))[:1500] if text else "",
+                "starts_at": at(de_date(when.group(1)), when.group(2)),
+                "venue": clean(place.group(1)).split("|")[0].strip() if place else "VAMH",
+            }
+        )
+    return events
+
+
+# ---------- Fabrik: schema.org Event blocks on /programm ----------
+
+
+def parse_fabrik(page):
+    events, seen = [], set()
+    for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', page, re.S):
+        try:
+            data = json.loads(block)
+        except ValueError:
+            continue
+        if not isinstance(data, dict) or data.get("@type") != "Event" or not data.get("startDate"):
+            continue
+        url = data.get("url") or (data.get("offers") or {}).get("url") or ""
+        title = clean(data.get("name"))
+        start = data["startDate"]
+        if not url.startswith("http"):
+            url = f"https://www.fabrik.de/programm#{start[:10]}-{slug(title)}"
+        if url in seen:
+            continue
+        seen.add(url)
+        events.append(
+            {
+                "url": url,
+                "title": title,
+                "text": clean(data.get("description"))[:1500],
+                "starts_at": at(start[:10], start[11:16] if len(start) > 15 else None),
+                "venue": "Fabrik",
+            }
+        )
+    return events
+
+
+# ---------- Frau Hedis Tanzkaffee: WordPress post grid, "SA 07.11.26", no time in the list ----------
+
+
+def parse_frauhedi(page):
+    events, seen = [], set()
+    for article in re.findall(r'<article id="post-\d+" class="([^"]*)">(.*?)</article>', page, re.S):
+        classes, body = article
+        link = re.search(r'<h3 class="title">\s*<a href="([^"]+)">(.*?)</a>', body, re.S)
+        day = re.search(r"(\d{2})\.(\d{2})\.(\d{2})\b", body)
+        if not (link and day) or link.group(1) in seen:
+            continue
+        seen.add(link.group(1))
+        cats = re.findall(r"category-([a-z-]+)", classes)
+        events.append(
+            {
+                "url": link.group(1),
+                "title": clean(link.group(2)),
+                "text": ", ".join(cats),
+                "starts_at": at(f"20{day.group(3)}-{day.group(2)}-{day.group(1)}"),
+                "venue": "Frau Hedi",
+            }
+        )
+    return events
+
+
+# ---------- Pony Bar: copilot.events list, "Datum: 04.11.2026 Beginn: 20:30" ----------
+
+PONYBAR = "https://programm.ponybar.de/"
+
+
+def parse_ponybar(page):
+    events, seen = [], set()
+    for event_id, body in re.findall(r'<a href="\?id=([0-9a-f-]+)">\s*<div class="eventImage">.*?</a>(.*?)<p><a href="\?id=', page, re.S):
+        title = re.search(r"<h2>(.*?)</h2>", body, re.S)
+        day = re.search(r"Datum:\s*(\d{2}\.\d{2}\.\d{4})", body)
+        if not (title and day) or event_id in seen:
+            continue
+        seen.add(event_id)
+        time = re.search(r"Beginn:\s*(\d{1,2}:\d{2})", body)
+        paragraphs = [clean(x) for x in re.findall(r"<p>(.*?)</p>", body, re.S)]
+        events.append(
+            {
+                "url": f"{PONYBAR}?id={event_id}",
+                "title": clean(title.group(1)),
+                "text": (paragraphs[1] if len(paragraphs) > 1 else "")[:1500],
+                "starts_at": at(de_date(day.group(1)), time.group(1) if time else None),
+                "venue": "Pony Bar",
+            }
+        )
+    return events
+
+
+# ---------- KENT Club: event cards, date in the link "05.11.2026-robine-12159" ----------
+
+
+def parse_kentclub(page):
+    events, seen = [], set()
+    for href, category, body in re.findall(
+        r'<a class="event-card" href="([^"]+)"[^>]*data-category="([^"]*)">(.*?)</a>', page, re.S
+    ):
+        day = re.search(r"/programm/(\d{2}\.\d{2}\.\d{4})-", href)
+        title = re.search(r'<span class="event-title">(.*?)</span>', body, re.S)
+        if not (day and title) or href in seen:
+            continue
+        seen.add(href)
+        sub = re.search(r'<span class="event-subtitle">(.*?)</span>', body, re.S)
+        time = re.search(r"(\d{1,2}:\d{2})", clean(body))
+        events.append(
+            {
+                "url": href,
+                "title": clean(title.group(1)) + (f" – {clean(sub.group(1))}" if sub and clean(sub.group(1)) else ""),
+                "text": category,
+                "starts_at": at(de_date(day.group(1)), time.group(1) if time else None),
+                "venue": "KENT Club",
+            }
+        )
+    return events
+
+
+# ---------- Cascadas: article rows, "Fr, 06.11." (no year), genre in <h4> ----------
+
+CASCADAS = "https://cascadas.club/programm/"
+
+
+def parse_cascadas(page, today=None):
+    from datetime import date
+
+    today = today or date.today()
+    events, seen = [], set()
+    for row_id, body in re.findall(r'<div class="row mod_article row block" id="article-(\d+)"[^>]*>(.*?)(?=<div class="row mod_article|$)', page, re.S):
+        kind = re.search(r'veranstaltungs-typ.*?<p>(.*?)</p>', body, re.S)
+        day = re.search(r'veranstaltungs-termin.*?(\d{2})\.(\d{2})\.', body, re.S)
+        title = re.search(r"<h2>(.*?)</h2>", body, re.S)
+        if not (day and title) or row_id in seen:
+            continue
+        seen.add(row_id)
+        dom, month = int(day.group(1)), int(day.group(2))
+        year = today.year + (1 if month < today.month - 1 else 0)  # list runs into next year
+        genre = re.search(r"<h4>(.*?)</h4>", body, re.S)
+        time = re.search(r"(?:Beginn|Einlass):\s*>?\s*(\d{1,2}:\d{2})", body)
+        events.append(
+            {
+                "url": f"{CASCADAS}#article-{row_id}",
+                "title": clean(title.group(1)),
+                "text": "; ".join(clean(m.group(1)) for m in (kind, genre) if m),
+                "starts_at": at(f"{year}-{month:02d}-{dom:02d}", time.group(1) if time else None),
+                "venue": "Cascadas",
+            }
+        )
+    return events
+
+
 PARSERS = {
+    "krach": parse_krach,
+    "markthalle": parse_markthalle,
+    "kampnagel": parse_kampnagel,
+    "vamh": parse_vamh,
+    "fabrik": parse_fabrik,
+    "frauhedi": parse_frauhedi,
+    "ponybar": parse_ponybar,
+    "kentclub": parse_kentclub,
+    "cascadas": parse_cascadas,
     "elbphilharmonie": parse_elbphilharmonie,
     "stubnitz": parse_stubnitz,
     "roteflora": parse_roteflora,
