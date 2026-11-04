@@ -18,6 +18,7 @@ CLUBS = {
     "Knust": "knust",
     "oh schon hell": "ohschonhell",
     "Concert News": "concertnews",
+    "sperrstunde": "sperrstunde",
 }
 
 

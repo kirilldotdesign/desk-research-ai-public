@@ -219,7 +219,36 @@ def parse_concertnews(page):
     return events
 
 
+# ---------- sperrstunde.org (aggregator, DIY / punk): event blocks, date in the event URL ----------
+
+SPERRSTUNDE = "https://www.sperrstunde.org"
+SPERRSTUNDE_MUSIC = {"Konzert", "Party"}  # the rest is talks, Küfa, workshops, demos
+
+
+def parse_sperrstunde(page):
+    events = []
+    for block in re.split(r'<div class="event event-published">', page)[1:]:
+        link = re.search(r'<h2>\s*<a title="[^"]*" href="(/events/(\d{4}-\d{2}-\d{2})[^"]*)">(.*?)</a>', block, re.S)
+        venue = re.search(r'class="event-venue">\s*<a[^>]*>(.*?)</a>', block, re.S)
+        categories = set(re.findall(r'category-label[^>]*>\s*([^<]+?)\s*<', block))
+        if not (link and venue) or not categories & SPERRSTUNDE_MUSIC:
+            continue
+        time = re.search(r'event-time">\s*([0-9]{1,2}:[0-9]{2})', block)
+        text = re.search(r'<div class="event-text">(.*?)<div class="event-links">', block, re.S)
+        events.append(
+            {
+                "url": SPERRSTUNDE + link.group(1),
+                "title": clean(link.group(3)),
+                "text": "; ".join(x for x in (", ".join(sorted(categories)), clean(text.group(1)) if text else "") if x)[:1500],
+                "starts_at": at(link.group(2), time.group(1) if time else None),
+                "venue": clean(venue.group(1)),
+            }
+        )
+    return events
+
+
 PARSERS = {
+    "sperrstunde": parse_sperrstunde,
     "concertnews": parse_concertnews,
     "ohschonhell": parse_ohschonhell,
     "gruenspan": parse_gruenspan,
