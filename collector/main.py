@@ -1,60 +1,51 @@
-"""Collector: visits every active source once, saves new materials, exits."""
+"""Collector: visits every active venue once, saves upcoming events, exits."""
 
-import json
 import urllib.request
-import xml.etree.ElementTree as ET
-from email.utils import parsedate_to_datetime
+from datetime import datetime, timedelta
 
 import db
+from collector.venues import BERLIN, HIDDEN, PARSERS
 
 SERVICE = "collector"
-MAX_PER_SOURCE = 15
-ATOM = "{http://www.w3.org/2005/Atom}"
+WINDOW_DAYS = 14  # SPEC decision 2
+USER_AGENT = "Mozilla/5.0 (compatible; hamburg-clubnacht/0.1)"
 
 
 def fetch(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "desk-research/0.1"})
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.read()
+        return resp.read().decode("utf-8", errors="replace")
 
 
-def read_hn(url):
-    for hit in json.loads(fetch(url))["hits"]:
-        link = (
-            hit.get("url") or f"https://news.ycombinator.com/item?id={hit['objectID']}"
-        )
-        yield {
-            "url": link,
-            "title": hit["title"],
-            "text": hit.get("story_text") or "",
-            "published_at": hit["created_at"],
-        }
+def upcoming(events, now=None):
+    """Only events from today to WINDOW_DAYS ahead, without cancelled / sold out / postponed."""
+    now = now or datetime.now(BERLIN)
+    first = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    last = first + timedelta(days=WINDOW_DAYS + 1)
+    return [
+        e
+        for e in events
+        if first <= e["starts_at"] < last and not HIDDEN.search(e["title"])
+    ]
 
 
-def read_arxiv(url):
-    root = ET.fromstring(fetch(url))
-    for entry in root.iter(f"{ATOM}entry"):
-        yield {
-            "url": entry.findtext(f"{ATOM}id"),
-            "title": " ".join(entry.findtext(f"{ATOM}title").split()),
-            "text": " ".join(entry.findtext(f"{ATOM}summary").split())[:1500],
-            "published_at": entry.findtext(f"{ATOM}published"),
-        }
-
-
-def read_rss(url):
-    root = ET.fromstring(fetch(url))
-    for item in root.iter("item"):
-        pub = item.findtext("pubDate")
-        yield {
-            "url": item.findtext("link").strip(),
-            "title": item.findtext("title").strip(),
-            "text": (item.findtext("description") or "")[:1500],
-            "published_at": parsedate_to_datetime(pub).isoformat() if pub else None,
-        }
-
-
-READERS = {"hn": read_hn, "arxiv": read_arxiv, "rss": read_rss}
+def save(conn, source_id, run_id, event):
+    row = conn.execute(
+        """INSERT INTO materials (source_id, run_id, url, title, text, published_at, starts_at, venue)
+           VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+           ON CONFLICT (url) DO NOTHING RETURNING id""",
+        (
+            source_id,
+            run_id,
+            event["url"],
+            event["title"],
+            event["text"],
+            event["starts_at"],
+            event["starts_at"],
+            event["venue"],
+        ),
+    ).fetchone()
+    return row is not None
 
 
 def main():
@@ -68,37 +59,22 @@ def main():
         ).fetchall()
         for source_id, name, kind, url in sources:
             try:
-                items = list(READERS[kind](url))[:MAX_PER_SOURCE]
+                events = upcoming(PARSERS[kind](fetch(url)))
             except Exception as error:
                 # one broken source does not stop the run
                 db.log(SERVICE, f"источник «{name}» недоступен: {error}")
                 continue
-            new = 0
-            for item in items:
-                row = conn.execute(
-                    """INSERT INTO materials (source_id, run_id, url, title, text, published_at)
-                       VALUES (%s, %s, %s, %s, %s, %s)
-                       ON CONFLICT (url) DO NOTHING RETURNING id""",
-                    (
-                        source_id,
-                        run_id,
-                        item["url"],
-                        item["title"],
-                        item["text"],
-                        item["published_at"],
-                    ),
-                ).fetchone()
-                new += row is not None
+            new = sum(save(conn, source_id, run_id, e) for e in events)
             total_new += new
             db.progress_run(
                 conn,
                 SERVICE,
                 run_id,
                 total_new,
-                f"{name}: взял {len(items)}, новых {new}",
+                f"{name}: событий в окне {len(events)}, новых {new}",
             )
         db.finish_run(
-            conn, SERVICE, run_id, total_new, f"новых материалов в базе: {total_new}"
+            conn, SERVICE, run_id, total_new, f"новых событий в базе: {total_new}"
         )
     except Exception as error:
         db.fail_run(conn, SERVICE, run_id, error)

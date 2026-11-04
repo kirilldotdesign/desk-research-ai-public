@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <title>Uebel &amp; Gefährlich</title>
+        <meta name="description" content="Uebel & Gefährlich – legendärer Club im Bunker St. Pauli in Hamburg. Live-Konzerte, Partys & Events mit einzigartiger Atmosphäre. Jetzt entdecken!">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="https://www.uebelundgefaehrlich.com/content/themes/uebel-und-gefaehrlich/assets/img/ico/favicon.ico?1">
+        <link rel="apple-touch-icon" sizes="60x60" href="https://www.uebelundgefaehrlich.com/content/themes/uebel-und-gefaehrlich/assets/img/ico/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="https://www.uebelundgefaehrlich.com/content/themes/uebel-und-gefaehrlich/assets/img/ico/apple-touch-icon-ipad.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="https://www.uebelundgefaehrlich.com/content/themes/uebel-und-gefaehrlich/assets/img/ico/apple-touch-icon-iphone4.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="https://www.uebelundgefaehrlich.com/content/themes/uebel-und-gefaehrlich/assets/img/ico/apple-touch-icon-ipad3.png">	
+        <link rel="stylesheet" href="https://www.uebelundgefaehrlich.com/content/themes/uebel-und-gefaehrlich/style.css" type="text/css" media="screen, projection" />
+        <!--[if lte IE 7 ]><link rel="stylesheet" href="https://www.uebelundgefaehrlich.com/content/themes/uebel-und-gefaehrlich/assets/styles/unsemantic/unsemantic-grid-responsive-tablet.css" type="text/css" /><![endif]-->
+        <link rel="pingback" href="https://www.uebelundgefaehrlich.com/xmlrpc.php" />
+        <script id="mobrid-head-script">
+    
+const MOBRID_JSLOG_ACTION = '_mobrid-log-javascript-error';
+const MOBRID_JSLOG_TIMESTAMP = 1793812309;
+const MOBRID_JSLOG_TOKEN = '96c09c13e2933fe11a3fe97d386aeed3ca14117a6b0b95d1fc7bccb3edc8f55d';
+const MOBRID_JSLOG_PATH = '/_mobrid/log-javascript-error/';
+
+/**
+ * Send error payload; swallow network errors 
+ * to avoid generating new rejections.
+ * @created 2024-09-04
+ * @updated 2026-02-13
+ * @param {Object} data
+ * @returns {undefined}
+ */
+const mobrid_jslog = data =>
+{
+    try {
+
+        data.action = MOBRID_JSLOG_ACTION;
+        data.jslogts = MOBRID_JSLOG_TIMESTAMP;
+        data.jslogtk = MOBRID_JSLOG_TOKEN;
+
+    } catch (e) {
+
+        /* Never throw from logger */
+        return;
+    }
+    
+    let bodyJson = '';
+
+    /* Serialize once
+    (and never throw while logging). */
+    try {
+
+        bodyJson = JSON.stringify(data);
+
+    } catch (e) {
+
+        bodyJson = '{"action":'
+            + '"' + MOBRID_JSLOG_ACTION + '",'
+            + '"_meta":{"json_error":"stringify_failed"}}';
+    }
+
+    /* 1)
+    Prefer sendBeacon instead of fetch() 
+    (reliable during unload/navigation)
+    added 2026-02-04, v1.6.0, MOBRID-24 */
+    try {
+
+        if (navigator
+        && ('function' === typeof navigator.sendBeacon)) {
+
+            const blob = new Blob(
+                [
+                    bodyJson
+                ],
+                {
+                    type: 'application/json'
+                }
+            );
+
+            /* If queued successfully, we are done. */
+            if (navigator.sendBeacon(MOBRID_JSLOG_PATH, blob)) {
+
+                return;
+            }
+
+            /* If it returns false, fallback to fetch below. */
+        }
+
+    } catch (e) {
+
+        /* Ignore and fallback to fetch. */
+    }
+
+    /* "void" 
+    added 2025-10-23, v1.4.1, MOBRID-11:
+    Intentionally "swallow" the promise 
+    in order to prevent further errors. */
+    void fetch(
+        MOBRID_JSLOG_PATH,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: bodyJson,
+            /* Keepalive flag
+            added 2026-02-04, v1.6.0, MOBRID-24 */
+            keepalive: true
+        }
+    /* Swallow promise 
+    to avoid new errors
+    added 2026-02-12, v1.6.0, MOBRID-24, MOBRID-25. */
+    ).catch(() => {});
+};
+
+/**
+ * Normalizes any value to a safe message string.
+ * @jira MOBRID-24
+ * @since v1.6.0
+ * @created 2026-02-04
+ * @updated 2026-02-12
+ * @param {any} value
+ * @returns {string}
+ */
+const mobrid_to_message = value =>
+{
+    try {
+
+        if (null === value
+        || ('undefined' === typeof value)
+        || (!value)) {
+
+            return '';
+        }
+
+        if ('string' === typeof value) {
+
+            return value;
+        }
+
+        if (value instanceof Error) {
+
+            return value.name
+                ? (value.name + ': ' + (value.message || ''))
+                : (value.message || '');
+        }
+
+        /* Try common "message" field. */
+        if ('string' === typeof value.message) {
+
+            return String(value.message);
+        }
+
+        return String(value);
+        
+    } catch (e) {
+
+        return '';
+    }
+};
+
+/**
+ * Extract stack from Error-like objects.
+ * @jira MOBRID-24
+ * @since v1.6.0
+ * @created 2026-02-04
+ * @updated 2026-02-12
+ * @param {any} obj
+ * @returns {string|null}
+ */
+const mobrid_to_stack = obj =>
+{
+    if ('undefined' === typeof obj
+    || (!obj)) {
+        
+        return null;
+    }
+    
+    try {
+
+        if ('string' === typeof obj.stack
+        && (obj.stack.length)) {
+
+            return obj.stack;
+        }
+        
+        if ('string' === typeof obj.trace
+        && (obj.trace.length)) {
+
+            return obj.trace;
+        }
+
+        if ('string' === typeof obj.stacktrace
+        && (obj.stacktrace.length)) {
+
+            return obj.stacktrace;
+        }
+
+    } catch (e) {}
+
+    return null;
+};
+
+window.addEventListener('error', event =>
+{
+    /* Condition 1: real runtime error. */
+    const isRuntimeError = event instanceof ErrorEvent
+        || ('message' in event && 'undefined' !== typeof event.error);
+
+    /* Explicitly ignore 
+    the resource errors. */
+    if (!isRuntimeError) {
+
+                    return false;
+            }
+
+    const lineno = ('number' === typeof event.lineno)
+        ? event.lineno
+        : null;
+
+    const colno = ('number' === typeof event.colno)
+        ? event.colno
+        : null;
+        
+    const data = {
+        type: 'runtime',
+        code: 101,
+        message: mobrid_to_message(event && event.message),
+        source: event && event.filename
+            ? String(event.filename)
+            : (
+                window.location && window.location.href
+                    ? String(window.location.href)
+                    : ''
+            ),
+        line: null !== lineno && 0 < lineno
+            ? lineno
+            : null,
+        column: null !== colno && 0 < colno
+            ? colno
+            : null,
+        stack: mobrid_to_stack(event && event.error),
+        url: location && location.href
+            ? location.href
+            : null,
+        time: Date.now()
+    };
+
+    try {
+
+        mobrid_jslog(data);
+
+    } catch (e) {
+
+        /* Never throw from the logger */
+    }
+
+            return false;
+    
+}, true);
+
+/* Catch also unhandled promise rejections
+added 2025-10-16, v1.4.0, MOBRID-8 */
+window.addEventListener('unhandledrejection', event =>
+{
+    const reason = event
+        ? event.reason
+        : null;
+        
+    const data = {
+        type: 'unhandledrejection',
+        code: 102,
+        message: mobrid_to_message(reason) || 'Unhandled promise rejection',
+        source: window.location && window.location.href
+            ? String(window.location.href)
+            : '',
+        line: null,
+        column: null,
+        stack: mobrid_to_stack(reason),
+        url: location && location.href
+            ? location.href
+            : null,
+        time: Date.now()
+    };
+    
+    try {
+
+        mobrid_jslog(data);
+
+    } catch (e) {}
+
+            return false;
+    
+}, true);
+
+/* Log CSP violations condition
+added 2026-04-23, v1.7.0, MOBRID-32 */
+
+</script><meta name='robots' content='max-image-preview:large' />
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.uebelundgefaehrlich.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.2.15"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){p.clearRect(0,0,i.width,i.height),p.fillText(e,0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(t,0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(p&&p.fillText)switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s("\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!s("\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!s("\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!s("\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css' href='https://www.uebelundgefaehrlich.com/wp-includes/css/dist/block-library/style.min.css?ver=6.2.15' type='text/css' media='all' />
+<link rel='stylesheet' id='classic-theme-styles-css' href='https://www.uebelundgefaehrlich.com/wp-includes/css/classic-themes.min.css?ver=6.2.15' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='mypluginstyle-css' href='https://www.uebelundgefaehrlich.com/content/plugins/copilot/assets/copilot-wp-style.css?ver=6.2.15' type='text/css' media='all' />
+<link rel="https://api.w.org/" href="https://www.uebelundgefaehrlich.com/wp-json/" />        
+    </head>
+    <body class="">
+        <div>
+            <header role="banner">
+                <nav role="article">
+                    <a href="https://www.uebelundgefaehrlich.com/" title="Uebel &amp; Gefährlich" rel="home" class="home">
+                        <span aria-hidden="true" class="ico logo"></span>
+                        <br>
+                        <span aria-hidden="true" class="ico ueg"></span>
+                        <span class="screenreader">Uebel &amp; Gefährlich</span>
+                    </a>
+                    <div>
+                        <div class="ticket">
+                            <a class="ticket-link desktop" href="https://xceed.me/de/hamburg/club/uebel-gefahrlich" target="_blank">
+                                <img src="https://www.uebelundgefaehrlich.com/content/themes/uebel-und-gefaehrlich/assets/img/header/tickets.svg" alt="Tickets" />
+                            </a>
+                        </div>
+
+                        <div class="select-menu-holder">
+                            <div class="select-menu-wrapper filter-wrapper">
+                                <span><a class="ticket-link mobile" href="https://xceed.me/de/hamburg/club/uebel-gefahrlich" target="_blank">Tickets</a></span>
+                                <span class="all active"><span class="ico filter"></span>Alle Veranstaltungen</span>
+                                <span class="konzerte"><span class="ico filter"></span>Konzerte</span>
+                                <span class="klub"><span class="ico filter"></span>Klubs</span>
+                                <span class="lesung"><span class="ico filter"></span>Lesungen</span>
+                            </div>
+                            <div class="ico burger"></div>
+                            <div class="bbwhite"></div>
+                        </div>
+                        <form action="https://www.uebelundgefaehrlich.com" method="get">
+                            <div class="search"><input type="text" name="suche" placeholder="Suche..."></div>
+                            <div class="submit"><button type="submit" class="ico"></button><div></div></div>
+                        </form>
+                        <div class="fb">
+                            <a href="https://de-de.facebook.com/uebelundgefaehrlich" target="_blank" title="Uebel &amp; Gefährlich bei Facebook" class="ico fb"><span class="screenreader">Uebel &amp; Gefährlich bei Facebook</span></a>
+                        </div>
+                        <div class="instagram">
+                            <a href="https://www.instagram.com/uebel_und_gefaehrlich/" target="_blank" title="Uebel &amp; Gefährlich bei Instagram" class="ico instagram"><span class="screenreader">Uebel &amp; Gefährlich bei Instagram</span></a>
+                        </div>
+                    </div>
+                </nav>
+                <div class="border"></div>
+            </header>
+                <main class="grid-container">            <div class="place-holder">
+                <span class="pending"></span>
+                <button class="showOlder">Vergangene Termine anzeigen</button>
+            </div>
+            <ul class="event">
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/scienceslam-4/" class="lesung today start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/scienceslam-4/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <em>Heute</em> <time itemprop="startDate"  datetime="2026-11-04T19:00">Mittwoch, den 04. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">SCIENCE SLAM</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/jonny5/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/jonny5/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-05T20:00">Donnerstag, den 05. November 2026</time> <br>Einlass 20:00 Uhr - Beginn 21:00 Uhr                                    
+                                    <h1 itemprop="name">JONNY5</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"></div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/next-up-040/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/next-up-040/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-05T20:00">Donnerstag, den 05. November 2026</time> <br>Einlass 20:00 Uhr - Beginn 21:00 Uhr                                    
+                                    <h1 itemprop="name">NEXT UP 040 – Abgesagt</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/the-numetal-resurrection/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/the-numetal-resurrection/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-06T19:00">Freitag, den 06. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">THE NU METAL RESURRECTION – ABGESAGT</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/hardwick/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/hardwick/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-06T19:00">Freitag, den 06. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name">HARDWICK</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/latin-rave-x-uebel-gefaehrlich/" class="klub start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/latin-rave-x-uebel-gefaehrlich/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-06T23:00">Freitag, den 06. November 2026</time> <br>Einlass 23:00 Uhr - Beginn 23:00 Uhr                                    
+                                    <h1 itemprop="name">LATIN RAVE X UEBEL & GEFÄHRLICH</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/niklas-dee/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/niklas-dee/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-07T19:00">Samstag, den 07. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 19:45 Uhr                                    
+                                    <h1 itemprop="name">NIKLAS DEE</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/radio-free-alice/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/radio-free-alice/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-07T19:00">Samstag, den 07. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">RADIO FREE ALICE – AUSVERKAUFT</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/holler-at-me-w-noel-holler-ave/" class="klub start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/holler-at-me-w-noel-holler-ave/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-07T23:59">Samstag, den 07. November 2026</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">HOLLER AT ME W/ NOEL HOLLER & AVE</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/georg-elser-lesung-3/" class="lesung start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/georg-elser-lesung-3/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-08T18:00">Sonntag, den 08. November 2026</time> <br>Einlass 18:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name">GEORG ELSER LESUNG</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/die-verlierer-2/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/die-verlierer-2/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-10T19:00">Dienstag, den 10. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:10 Uhr                                    
+                                    <h1 itemprop="name">DIE VERLIERER</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/deluxe/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/deluxe/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-11T19:00">Mittwoch, den 11. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">JEVER LIVE ANTENNA PRäS.: DELUXE</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/tom-hengst-release-show/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/tom-hengst-release-show/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-12T19:00">Donnerstag, den 12. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">TOM HENGST RELEASE SHOW</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/juse-ju-2/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/juse-ju-2/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-13T19:00">Freitag, den 13. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">JUSE JU</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/one-night-with-felix-kroecher-4h-set/" class="klub start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/one-night-with-felix-kroecher-4h-set/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-13T23:59">Freitag, den 13. November 2026</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">ONE NIGHT WITH FELIX KRöCHER - 4H SET</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/chris-klaefford/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/chris-klaefford/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-14T18:00">Samstag, den 14. November 2026</time> <br>Einlass 18:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name"> CHRIS KLäFFORD</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/oliver-schories-all-night-long-2/" class="klub start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/oliver-schories-all-night-long-2/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-14T23:59">Samstag, den 14. November 2026</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">OLIVER SCHORIES ALL NIGHT LONG</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/ignite/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/ignite/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-15T18:00">Sonntag, den 15. November 2026</time> <br>Einlass 18:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name">JEVER LIVE ANTENNA PRäS.: IGNITE – SPECIAL GUESTS: CANCER BATS</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal &amp; Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/elder-island/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/elder-island/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-18T20:00">Mittwoch, den 18. November 2026</time> <br>Einlass 20:00 Uhr - Beginn 21:00 Uhr                                    
+                                    <h1 itemprop="name">ELDER ISLAND </h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/nokia-angel/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/nokia-angel/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-19T19:00">Donnerstag, den 19. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 19:30 Uhr                                    
+                                    <h1 itemprop="name">NOKIA ANGEL</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/trancelator-bounce-edition-w-zwilling-feat-fronsi-live-relajadita/" class="klub start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/trancelator-bounce-edition-w-zwilling-feat-fronsi-live-relajadita/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-20T23:59">Freitag, den 20. November 2026</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">TRANCELATOR BOUNCE EDITION W/ ZWILLING. FEAT FRONSI (LIVE) & RELAJADITA</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/muff-potter/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/muff-potter/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-21T18:00">Samstag, den 21. November 2026</time> <br>Einlass 18:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name">MUFF POTTER</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/haensel/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/haensel/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-21T18:00">Samstag, den 21. November 2026</time> <br>Einlass 18:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name">HäNSEL – AUSVERKAUFT</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/tragedie-w-teenage-mutants/" class="klub start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/tragedie-w-teenage-mutants/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-21T23:59">Samstag, den 21. November 2026</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">TRAGEDIE W/ TEENAGE MUTANTS</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal &amp; Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/kid-kapichi/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/kid-kapichi/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-22T19:00">Sonntag, den 22. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">KID KAPICHI</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/kidd-kawaki/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/kidd-kawaki/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-23T19:00">Montag, den 23. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">KIDD KAWAKI</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/venjent/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/venjent/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-24T19:00">Dienstag, den 24. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">VENJENT</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/nothhingspecial/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/nothhingspecial/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-26T19:00">Donnerstag, den 26. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">NOTHHINGSPECIAL</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/baby-lasagna/" class="konzert start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/baby-lasagna/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-27T19:00">Freitag, den 27. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 19:15 Uhr                                    
+                                    <h1 itemprop="name">BABY LASAGNA</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/wilde-herzen-peinlo-pop-party/" class="klub start init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/wilde-herzen-peinlo-pop-party/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-27T23:59">Freitag, den 27. November 2026</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">WILDE HERZEN + PEINLO POP PARTY</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal &amp; Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/faroon/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/faroon/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-28T18:00">Samstag, den 28. November 2026</time> <br>Einlass 18:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name">FAROON – VERSCHOBEN</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/nalya-ausverkauft/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/nalya-ausverkauft/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-28T18:00">Samstag, den 28. November 2026</time> <br>Einlass 18:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name">NALYA – AUSVERKAUFT</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/bunker-rave-w-david-loehlein-johannes-schuster/" class="klub init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/bunker-rave-w-david-loehlein-johannes-schuster/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-28T23:59">Samstag, den 28. November 2026</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">BUNKER RAVE W/ DAVID LöHLEIN & JOHANNES SCHUSTER</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/allt/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/allt/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-11-29T19:00">Sonntag, den 29. November 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">ALLT – ATARAXIA EUROPEAN TOUR 2026</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/taera/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/taera/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-01T19:00">Dienstag, den 01. Dezember 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">TÄRA</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/pussy-riot/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/pussy-riot/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-02T20:30">Mittwoch, den 02. Dezember 2026</time> <br>Einlass 20:30 Uhr - Beginn 19:30 Uhr                                    
+                                    <h1 itemprop="name">PUSSY RIOT</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/saltarus-w-svetec-in-verruf/" class="klub init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/saltarus-w-svetec-in-verruf/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-04T23:59">Freitag, den 04. Dezember 2026</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">SALTARUS W/ SVETEC & IN VERRUF</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/rantanplan-3/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/rantanplan-3/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-05T17:30">Samstag, den 05. Dezember 2026</time> <br>Einlass 17:30 Uhr - Beginn 18:30 Uhr                                    
+                                    <h1 itemprop="name">RANTANPLAN </h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/attica-109/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/attica-109/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-05T19:00">Samstag, den 05. Dezember 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">ATTIC109</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/discovaganza-w-bovski-nyra/" class="klub init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/discovaganza-w-bovski-nyra/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-05T23:59">Samstag, den 05. Dezember 2026</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">DISCOVAGANZA W/ BOVSKI & NYRA</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal &amp; Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/gina-waibel-schule-aber-stabil/" class="lesung init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/gina-waibel-schule-aber-stabil/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-06T19:30">Sonntag, den 06. Dezember 2026</time> <br>Einlass 19:30 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">GINA WAIBEL – SCHULE, ABER STABIL</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/1-day-chor/" class="init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/1-day-chor/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-06T09:00">Sonntag, den 06. Dezember 2026</time> <br>Beginn 09:00 Uhr                                    
+                                    <h1 itemprop="name">1 DAY CHOR</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/20-jahre-frittenbude/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/20-jahre-frittenbude/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-12T19:00">Samstag, den 12. Dezember 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">FRITTENBUDE – 20 JAHRE FILMRISS</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/soen/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/soen/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-13T19:00">Sonntag, den 13. Dezember 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">SOEN</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/goldroger/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/goldroger/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-14T19:00">Montag, den 14. Dezember 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">GOLDROGER</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/scienceslam-5/" class="lesung init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/scienceslam-5/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-16T19:00">Mittwoch, den 16. Dezember 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">SCIENCESLAM</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/jungesterne-show/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/jungesterne-show/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-19T19:00">Samstag, den 19. Dezember 2026</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">JUNGESTERNE SHOW</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/stil-vor-talent-5/" class="klub init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/stil-vor-talent-5/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2026-12-19T23:59">Samstag, den 19. Dezember 2026</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">STIL VOR TALENT</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal &amp; Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/ely-oaks-2/" class="klub init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/ely-oaks-2/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-01-16T23:59">Samstag, den 16. Januar 2027</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">ELY OAKS – AUSVERKAUFT</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/get-jealous/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/get-jealous/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-01-23T18:00">Samstag, den 23. Januar 2027</time> <br>Einlass 18:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name">GET JEALOUS</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/rory-2/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/rory-2/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-01-26T19:30">Dienstag, den 26. Januar 2027</time> <br>Einlass 19:30 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">RØRY – THE BLOODLETTING TOUR 2027</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/levin-liam-3/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/levin-liam-3/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-01-29T18:00">Freitag, den 29. Januar 2027</time> <br>Einlass 18:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name">LEVIN LIAM – AUSVERKAUFT</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"></div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/spanish-love-songs/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/spanish-love-songs/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-01-29T19:00">Freitag, den 29. Januar 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">SPANISH LOVE SONGS</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/too-many-zooz/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/too-many-zooz/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-02-04T19:00">Donnerstag, den 04. Februar 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">TOO MANY ZOOZ </h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/dirty-honey/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/dirty-honey/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-02-06T18:30">Samstag, den 06. Februar 2027</time> <br>Einlass 18:30 Uhr - Beginn 19:30 Uhr                                    
+                                    <h1 itemprop="name">DIRTY HONEY</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/nest-w-pan-pot-tommahawk-justice-randali/" class="klub init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/nest-w-pan-pot-tommahawk-justice-randali/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-02-06T23:59">Samstag, den 06. Februar 2027</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">NEST W/ PAN POT, TOMMAHAWK, JUSTICE & RANDALI</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/night-lovell-2/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/night-lovell-2/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-02-09T20:00">Dienstag, den 09. Februar 2027</time> <br>Einlass 20:00 Uhr - Beginn 21:00 Uhr                                    
+                                    <h1 itemprop="name">NIGHT LOVELL – MY BLOOD AS THE INK TOUR</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/ham-lit-4/" class="lesung init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/ham-lit-4/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-02-11T19:00">Donnerstag, den 11. Februar 2027</time> <br>Einlass 19:00 Uhr - Beginn 19:30 Uhr                                    
+                                    <h1 itemprop="name">HAM.LIT</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal &amp; Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/bac/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/bac/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-02-18T19:00">Donnerstag, den 18. Februar 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">BAC</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/shred-fest-europe-2027/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/shred-fest-europe-2027/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-02-24T19:20">Mittwoch, den 24. Februar 2027</time> <br>Einlass 19:20 Uhr - Beginn 19:20 Uhr                                    
+                                    <h1 itemprop="name">SHRED FEST EUROPE 2027</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal &amp; Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/levka/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/levka/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-02-26T19:00">Freitag, den 26. Februar 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">LEVKA</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/anna-erhard-1000-sheep-tour/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/anna-erhard-1000-sheep-tour/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-02-26T19:00">Freitag, den 26. Februar 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">ANNA ERHARD – 1000 SHEEP TOUR</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/jersey-2/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/jersey-2/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-03T20:00">Mittwoch, den 03. März 2027</time> <br>Einlass 20:00 Uhr - Beginn 21:00 Uhr                                    
+                                    <h1 itemprop="name">JERSEY </h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/karate-andi-5/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/karate-andi-5/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-04T19:00">Donnerstag, den 04. März 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">KARATE ANDI</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/chris-stapelton-experience/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/chris-stapelton-experience/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-05T19:00">Freitag, den 05. März 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">THE CHRIS STAPELTON EXPERIENCE</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/charlotte-fever/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/charlotte-fever/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-06T18:00">Samstag, den 06. März 2027</time> <br>Einlass 18:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name">CHARLOTTE FEVER</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/the-haunted-youth/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/the-haunted-youth/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-09T20:00">Dienstag, den 09. März 2027</time> <br>Einlass 20:00 Uhr - Beginn 21:00 Uhr                                    
+                                    <h1 itemprop="name">THE HAUNTED YOUTH</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/ocean-grove/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/ocean-grove/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-12T19:00">Freitag, den 12. März 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">OCEAN GROVE</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/dina-summer/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/dina-summer/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-12T19:00">Freitag, den 12. März 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">DINA SUMMER</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/bluai/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/bluai/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-13T18:00">Samstag, den 13. März 2027</time> <br>Einlass 18:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name">BLUAI</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/mythical-rave-pull-2/" class="klub init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/mythical-rave-pull-2/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-13T23:59">Samstag, den 13. März 2027</time> <br>Einlass 23:59 Uhr - Beginn 23:59 Uhr                                    
+                                    <h1 itemprop="name">MYTHICAL RAVE PULL</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/pa-sports-vom-glueck-zurueck-tour-2027/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/pa-sports-vom-glueck-zurueck-tour-2027/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-14T19:00">Sonntag, den 14. März 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">PA SPORTS – VOM GLÜCK ZURÜCK TOUR 2027</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/serpentin-2/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/serpentin-2/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-19T19:00">Freitag, den 19. März 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">SERPENTIN</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/herbst/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/herbst/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-19T19:00">Freitag, den 19. März 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">HERBST</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/and-one/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/and-one/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-03-20T18:00">Samstag, den 20. März 2027</time> <br>Einlass 18:00 Uhr - Beginn 19:00 Uhr                                    
+                                    <h1 itemprop="name">AND ONE – AUSVERKAUFT</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/yungmon-lyran-dasz-ultra-rare-tour-2027/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/yungmon-lyran-dasz-ultra-rare-tour-2027/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-04-09T19:00">Freitag, den 09. April 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">YUNGMON & LYRAN DASZ – ULTRA RARE TOUR 2027</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/thorsteinn-einarsson/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/thorsteinn-einarsson/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-04-17T19:00">Samstag, den 17. April 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name"> THORSTEINN EINARSSON</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/say-yes-dog-2/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/say-yes-dog-2/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-04-22T19:00">Donnerstag, den 22. April 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">SAY YES DOG</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/mathi/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/mathi/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-05-03T20:00">Montag, den 03. Mai 2027</time> <br>Einlass 20:00 Uhr - Beginn 20:30 Uhr                                    
+                                    <h1 itemprop="name">MATHI</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/drogu-2/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/drogu-2/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-10-09T19:00">Samstag, den 09. Oktober 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">DROGU</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Turmzimmer</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                
+                        <li data-href="https://www.uebelundgefaehrlich.com/veranstaltungen/faroon-2/" class="konzert init" itemscope itemtype="http://schema.org/Event">
+                            <a href="https://www.uebelundgefaehrlich.com/veranstaltungen/faroon-2/" itemprop="url" class="history">
+                                <div class="grid-70 mobile-grid-70 tablet-grid-70 grid-parent">
+                                    <time itemprop="startDate"  datetime="2027-11-20T19:00">Samstag, den 20. November 2027</time> <br>Einlass 19:00 Uhr - Beginn 20:00 Uhr                                    
+                                    <h1 itemprop="name">FAROON</h1>
+                                </div>
+                                <div class="aside grid-30 mobile-grid-30 tablet-grid-30 grid-parent" itemprop="location"> Saal</div>
+                            </a>
+                                                            <div></div>
+                        </li>
+                                        
+            </ul>
+
+            <button class="ico more"></button>
+            
+            <button class="showMore">Alle Veranstaltungen anzeigen</button>
+
+            </main>
+
+            <footer>
+                <div class="border"></div>
+                <div class="menu-footer-menue-container"><ul id="menu-footer-menue" class="menu"><li id="nav-menu-item-5471" class="main-menu-item  menu-item-even menu-item-depth-0 plain menu-item menu-item-type-custom menu-item-object-custom clearfix"><a target="_blank" href="https://mailchi.mp/uebelundgefaehrlich/uebel-gefaehrlich-newsletter" class=" footer-ueg menu-link main-menu-link plain">Newsletter</a>
+<article>
+                                <footer>
+        <span class="ico close"></span>    </footer>
+</article><div></div></li>
+<li id="nav-menu-item-120" class="main-menu-item  menu-item-even menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page clearfix"><a href="https://www.uebelundgefaehrlich.com/impressum/" class=" footer-ueg menu-link main-menu-link">Impressum</a>
+<article>
+            
+    <section>
+        <p style="font-weight: 400;">V.i.s.PR Uebel &amp; Gefährlich</p>
+<p style="font-weight: 400;">Kontakt: <a href="mailto:info@uebelundgefaehrlich.com">info@uebelundgefaehrlich.com</a></p>
+<p style="font-weight: 400;">VVK Tickets   <a href="https://dice.fm/venue/uebel--gefhrlich-3pgp"><a href="https://dice.fm/venue/uebel&amp;#8211;gefhrlich-3pgp">https://dice.fm/venue/uebel&amp;#8211;gefhrlich-3pgp</a></a></p>
+<p style="font-weight: 400;">VVK Merch <a href="https://tickets.uebelundgefaehrlich.com/produkte"><a href="https://tickets.uebelundgefaehrlich.com/produkte">https://tickets.uebelundgefaehrlich.com/produkte</a></a></p>
+<p style="font-weight: 400;"><u>Clubadresse</u></p>
+<p style="font-weight: 400;">Uebel &amp; Gefährlich</p>
+<p style="font-weight: 400;">Feldstraße 66<br />
+20359 Hamburg<br />
+Tel.: 040 – 317 93 610<br />
+<a href="http://www.uebelundgefaehrlich.com"><a href="http://www.uebelundgefaehrlich.com">http://www.uebelundgefaehrlich.com</a></a></p>
+<p style="font-weight: 400;"><u>Rechnungsadresse</u></p>
+<p style="font-weight: 400;">Uebel &amp; Gefährlich GmbH</p>
+<p style="font-weight: 400;">Feldstrasse 66</p>
+<p style="font-weight: 400;">20359 Hamburg</p>
+<p style="font-weight: 400;">Geschäftsführung: René Dachner, Nick Waller</p>
+<p style="font-weight: 400;">Registereintrag</p>
+<p style="font-weight: 400;">Hamburg / Registergericht: HRB 96067 /</p>
+<p style="font-weight: 400;">VAT: DE245975683</p>
+<p style="font-weight: 400;">Konzeption, Gestaltung und technische Umsetzung SOPG<br />
+in Zusammenarbeit mit Uebel &amp; Gefährlich</p>
+    </section>                        <section>Konzeption, Gestaltung und technische Umsetzung <a href="http://sopg.de" class="ico sopg" target="_blank"></a><br>in Zusammenarbeit mit <b>Uebel &amp; Gefährlich</b></section>        <footer>
+        <span class="ico close"></span>    </footer>
+</article><div></div></li>
+<li id="nav-menu-item-146" class="main-menu-item  menu-item-even menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page clearfix"><a href="https://www.uebelundgefaehrlich.com/faq/" class=" footer-ueg menu-link main-menu-link">FAQ</a>
+<article>
+            
+    <section>
+        <p><b>Wie komme ich ins Uebel &amp; Gefährlich?<br />
+</b>Mit z.B. den Öffis, einem Fahrrad oder ganz klassisch mit den Beinen.</p>
+<p><span style="font-weight: 400;">U3 Feldstraße oder </span><span style="font-weight: 400;">Linie 3 mit dem Bus</span><span style="font-weight: 400;"><br />
+</span><span style="font-weight: 400;">Feldstraße 66, </span><span style="font-weight: 400;">4. Stock im Bunker </span><span style="font-weight: 400;"><br />
+</span><i><span style="font-weight: 400;">Es gibt keine Parkplätze für Besucher:innen.</span></i></p>
+<p><b></b><b>Wie sieht’s mit Altersbeschränkung aus? Geht Muttizettel?<br />
+</b>Unsere Partys sind ohne Ausnahme mindestens ab 18.<br />
+Wir akzeptieren keine Einverständniserklärung sorgeberechtigter Personen (Muttizettel).<br />
+<i>Für Konzerte gilt folgende Regelung:<br />
+</i>Unter 16: Nur in Begleitung von Eltern bzw. einer erziehungsberechtigten Person.<br />
+Jugendliche ab 16 können Konzerte bis 24 Uhr ohne Begleitung besuchen.<br />
+Für alle unter 18 Jahren verboten: Jeglicher Konsum alkoholischer Getränke &amp; Zigaretten.</p>
+<p><b>Darf im Uebel &amp; Gefährlich geraucht werden?<br />
+</b>Rauchen und Vaping ist ausschließlich im Raucher:innen-Bereich oder draußen im Freien gestattet. Respect each other und daran halten, ganz ohne extra Hinweis vom Team.</p>
+<p><b>Können Taschen und Rucksäcke mitgebracht werden? </b><b><br />
+</b><span style="font-weight: 400;">Am besten nicht größer als ein A4-Blatt. Wenn’s nicht anders geht und größer wird: Keine Drinks, Drogen oder potentiellen Wurfgeschosse wie Parfümflaschen. Wir halten’s safe.</span></p>
+<p><b>Das Konzert wurde verschoben, was ist mit meinem Ticket?</b><b><br />
+</b><span style="font-weight: 400;">Tickets behalten für Nachholtermine ihre Gültigkeit, sofern nicht anders angekündigt. Bei kompletter Absage kann das Ticket in der Regel zurückgeben – dafür an die veranstaltende Agentur wenden (steht auf dem Ticket).</span></p>
+<p><b>Das Konzert wurde verschoben/verlegt, wo gibt’s Infos?<br />
+</b>Über die Lupe kann nach konkreten Veranstaltungen gesucht und so die Nachholtermine gefunden werden. In der Regel behalten alle gekauften Tickets ihre Gültigkeit</p>
+<p><b>Ich hatte ein Ticket, bin aber nicht rein gekommen, was jetzt? </b><b><br />
+</b><span style="font-weight: 400;">Geld zurückfordern. Voraussetzung: Meldung innerhalb von 5 Werktagen nach dem Event bei der Veranstalter:in – alle nötigen Daten inklusive. Danach verfällt das Rückerstattungsrecht, sofern nicht anders angegeben.</span></p>
+<p><b>Ich habe im Uebel und Gefährlich etwas verloren, was mach ich jetzt?</b><b><br />
+</b><span style="font-weight: 400;">Freuen, dass es ein neues Zuhause gefunden hat. Scherz man. E-Mail an </span><a href="mailto:info@uebelundgefaehrlich.com"><span style="font-weight: 400;">info@uebelundgefaehrlich.com</span></a><span style="font-weight: 400;"> mit Infos zum Gegenstand, Tag der Veranstaltung und Veranstaltungsname. </span>Auf Liegengebliebenes wird maximal 4 Wochen aufgepasst, danach wird es in couragierte und gemeinnützige Hände gespendet.</p>
+<p><span style="font-weight: 400;"><br />
+</span><span style="font-weight: 400;"><br />
+</span><b>Gibt es grundsätzliche Hausregeln?<br />
+</b>Haustiere, Waffen und Nazis bleiben draußen.<br />
+Respect den „Respect each other“-Hinweis.<br />
+Das Uebel &amp; Gefaehrlich-Team jederzeit ansprechbar.</p>
+<p style="text-align: left;"><b>Wie sieht die Toiletten Situation aus?<br />
+</b>Es gibt eine FLINTA* und eine All-Gender-Toilette</p>
+    </section>                                <footer>
+        <span class="ico close"></span>    </footer>
+</article><div></div></li>
+<li id="nav-menu-item-604" class="main-menu-item  menu-item-even menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page clearfix"><a href="https://www.uebelundgefaehrlich.com/datenschutz/" class=" footer-ueg menu-link main-menu-link">Datenschutz</a>
+<article>
+            
+    <section>
+        <h2>Datenschutzerklärung gemäß DSGVO</h2>
+<p>Verantwortliche Stelle im Sinne der Datenschutzgesetze, insbesondere der EU-Datenschutzgrundverordnung (DSGVO), ist:</p>
+<p>Uebel &amp; Gefährlich GmbH<br />
+Feldstraße 66</p>
+<p>20359 Hamburg</p>
+<h2>Ihre Betroffenenrechte</h2>
+<p>Unter den angegebenen Kontaktdaten unseres Datenschutzbeauftragten können Sie jederzeit folgende Rechte ausüben:</p>
+<ul>
+<li>Auskunft über Ihre bei uns gespeicherten Daten und deren Verarbeitung,</li>
+<li>Berichtigung unrichtiger personenbezogener Daten,</li>
+<li>Löschung Ihrer bei uns gespeicherten Daten,</li>
+<li>Einschränkung der Datenverarbeitung, sofern wir Ihre Daten aufgrund gesetzlicher Pflichten noch nicht löschen dürfen,</li>
+<li>Widerspruch gegen die Verarbeitung Ihrer Daten bei uns und</li>
+<li>Datenübertragbarkeit, sofern Sie in die Datenverarbeitung eingewilligt haben oder einen Vertrag mit uns abgeschlossen haben.</li>
+</ul>
+<p>Sofern Sie uns eine Einwilligung erteilt haben, können Sie diese jederzeit mit Wirkung für die Zukunft widerrufen.</p>
+<p>Sie können sich jederzeit mit einer Beschwerde an die für Sie zuständige Aufsichtsbehörde wenden. Ihre zuständige Aufsichtsbehörde richtet sich nach dem Bundesland Ihres Wohnsitzes, Ihrer Arbeit oder der mutmaßlichen Verletzung. Eine Liste der Aufsichtsbehörden (für den nichtöffentlichen Bereich) mit Anschrift finden Sie unter: <a href="https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html" target="_blank" rel="noopener"><a href="https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html">https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html</a></a>.</p>
+<h2>Zwecke der Datenverarbeitung durch die verantwortliche Stelle und Dritte</h2>
+<p>Wir verarbeiten Ihre personenbezogenen Daten nur zu den in dieser Datenschutzerklärung genannten Zwecken. Eine Übermittlung Ihrer persönlichen Daten an Dritte zu anderen als den genannten Zwecken findet nicht statt. Wir geben Ihre persönlichen Daten nur an Dritte weiter, wenn:</p>
+<ul>
+<li>Sie Ihre ausdrückliche Einwilligung dazu erteilt haben,</li>
+<li>die Verarbeitung zur Abwicklung eines Vertrags mit Ihnen erforderlich ist,</li>
+<li>die Verarbeitung zur Erfüllung einer rechtlichen Verpflichtung erforderlich ist,</li>
+</ul>
+<p>die Verarbeitung zur Wahrung berechtigter Interessen erforderlich ist und kein Grund zur Annahme besteht, dass Sie ein überwiegendes schutzwürdiges Interesse an der Nichtweitergabe Ihrer Daten haben.</p>
+<h2>Löschung bzw. Sperrung der Daten</h2>
+<p>Wir halten uns an die Grundsätze der Datenvermeidung und Datensparsamkeit. Wir speichern Ihre personenbezogenen Daten daher nur so lange, wie dies zur Erreichung der hier genannten Zwecke erforderlich ist oder wie es die vom Gesetzgeber vorgesehenen vielfältigen Speicherfristen vorsehen. Nach Fortfall des jeweiligen Zweckes bzw. Ablauf dieser Fristen werden die entsprechenden Daten routinemäßig und entsprechend den gesetzlichen Vorschriften gesperrt oder gelöscht.</p>
+<h2>Erfassung allgemeiner Informationen beim Besuch unserer Website</h2>
+<p>Wenn Sie auf unsere Website zugreifen, werden automatisch mittels eines Cookies Informationen allgemeiner Natur erfasst. Diese Informationen (Server-Logfiles) beinhalten etwa die Art des Webbrowsers, das verwendete Betriebssystem, den Domainnamen Ihres Internet-Service-Providers und ähnliches. Hierbei handelt es sich ausschließlich um Informationen, welche keine Rückschlüsse auf Ihre Person zulassen.</p>
+<p>Diese Informationen sind technisch notwendig, um von Ihnen angeforderte Inhalte von Webseiten korrekt auszuliefern und fallen bei Nutzung des Internets zwingend an. Sie werden insbesondere zu folgenden Zwecken verarbeitet:</p>
+<ul>
+<li>Sicherstellung eines problemlosen Verbindungsaufbaus der Website,</li>
+<li>Sicherstellung einer reibungslosen Nutzung unserer Website,</li>
+<li>Auswertung der Systemsicherheit und -stabilität sowie</li>
+<li>zu weiteren administrativen Zwecken.</li>
+</ul>
+<p>Die Verarbeitung Ihrer personenbezogenen Daten basiert auf unserem berechtigten Interesse aus den vorgenannten Zwecken zur Datenerhebung. Wir verwenden Ihre Daten nicht, um Rückschlüsse auf Ihre Person zu ziehen. Empfänger der Daten sind nur die verantwortliche Stelle und ggf. Auftragsverarbeiter.</p>
+<p>Anonyme Informationen dieser Art werden von uns ggfs. statistisch ausgewertet, um unseren Internetauftritt und die dahinterstehende Technik zu optimieren.</p>
+<h2>Cookies</h2>
+<p>Wie viele andere Webseiten verwenden wir auch so genannte „Cookies“. Cookies sind kleine Textdateien, die von einem Websiteserver auf Ihre Festplatte übertragen werden. Hierdurch erhalten wir automatisch bestimmte Daten wie z. B. IP-Adresse, verwendeter Browser, Betriebssystem und Ihre Verbindung zum Internet.</p>
+<p>Cookies können nicht verwendet werden, um Programme zu starten oder Viren auf einen Computer zu übertragen. Anhand der in Cookies enthaltenen Informationen können wir Ihnen die Navigation erleichtern und die korrekte Anzeige unserer Webseiten ermöglichen.</p>
+<p>In keinem Fall werden die von uns erfassten Daten an Dritte weitergegeben oder ohne Ihre Einwilligung eine Verknüpfung mit personenbezogenen Daten hergestellt.</p>
+<p>Natürlich können Sie unsere Website grundsätzlich auch ohne Cookies betrachten. Internet-Browser sind regelmäßig so eingestellt, dass sie Cookies akzeptieren. Im Allgemeinen können Sie die Verwendung von Cookies jederzeit über die Einstellungen Ihres Browsers deaktivieren. Bitte verwenden Sie die Hilfefunktionen Ihres Internetbrowsers, um zu erfahren, wie Sie diese Einstellungen ändern können. Bitte beachten Sie, dass einzelne Funktionen unserer Website möglicherweise nicht funktionieren, wenn Sie die Verwendung von Cookies deaktiviert haben.</p>
+<h2>Registrierung auf unserer Webseite</h2>
+<p>Bei der Registrierung für die Nutzung unserer personalisierten Leistungen werden einige personenbezogene Daten erhoben, wie Name, Anschrift, Kontakt- und Kommunikationsdaten wie Telefonnummer und E-Mail-Adresse. Sind Sie bei uns registriert, können Sie auf Inhalte und Leistungen zugreifen, die wir nur registrierten Nutzern anbieten. Angemeldete Nutzer haben zudem die Möglichkeit, bei Bedarf die bei Registrierung angegebenen Daten jederzeit zu ändern oder zu löschen. Selbstverständlich erteilen wir Ihnen darüber hinaus jederzeit Auskunft über die von uns über Sie gespeicherten personenbezogenen Daten. Gerne berichtigen bzw. löschen wir diese auch auf Ihren Wunsch, soweit keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Zur Kontaktaufnahme in diesem Zusammenhang nutzen Sie bitte die am Ende dieser Datenschutzerklärung angegebenen Kontaktdaten.</p>
+<h2>Newsletter</h2>
+<p>Auf Grundlage Ihrer ausdrücklich erteilten Einwilligung, übersenden wir Ihnen regelmäßig unseren Newsletter bzw. vergleichbare Informationen per E-Mail an Ihre angegebene E-Mail-Adresse.</p>
+<p>Für den Empfang des Newsletters ist die Angabe Ihrer E-Mail-Adresse ausreichend. Bei der Anmeldung zum Bezug unseres Newsletters werden die von Ihnen angegebenen Daten ausschließlich für diesen Zweck verwendet. Abonnenten können auch über Umstände per E-Mail informiert werden, die für den Dienst oder die Registrierung relevant sind (Beispielsweise Änderungen des Newsletterangebots oder technische Gegebenheiten).</p>
+<p>Für eine wirksame Registrierung benötigen wir eine valide E-Mail-Adresse. Um zu überprüfen, dass eine Anmeldung tatsächlich durch den Inhaber einer E-Mail-Adresse erfolgt, setzen wir das „Double-opt-in“-Verfahren ein. Hierzu protokollieren wir die Bestellung des Newsletters, den Versand einer Bestätigungsmail und den Eingang der hiermit angeforderten Antwort. Weitere Daten werden nicht erhoben. Die Daten werden ausschließlich für den Newsletterversand verwendet und nicht an Dritte weitergegeben.</p>
+<p>Die Einwilligung zur Speicherung Ihrer persönlichen Daten und ihrer Nutzung für den Newsletterversand können Sie jederzeit widerrufen. In jedem Newsletter findet sich dazu ein entsprechender Link. Außerdem können Sie sich jederzeit auch direkt auf dieser Webseite abmelden oder uns Ihren entsprechenden Wunsch über die am Ende dieser Datenschutzhinweise angegebene Kontaktmöglichkeit mitteilen.</p>
+<h2>Verwendung von Google Analytics</h2>
+<p>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. (folgend: Google). Google Analytics verwendet sog. „Cookies“, also Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Webseite durch Sie ermöglichen. Die durch das Cookie erzeugten Informationen über Ihre Benutzung dieser Webseite werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Aufgrund der Aktivierung der IP-Anonymisierung auf diesen Webseiten, wird Ihre IP-Adresse von Google jedoch innerhalb von Mitgliedstaaten der Europäischen Union oder in anderen Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum zuvor gekürzt. Nur in Ausnahmefällen wird die volle IP-Adresse an einen Server von Google in den USA übertragen und dort gekürzt. Im Auftrag des Betreibers dieser Website wird Google diese Informationen benutzen, um Ihre Nutzung der Webseite auszuwerten, um Reports über die Webseitenaktivitäten zusammenzustellen und um weitere mit der Websitenutzung und der Internetnutzung verbundene Dienstleistungen gegenüber dem Webseitenbetreiber zu erbringen. Die im Rahmen von Google Analytics von Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen Daten von Google zusammengeführt.</p>
+<p>Die Zwecke der Datenverarbeitung liegen in der Auswertung der Nutzung der Website und in der Zusammenstellung von Reports über Aktivitäten auf der Website. Auf Grundlage der Nutzung der Website und des Internets sollen dann weitere verbundene Dienstleistungen erbracht werden. Die Verarbeitung beruht auf dem berechtigten Interesse des Webseitenbetreibers.</p>
+<p>Sie können die Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche Funktionen dieser Website vollumfänglich werden nutzen können. Sie können darüber hinaus die Erfassung der durch das Cookie erzeugten und auf Ihre Nutzung der Webseite bezogenen Daten (inkl. Ihrer IP-Adresse) an Google sowie die Verarbeitung dieser Daten durch Google verhindern, indem sie das unter dem folgenden Link verfügbare Browser-Plugin herunterladen und installieren: <a href="http://tools.google.com/dlpage/gaoptout?hl=de" target="_blank" rel="noopener">Browser Add On zur Deaktivierung von Google Analytics</a>.</p>
+<p>Zusätzlich oder als Alternative zum Browser-Add-On können Sie das Tracking durch Google Analytics auf unseren Seiten unterbinden, indem Sie <a title="Google Analytics Opt-Out-Cookie setzen" href="#">diesen Link anklicken</a>. Dabei wird ein Opt-Out-Cookie auf Ihrem Gerät installiert. Damit wird die Erfassung durch Google Analytics für diese Website und für diesen Browser zukünftig verhindert, so lange das Cookie in Ihrem Browser installiert bleibt.</p>
+<h2>Eingebettete YouTube-Videos</h2>
+<p>Auf einigen unserer Webseiten betten wir Youtube-Videos ein. Betreiber der entsprechenden Plugins ist die YouTube, LLC, 901 Cherry Ave., San Bruno, CA 94066, USA. Wenn Sie eine Seite mit dem YouTube-Plugin besuchen, wird eine Verbindung zu Servern von Youtube hergestellt. Dabei wird Youtube mitgeteilt, welche Seiten Sie besuchen. Wenn Sie in Ihrem Youtube-Account eingeloggt sind, kann Youtube Ihr Surfverhalten Ihnen persönlich zuzuordnen. Dies verhindern Sie, indem Sie sich vorher aus Ihrem Youtube-Account ausloggen.</p>
+<p>Wird ein Youtube-Video gestartet, setzt der Anbieter Cookies ein, die Hinweise über das Nutzerverhalten sammeln.</p>
+<p>Wer das Speichern von Cookies für das Google-Ad-Programm deaktiviert hat, wird auch beim Anschauen von Youtube-Videos mit keinen solchen Cookies rechnen müssen. Youtube legt aber auch in anderen Cookies nicht-personenbezogene Nutzungsinformationen ab. Möchten Sie dies verhindern, so müssen Sie das Speichern von Cookies im Browser blockieren.</p>
+<p>Weitere Informationen zum Datenschutz bei „Youtube“ finden Sie in der Datenschutzerklärung des Anbieters unter: <a href="https://www.google.de/intl/de/policies/privacy/" target="_blank" rel="noopener"><a href="https://www.google.de/intl/de/policies/privacy/">https://www.google.de/intl/de/policies/privacy/</a> </a></p>
+<h2><strong>Änderung unserer Datenschutzbestimmungen</strong></h2>
+<p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen unserer Leistungen in der Datenschutzerklärung umzusetzen, z.B. bei der Einführung neuer Services. Für Ihren erneuten Besuch gilt dann die neue Datenschutzerklärung.</p>
+<h2><strong>Fragen an den Datenschutzbeauftragten</strong></h2>
+<p>Wenn Sie Fragen zum Datenschutz haben, schreiben Sie uns bitte eine E-Mail.</p>
+<p style="font-size: 12px; color: #ddd;">Die Datenschutzerklärung wurde mit dem <a style="font-size: 12px; color: #ddd;" href="https://www.activemind.de/datenschutz/datenschutzhinweis-generator/" target="_blank" rel="noopener">Datenschutzerklärungs-Generator der activeMind AG erstellt</a>.</p>
+    </section>                                <footer>
+        <span class="ico close"></span>    </footer>
+</article><div></div></li>
+<li id="nav-menu-item-24249" class="main-menu-item  menu-item-even menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page clearfix"><a href="https://www.uebelundgefaehrlich.com/merch/" class=" footer-ueg menu-link main-menu-link">Merch</a>
+<article>
+            
+    <section>
+        <p><a href="https://tickets.uebelundgefaehrlich.com/produkte"><a href="https://tickets.uebelundgefaehrlich.com/produkte">https://tickets.uebelundgefaehrlich.com/produkte</a></a></p>
+    </section>            
+    <section>
+            </section>                                <footer>
+        <span class="ico close"></span>    </footer>
+</article><div></div></li>
+</ul></div>            </footer>
+            
+        </div>
+    <script type="text/javascript">var oUeg={};oUeg.url="https://www.uebelundgefaehrlich.com";oUeg.prefix="Uebel & Gefährlich";oUeg.delimiter=" | ";oUeg.history={};oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/jonny5/"]="JONNY5 | Donnerstag, den 05. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/20-jahre-frittenbude/"]="FRITTENBUDE – 20 JAHRE FILMRISS (Saal) | Samstag, den 12. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/faroon/"]="FAROON – VERSCHOBEN (Saal) | Samstag, den 28. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/niklas-dee/"]="NIKLAS DEE (Saal) | Samstag, den 07. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/rantanplan-3/"]="RANTANPLAN  (Saal) | Samstag, den 05. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/ham-lit-4/"]="HAM.LIT (Saal & Turmzimmer) | Donnerstag, den 11. Februar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/muff-potter/"]="MUFF POTTER (Saal) | Samstag, den 21. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/serpentin-2/"]="SERPENTIN (Turmzimmer) | Freitag, den 19. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/allt/"]="ALLT – ATARAXIA EUROPEAN TOUR 2026 (Saal) | Sonntag, den 29. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/karate-andi-5/"]="KARATE ANDI (Saal) | Donnerstag, den 04. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/die-verlierer-2/"]="DIE VERLIERER (Saal) | Dienstag, den 10. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/levin-liam-3/"]="LEVIN LIAM – AUSVERKAUFT | Freitag, den 29. Januar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/georg-elser-lesung-3/"]="GEORG ELSER LESUNG (Saal) | Sonntag, den 08. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/baby-lasagna/"]="BABY LASAGNA (Saal) | Freitag, den 27. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/juse-ju-2/"]="JUSE JU (Saal) | Freitag, den 13. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/kidd-kawaki/"]="KIDD KAWAKI (Saal) | Montag, den 23. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/chris-klaefford/"]=" CHRIS KLäFFORD (Saal) | Samstag, den 14. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/thorsteinn-einarsson/"]=" THORSTEINN EINARSSON (Saal) | Samstag, den 17. April 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/kid-kapichi/"]="KID KAPICHI (Saal) | Sonntag, den 22. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/scienceslam-4/"]="SCIENCE SLAM (Saal) | Mittwoch, den 04. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/soen/"]="SOEN (Saal) | Sonntag, den 13. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/get-jealous/"]="GET JEALOUS (Saal) | Samstag, den 23. Januar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/ely-oaks-2/"]="ELY OAKS – AUSVERKAUFT (Saal) | Samstag, den 16. Januar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/haensel/"]="HäNSEL – AUSVERKAUFT (Turmzimmer) | Samstag, den 21. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/shred-fest-europe-2027/"]="SHRED FEST EUROPE 2027 (Saal & Turmzimmer) | Mittwoch, den 24. Februar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/and-one/"]="AND ONE – AUSVERKAUFT (Saal) | Samstag, den 20. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/the-numetal-resurrection/"]="THE NU METAL RESURRECTION – ABGESAGT (Saal) | Freitag, den 06. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/next-up-040/"]="NEXT UP 040 – Abgesagt (Turmzimmer) | Donnerstag, den 05. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/deluxe/"]="JEVER LIVE ANTENNA PRäS.: DELUXE (Saal) | Mittwoch, den 11. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/charlotte-fever/"]="CHARLOTTE FEVER (Turmzimmer) | Samstag, den 06. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/rory-2/"]="RØRY – THE BLOODLETTING TOUR 2027 (Saal) | Dienstag, den 26. Januar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/ignite/"]="JEVER LIVE ANTENNA PRäS.: IGNITE – SPECIAL GUESTS: CANCER BATS (Saal & Turmzimmer) | Sonntag, den 15. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/bac/"]="BAC (Saal) | Donnerstag, den 18. Februar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/the-haunted-youth/"]="THE HAUNTED YOUTH (Saal) | Dienstag, den 09. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/venjent/"]="VENJENT (Saal) | Dienstag, den 24. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/levka/"]="LEVKA (Saal) | Freitag, den 26. Februar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/yungmon-lyran-dasz-ultra-rare-tour-2027/"]="YUNGMON & LYRAN DASZ – ULTRA RARE TOUR 2027 (Saal) | Freitag, den 09. April 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/say-yes-dog-2/"]="SAY YES DOG (Saal) | Donnerstag, den 22. April 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/attica-109/"]="ATTIC109 (Turmzimmer) | Samstag, den 05. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/oliver-schories-all-night-long-2/"]="OLIVER SCHORIES ALL NIGHT LONG (Saal) | Samstag, den 14. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/one-night-with-felix-kroecher-4h-set/"]="ONE NIGHT WITH FELIX KRöCHER - 4H SET (Saal) | Freitag, den 13. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/chris-stapelton-experience/"]="THE CHRIS STAPELTON EXPERIENCE (Saal) | Freitag, den 05. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/radio-free-alice/"]="RADIO FREE ALICE – AUSVERKAUFT (Turmzimmer) | Samstag, den 07. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/elder-island/"]="ELDER ISLAND  (Saal) | Mittwoch, den 18. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/bluai/"]="BLUAI (Turmzimmer) | Samstag, den 13. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/spanish-love-songs/"]="SPANISH LOVE SONGS (Saal) | Freitag, den 29. Januar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/nokia-angel/"]="NOKIA ANGEL (Turmzimmer) | Donnerstag, den 19. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/dirty-honey/"]="DIRTY HONEY (Saal) | Samstag, den 06. Februar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/nothhingspecial/"]="NOTHHINGSPECIAL (Turmzimmer) | Donnerstag, den 26. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/goldroger/"]="GOLDROGER (Saal) | Montag, den 14. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/scienceslam-5/"]="SCIENCESLAM (Saal) | Mittwoch, den 16. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/too-many-zooz/"]="TOO MANY ZOOZ  (Saal) | Donnerstag, den 04. Februar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/jersey-2/"]="JERSEY  (Saal) | Mittwoch, den 03. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/tragedie-w-teenage-mutants/"]="TRAGEDIE W/ TEENAGE MUTANTS (Saal & Turmzimmer) | Samstag, den 21. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/pussy-riot/"]="PUSSY RIOT (Saal) | Mittwoch, den 02. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/anna-erhard-1000-sheep-tour/"]="ANNA ERHARD – 1000 SHEEP TOUR (Turmzimmer) | Freitag, den 26. Februar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/night-lovell-2/"]="NIGHT LOVELL – MY BLOOD AS THE INK TOUR (Saal) | Dienstag, den 09. Februar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/latin-rave-x-uebel-gefaehrlich/"]="LATIN RAVE X UEBEL & GEFÄHRLICH (Saal) | Freitag, den 06. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/holler-at-me-w-noel-holler-ave/"]="HOLLER AT ME W/ NOEL HOLLER & AVE (Turmzimmer) | Samstag, den 07. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/tom-hengst-release-show/"]="TOM HENGST RELEASE SHOW (Saal) | Donnerstag, den 12. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/wilde-herzen-peinlo-pop-party/"]="WILDE HERZEN + PEINLO POP PARTY (Saal & Turmzimmer) | Freitag, den 27. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/nalya-ausverkauft/"]="NALYA – AUSVERKAUFT (Turmzimmer) | Samstag, den 28. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/bunker-rave-w-david-loehlein-johannes-schuster/"]="BUNKER RAVE W/ DAVID LöHLEIN & JOHANNES SCHUSTER (Saal) | Samstag, den 28. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/taera/"]="TÄRA (Turmzimmer) | Dienstag, den 01. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/discovaganza-w-bovski-nyra/"]="DISCOVAGANZA W/ BOVSKI & NYRA (Saal & Turmzimmer) | Samstag, den 05. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/gina-waibel-schule-aber-stabil/"]="GINA WAIBEL – SCHULE, ABER STABIL (Saal) | Sonntag, den 06. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/jungesterne-show/"]="JUNGESTERNE SHOW (Saal) | Samstag, den 19. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/stil-vor-talent-5/"]="STIL VOR TALENT (Saal & Turmzimmer) | Samstag, den 19. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/nest-w-pan-pot-tommahawk-justice-randali/"]="NEST W/ PAN POT, TOMMAHAWK, JUSTICE & RANDALI (Saal) | Samstag, den 06. Februar 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/mythical-rave-pull-2/"]="MYTHICAL RAVE PULL (Saal) | Samstag, den 13. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/pa-sports-vom-glueck-zurueck-tour-2027/"]="PA SPORTS – VOM GLÜCK ZURÜCK TOUR 2027 (Saal) | Sonntag, den 14. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/trancelator-bounce-edition-w-zwilling-feat-fronsi-live-relajadita/"]="TRANCELATOR BOUNCE EDITION W/ ZWILLING. FEAT FRONSI (LIVE) & RELAJADITA (Saal) | Freitag, den 20. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/ocean-grove/"]="OCEAN GROVE (Saal) | Freitag, den 12. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/dina-summer/"]="DINA SUMMER (Turmzimmer) | Freitag, den 12. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/hardwick/"]="HARDWICK (Saal) | Freitag, den 06. November 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/drogu-2/"]="DROGU (Turmzimmer) | Samstag, den 09. Oktober 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/saltarus-w-svetec-in-verruf/"]="SALTARUS W/ SVETEC & IN VERRUF (Saal) | Freitag, den 04. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/mathi/"]="MATHI (Turmzimmer) | Montag, den 03. Mai 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/herbst/"]="HERBST (Saal) | Freitag, den 19. März 2027";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/1-day-chor/"]="1 DAY CHOR (Saal) | Sonntag, den 06. Dezember 2026";oUeg.history["https://www.uebelundgefaehrlich.com/veranstaltungen/faroon-2/"]="FAROON (Saal) | Samstag, den 20. November 2027";</script><div class="cookie-consent">
+                <div class="section-wrapper">
+                    <div class="section">
+                        <div class="cookie-consent-holder">
+                            <div class="content-width-padding-double cookie-consent-inner">
+                                <p>Um diese Webseite zu personalisieren und zu verbessern, verwendet diese Webseite Cookies. Durch die Verwendung von uebelundgefaehrlich.com stimmen Sie unseren <a href="https://www.uebelundgefaehrlich.com/datenschutz/" target="_blank" rel="noopener">Datenschutzbestimmungen</a> zu</p>
+
+                                <div class="close-holder">
+                                    <span class="ico close trigger-close" title="schliessen"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    <script data-main="https://www.uebelundgefaehrlich.com/content/themes/uebel-und-gefaehrlich/assets/js/main" src="https://www.uebelundgefaehrlich.com/content/themes/uebel-und-gefaehrlich/assets/lib/requirejs/require.min.js"></script>
+        <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-57719440-1', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+      </script>
+          </body>
+</html>
