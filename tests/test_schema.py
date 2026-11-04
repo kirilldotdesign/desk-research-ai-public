@@ -23,6 +23,7 @@ CLUBS = {
     "Hafenklang": "hafenklang",
     "Südpol": "suedpol",
     "Rote Flora": "roteflora",
+    "MS Stubnitz": "stubnitz",
 }
 
 

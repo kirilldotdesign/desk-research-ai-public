@@ -388,7 +388,37 @@ def parse_roteflora(page):
     return events
 
 
+# ---------- MS Stubnitz: /events/ list with genre "theme"; no start time in the list ----------
+
+STUBNITZ = "https://www.stubnitz.com"
+
+
+def parse_stubnitz(page):
+    events, seen = [], set()
+    for item in re.findall(r'<li class="(?:confirmed|[^"]*)">\s*<a href="(/events/[^"]+\.html)">(.*?)</li>', page, re.S):
+        path, body = item
+        day = re.search(r"(\d{2}\.\d{2}\.\d{4})", body)
+        name = re.search(r'<h3 class="event-name[^"]*">(.*?)</h3>', body, re.S)
+        if not (day and name) or path in seen:
+            continue
+        seen.add(path)
+        kind = re.search(r'<p class="event-type[^"]*">(.*?)</p>', body, re.S)
+        sub = re.search(r"<h4>(.*?)</h4>", body, re.S)
+        theme = re.search(r'<p class="theme">(.*?)</p>', body, re.S)
+        events.append(
+            {
+                "url": STUBNITZ + path,
+                "title": clean(name.group(1)),
+                "text": "; ".join(x for x in (clean(m.group(1)) for m in (kind, sub, theme) if m) if x)[:1500],
+                "starts_at": at(de_date(day.group(1))),
+                "venue": "MS Stubnitz",
+            }
+        )
+    return events
+
+
 PARSERS = {
+    "stubnitz": parse_stubnitz,
     "roteflora": parse_roteflora,
     "suedpol": parse_suedpol,
     "hafenklang": parse_hafenklang,
