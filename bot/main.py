@@ -18,12 +18,13 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 import db
-from bot.events import event_line, window
+from bot.events import BERLIN, digest_days, digest_title, event_line, today_in_hamburg, window
 
 SERVICE = "bot"
 HERE = Path(__file__).resolve().parent
 SEND_EVERY_SECONDS = 60
-LATEST = 5  # findings listed in the summary, the rest are in the feed
+LATEST = 5  # events listed after /start, the rest are in the feed
+MAX_MESSAGE = 3800  # Telegram allows 4096 characters
 
 COMMANDS = [
     {"command": "start", "description": "подписаться на находки"},
@@ -80,14 +81,31 @@ def say(chat_id, text, button=True):
     api("sendMessage", payload)
 
 
+EVENT_ROWS = (
+    "SELECT m.starts_at, coalesce(m.venue, f.entity), m.title, f.summary, m.url FROM findings f"
+    " JOIN materials m ON m.id = f.material_id"
+)
+
+
 def finding_lines(rows):
-    lines = []
-    for summary, entity, url, source in rows:
-        line = f'• <a href="{html.escape(url)}">{html.escape(summary)}</a>\n  {html.escape(source)}'
-        if entity:
-            line += f" · {html.escape(entity)}"
-        lines.append(line)
-    return lines
+    return [
+        f'• <a href="{html.escape(url)}">{html.escape(event_line(starts_at, venue, title, summary))}</a>'
+        for starts_at, venue, title, summary, url in rows
+    ]
+
+
+def digest_text(days, rows):
+    """SPEC decision 9: one message with the events of the given days, cut to fit Telegram."""
+    title = f"<b>{html.escape(digest_title(days))}</b>"
+    if not rows:
+        return title + "\n\nНичего не нашёл. Вся афиша на 14 дней — в ленте."
+    lines, text = finding_lines(rows), title + "\n"
+    for shown, line in enumerate(lines):
+        rest = len(lines) - shown
+        if len(text) + len(line) + 60 > MAX_MESSAGE:
+            return text + f"\n… и ещё {rest} в ленте."
+        text += "\n" + line
+    return text
 
 
 def setup(conn):
@@ -118,35 +136,35 @@ def setup(conn):
     db.log(SERVICE, f"@{me['username']} на связи, лента {page_url() or 'без адреса'}")
 
 
-def send_new(conn):
-    """One message per collection: waits until the worker has sorted it, then sends a summary to every subscriber."""
-    # the worker is still busy while materials wait in the queue or the collector is running
+def send_new(conn, now=None):
+    """Morning digest (SPEC decision 9): once a day, after today's collection is sorted by the worker."""
+    today = today_in_hamburg(now)
+    already = conn.execute(
+        "SELECT 1 FROM runs WHERE service = 'bot' AND status = 'finished' AND note LIKE %s",
+        (f"сводка за {today:%Y-%m-%d}%",),
+    ).fetchone()
+    if already:
+        return
+    collected_today = conn.execute(
+        "SELECT 1 FROM runs WHERE service = 'collector' AND status = 'finished'"
+        " AND (finished_at AT TIME ZONE 'Europe/Berlin')::date = %s",
+        (today,),
+    ).fetchone()
     busy = conn.execute(
         "SELECT EXISTS (SELECT 1 FROM materials WHERE status = 'new')"
         " OR EXISTS (SELECT 1 FROM runs WHERE service = 'collector' AND status IN ('started', 'running')"
         "            AND started_at > now() - interval '30 minutes')"
     ).fetchone()[0]
-    if busy:
-        return
     subscribers = [row[0] for row in conn.execute("SELECT chat_id FROM subscribers")]
-    ids = [row[0] for row in conn.execute("SELECT id FROM findings WHERE sent_at IS NULL")]
-    if not subscribers or not ids:
+    if not collected_today or busy or not subscribers:
         return
-    companies = conn.execute(
-        "SELECT coalesce(entity, 'без компании'), count(*) FROM findings WHERE id = ANY(%s)"
-        " GROUP BY entity ORDER BY entity IS NULL, count(*) DESC",
-        (ids,),
+    days = digest_days(today)
+    rows = conn.execute(
+        EVENT_ROWS + " WHERE (m.starts_at AT TIME ZONE 'Europe/Berlin')::date = ANY(%s)"
+        " AND m.starts_at >= now() - interval '6 hours' ORDER BY m.starts_at, m.venue",
+        (days,),
     ).fetchall()
-    latest = conn.execute(
-        "SELECT f.summary, f.entity, m.url, s.name FROM findings f"
-        " JOIN materials m ON m.id = f.material_id JOIN sources s ON s.id = m.source_id"
-        " WHERE f.id = ANY(%s) ORDER BY f.id DESC LIMIT %s",
-        (ids, LATEST),
-    ).fetchall()
-    text = f"<b>Новых находок: {len(ids)}</b>\n" + " · ".join(f"{html.escape(name)} {count}" for name, count in companies)
-    text += "\n\nСвежие:\n\n" + "\n\n".join(finding_lines(latest))
-    if len(ids) > LATEST:
-        text += f"\n\nЕще {len(ids) - LATEST} в ленте."
+    text = digest_text(days, rows)
     run_id = db.start_run(conn, SERVICE)
     delivered = 0
     for chat_id in subscribers:
@@ -157,8 +175,11 @@ def send_new(conn):
             if error.code == 403:  # the person blocked the bot
                 conn.execute("DELETE FROM subscribers WHERE chat_id = %s", (chat_id,))
             db.log(SERVICE, f"чат {chat_id}: не доставлено, ответ {error.code}")
-    conn.execute("UPDATE findings SET sent_at = now() WHERE id = ANY(%s)", (ids,))
-    db.finish_run(conn, SERVICE, run_id, len(ids), f"сводка по {len(ids)} находкам, получили {delivered} из {len(subscribers)}")
+    conn.execute("UPDATE findings SET sent_at = now() WHERE sent_at IS NULL")
+    db.finish_run(
+        conn, SERVICE, run_id, len(rows),
+        f"сводка за {today:%Y-%m-%d}: {len(rows)} событий, получили {delivered} из {len(subscribers)}",
+    )
 
 
 def status_text(conn):
@@ -199,19 +220,21 @@ def handle(conn, message):
             (chat["id"], name),
         )
         latest = conn.execute(
-            "SELECT f.summary, f.entity, m.url, s.name FROM findings f"
-            " JOIN materials m ON m.id = f.material_id JOIN sources s ON s.id = m.source_id ORDER BY f.id DESC LIMIT 5"
+            EVENT_ROWS + " WHERE m.starts_at >= now() ORDER BY m.starts_at LIMIT %s", (LATEST,)
         ).fetchall()
-        text = "Готово, вы подписаны. После каждого сбора пришлю сюда одну сводку: сколько новых находок и по каким компаниям."
+        text = (
+            "Готово, вы подписаны. Каждое утро пришлю афишу клубов Гамбурга: в будни — что сегодня,"
+            " в пятницу — все выходные, в субботу и воскресенье — этот день."
+        )
         if latest:
-            text += "\n\nПоследние:\n\n" + "\n\n".join(finding_lines(latest))
-        text += "\n\nВсе находки в ленте: кнопка ниже или «Лента» рядом с полем ввода. /status покажет, как работают блоки."
+            text += "\n\nБлижайшее:\n" + "\n".join(finding_lines(latest))
+        text += "\n\nВся афиша на 14 дней в ленте: кнопка ниже или «Лента» рядом с полем ввода. /status покажет, как работают блоки."
         say(chat["id"], text)
         db.log(SERVICE, f"новый подписчик {name or chat['id']}")
     elif command == "/status":
         say(chat["id"], status_text(conn))
     else:
-        say(chat["id"], "Я понимаю /start и /status. Находки в ленте:")
+        say(chat["id"], "Я понимаю /start и /status. Афиша в ленте:")
 
 
 def poll_forever():
