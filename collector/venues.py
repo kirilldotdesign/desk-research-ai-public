@@ -294,7 +294,41 @@ def parse_pudel(page):
     return events
 
 
+# ---------- Hafenklang: <article class='cp-event'>, event link /programm?cpnr=… ----------
+
+HAFENKLANG = "https://www.hafenklang.com"
+
+
+def parse_hafenklang(page):
+    events, seen = [], set()
+    for article in re.findall(r"<article class='cp-event.*?</article>", page, re.S):
+        link = re.search(r"<h2 class='cp-title cp-title-desktop[^']*'><a href='([^']+)'>(.*?)</a></h2>", article, re.S)
+        day = re.search(r"<p class='cp-date'>\w+ (\d{2}\.\d{2}\.)(\d{2})</p>", article)
+        if not (link and day):
+            continue
+        url = HAFENKLANG + link.group(1)
+        if url in seen:
+            continue
+        seen.add(url)
+        sub = re.search(r"<span class='cp-sub-title'>(.*?)</span>", link.group(2), re.S)
+        title = clean(re.sub(r"<span class='cp-sub-title'>.*?</span>", "", link.group(2), flags=re.S))
+        room = re.search(r"<span class='cp-room[^']*'>(.*?)</span>", article)
+        kind = re.search(r"<p class='cp-type'><span>(.*?)</span>", article)
+        time = re.search(r"Beginn:\s*([0-9]{1,2}:[0-9]{2})", article) or re.search(r"Einlass:\s*([0-9]{1,2}:[0-9]{2})", article)
+        events.append(
+            {
+                "url": url,
+                "title": title,
+                "text": "; ".join(clean(x.group(1)) for x in (kind, room, sub) if x)[:1500],
+                "starts_at": at(de_date(day.group(1) + "20" + day.group(2)), time.group(1) if time else None),
+                "venue": "Hafenklang",
+            }
+        )
+    return events
+
+
 PARSERS = {
+    "hafenklang": parse_hafenklang,
     "pudel": parse_pudel,
     "sperrstunde": parse_sperrstunde,
     "concertnews": parse_concertnews,
