@@ -327,7 +327,41 @@ def parse_hafenklang(page):
     return events
 
 
+# ---------- Südpol: suedpolevent_item blocks, link = page anchor #event_<id> ----------
+
+SUEDPOL = "https://www.suedpol.org/"
+
+
+def parse_suedpol(page):
+    events = []
+    for item_id, body in re.findall(
+        r'<div id="event_(\d+)" name="event_\d+" class="suedpolevent_item(.*?)(?=<div id="event_\d+" name=|$)', page, re.S
+    ):
+        rows = [clean(x) for x in re.findall(r'<li class="list_item">(.*?)</li>', body, re.S)]
+        name = re.search(r'<div class="event_name">(.*?)</div>', body, re.S)
+        dates = re.match(r"(\d{2})\.(\d{2})\.(?:\s*-\s*\d{2}\.(\d{2})\.)?\s*(\d{4})?", rows[0]) if rows else None
+        if not (name and dates):
+            continue
+        dom, month, end_month, year = dates.groups()
+        year = int(year or 0)
+        if end_month and int(month) > int(end_month):
+            year -= 1  # 30.12. - 01.01.2027
+        time = re.match(r"(\d{1,2}:\d{2})", rows[2]) if len(rows) > 2 else None
+        text = re.search(r'<div class="event_description">(.*?)</div>', body, re.S)
+        events.append(
+            {
+                "url": f"{SUEDPOL}#event_{item_id}",
+                "title": clean(name.group(1)),
+                "text": clean(text.group(1)).replace("RUNNING ORDER", "").strip(" _")[:1500] if text else "",
+                "starts_at": at(f"{year}-{month}-{dom}", time.group(1) if time else None),
+                "venue": "Südpol",
+            }
+        )
+    return events
+
+
 PARSERS = {
+    "suedpol": parse_suedpol,
     "hafenklang": parse_hafenklang,
     "pudel": parse_pudel,
     "sperrstunde": parse_sperrstunde,

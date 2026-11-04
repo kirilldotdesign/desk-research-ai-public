@@ -85,5 +85,6 @@ INSERT INTO sources (name, kind, url) VALUES
     ('Concert News',  'concertnews', 'https://www.concert-news.de/konzertkalender/'),
     ('sperrstunde',   'sperrstunde', 'https://www.sperrstunde.org/'),
     ('Golden Pudel Club', 'pudel',   'https://pudel.com/programm/'),
-    ('Hafenklang',    'hafenklang',  'https://www.hafenklang.com/programm/')
+    ('Hafenklang',    'hafenklang',  'https://www.hafenklang.com/programm/'),
+    ('Südpol',        'suedpol',     'https://www.suedpol.org/')
 ON CONFLICT (name) DO NOTHING;

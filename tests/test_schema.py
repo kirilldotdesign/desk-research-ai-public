@@ -21,6 +21,7 @@ CLUBS = {
     "sperrstunde": "sperrstunde",
     "Golden Pudel Club": "pudel",
     "Hafenklang": "hafenklang",
+    "Südpol": "suedpol",
 }
 
 
