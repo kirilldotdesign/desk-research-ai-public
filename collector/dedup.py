@@ -7,7 +7,7 @@ import re
 import unicodedata
 from difflib import SequenceMatcher
 
-AGGREGATORS = {"ohschonhell", "clubkombinat"}  # source kinds that list other venues' events
+AGGREGATORS = {"ohschonhell", "clubkombinat", "concertnews", "sperrstunde", "rausgegangen"}  # source kinds that list other venues' events
 
 
 def norm(text):

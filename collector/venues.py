@@ -192,7 +192,35 @@ def parse_ohschonhell(page):
     return list(found.values())
 
 
+# ---------- concert-news.de (aggregator): "05.11.2026 – Title – Venue" lines ----------
+
+CONCERT_NEWS = "https://www.concert-news.de/konzertkalender/"
+
+
+def slug(text):
+    return re.sub(r"[^a-z0-9]+", "-", clean(text).lower()).strip("-")[:80]
+
+
+def parse_concertnews(page):
+    """No time and no event page on this site: the link is the calendar with a unique anchor."""
+    start = page.find('id="myFuture"')
+    events, seen = [], set()
+    for line in re.findall(r"<div>(\d{2}\.\d{2}\.\d{4}) – (.*?)</div>", page[start:] if start >= 0 else page, re.S):
+        day, rest = line
+        parts = [clean(x) for x in re.sub(r"<b>.*?</b>", "", rest, flags=re.S).split(" – ")]
+        if len(parts) < 2:
+            continue
+        venue, title = parts[-1], " – ".join(parts[:-1])
+        url = f"{CONCERT_NEWS}#{de_date(day)}-{slug(title)}-{slug(venue)}"
+        if not title or not venue or url in seen:
+            continue
+        seen.add(url)
+        events.append({"url": url, "title": title, "text": "", "starts_at": at(de_date(day)), "venue": venue})
+    return events
+
+
 PARSERS = {
+    "concertnews": parse_concertnews,
     "ohschonhell": parse_ohschonhell,
     "gruenspan": parse_gruenspan,
     "uebel": parse_uebel,

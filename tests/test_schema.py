@@ -17,6 +17,7 @@ CLUBS = {
     "Molotow": "molotow",
     "Knust": "knust",
     "oh schon hell": "ohschonhell",
+    "Concert News": "concertnews",
 }
 
 
