@@ -8,7 +8,7 @@
 CREATE TABLE IF NOT EXISTS sources (
     id          SERIAL PRIMARY KEY,
     name        TEXT NOT NULL UNIQUE,
-    kind        TEXT NOT NULL,            -- hn | arxiv | rss
+    kind        TEXT NOT NULL,            -- parser name in collector/
     url         TEXT NOT NULL,
     active      BOOLEAN NOT NULL DEFAULT TRUE
 );
@@ -54,10 +54,25 @@ CREATE TABLE IF NOT EXISTS subscribers (
     started_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- SPEC 1 (T1): events instead of AI news
+ALTER TABLE materials ADD COLUMN IF NOT EXISTS starts_at TIMESTAMPTZ;  -- event start, Europe/Berlin
+ALTER TABLE materials ADD COLUMN IF NOT EXISTS venue TEXT;            -- club / location name
+ALTER TABLE findings  ADD COLUMN IF NOT EXISTS event_type TEXT;       -- Konzert | Party | Sonstiges
+
+-- remove the AI template: findings -> materials -> sources (idempotent, by source name)
+DELETE FROM findings WHERE material_id IN (
+    SELECT m.id FROM materials m JOIN sources s ON s.id = m.source_id
+    WHERE s.name IN ('Hacker News', 'Hacker News: Anthropic', 'Hacker News: OpenAI', 'arXiv cs.AI', 'Хабр: ИИ'));
+DELETE FROM materials WHERE source_id IN (
+    SELECT id FROM sources
+    WHERE name IN ('Hacker News', 'Hacker News: Anthropic', 'Hacker News: OpenAI', 'arXiv cs.AI', 'Хабр: ИИ'));
+DELETE FROM sources
+    WHERE name IN ('Hacker News', 'Hacker News: Anthropic', 'Hacker News: OpenAI', 'arXiv cs.AI', 'Хабр: ИИ');
+
+-- kind = name of the parser in collector/
 INSERT INTO sources (name, kind, url) VALUES
-    ('Hacker News', 'hn',    'https://hn.algolia.com/api/v1/search_by_date?query=AI&tags=story&hitsPerPage=15'),
-    ('Hacker News: Anthropic', 'hn', 'https://hn.algolia.com/api/v1/search_by_date?query=Anthropic&tags=story&hitsPerPage=15'),
-    ('Hacker News: OpenAI',    'hn', 'https://hn.algolia.com/api/v1/search_by_date?query=OpenAI&tags=story&hitsPerPage=15'),
-    ('arXiv cs.AI', 'arxiv', 'https://export.arxiv.org/api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10'),
-    ('Хабр: ИИ',    'rss',   'https://habr.com/ru/rss/hubs/artificial_intelligence/articles/')
+    ('Grünspan',           'gruenspan', 'https://www.gruenspan.de/'),
+    ('Uebel & Gefährlich', 'uebel',     'https://www.uebelundgefaehrlich.com/'),
+    ('Molotow',            'molotow',   'https://molotowclub.com/programm/programm.php'),
+    ('Knust',              'knust',     'https://knusthamburg.de/wp-json/wp/v2/event')
 ON CONFLICT (name) DO NOTHING;
