@@ -71,14 +71,23 @@ class SendDigestTest(unittest.TestCase):
     def test_once_a_day_with_todays_events(self):
         from bot import main as bot
 
+        before = self.now - timedelta(hours=1)
         with mock.patch.object(bot, "say") as say:
-            bot.send_new(self.conn, now=self.now)
-            bot.send_new(self.conn, now=self.now)  # second call the same day: nothing
+            bot.send_new(self.conn, now=self.now, started_at=before)
+            bot.send_new(self.conn, now=self.now, started_at=before)  # second call the same day: nothing
         self.assertEqual(say.call_count, 1)
         text = say.call_args[0][1]
         self.assertIn("tonight", text)
         if digest_days(self.now.date()) == [self.now.date()]:
             self.assertNotIn("in a week", text)
+
+    def test_no_digest_from_a_collection_before_the_bot_started(self):
+        """Bug 04.11: right after a deploy the old morning run triggered an empty digest."""
+        from bot import main as bot
+
+        with mock.patch.object(bot, "say") as say:
+            bot.send_new(self.conn, now=self.now, started_at=datetime.now(BERLIN) + timedelta(seconds=1))
+        say.assert_not_called()
 
 
 if __name__ == "__main__":

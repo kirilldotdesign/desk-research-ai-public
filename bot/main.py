@@ -25,6 +25,9 @@ HERE = Path(__file__).resolve().parent
 SEND_EVERY_SECONDS = 60
 LATEST = 5  # events listed after /start, the rest are in the feed
 MAX_MESSAGE = 3800  # Telegram allows 4096 characters
+# a collection counts for the digest only if it finished after this bot started:
+# right after a deploy the morning run of the old code must not trigger an empty digest
+STARTED_AT = datetime.now(timezone.utc)
 
 COMMANDS = [
     {"command": "start", "description": "подписаться на находки"},
@@ -136,7 +139,7 @@ def setup(conn):
     db.log(SERVICE, f"@{me['username']} на связи, лента {page_url() or 'без адреса'}")
 
 
-def send_new(conn, now=None):
+def send_new(conn, now=None, started_at=None):
     """Morning digest (SPEC decision 9): once a day, after today's collection is sorted by the worker."""
     today = today_in_hamburg(now)
     already = conn.execute(
@@ -147,8 +150,8 @@ def send_new(conn, now=None):
         return
     collected_today = conn.execute(
         "SELECT 1 FROM runs WHERE service = 'collector' AND status = 'finished'"
-        " AND (finished_at AT TIME ZONE 'Europe/Berlin')::date = %s",
-        (today,),
+        " AND (finished_at AT TIME ZONE 'Europe/Berlin')::date = %s AND finished_at > %s",
+        (today, started_at or STARTED_AT),
     ).fetchone()
     busy = conn.execute(
         "SELECT EXISTS (SELECT 1 FROM materials WHERE status = 'new')"
