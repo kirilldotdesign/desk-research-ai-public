@@ -74,5 +74,7 @@ INSERT INTO sources (name, kind, url) VALUES
     ('Grünspan',           'gruenspan', 'https://www.gruenspan.de/'),
     ('Uebel & Gefährlich', 'uebel',     'https://www.uebelundgefaehrlich.com/'),
     ('Molotow',            'molotow',   'https://molotowclub.com/programm/programm.php'),
-    ('Knust',              'knust',     'https://knusthamburg.de/wp-json/wp/v2/event')
+    ('Knust',              'knust',     'https://knusthamburg.de/programm/')
 ON CONFLICT (name) DO NOTHING;
+-- T5: Knust dates are on the programme page, not in the API
+UPDATE sources SET url = 'https://knusthamburg.de/programm/' WHERE name = 'Knust';

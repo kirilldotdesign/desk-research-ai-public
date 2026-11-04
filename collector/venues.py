@@ -141,4 +141,37 @@ def parse_molotow(page):
     return events
 
 
-PARSERS = {"gruenspan": parse_gruenspan, "uebel": parse_uebel, "molotow": parse_molotow}
+# ---------- Knust: <div class="kn-event-thumb" data-genre data-date> cards on /programm/ ----------
+
+
+def parse_knust(page):
+    events, seen = [], set()
+    for card in re.split(r'(?=<div class="kn-event-thumb)', page)[1:]:
+        day = re.search(r'data-date="(\d{4}-\d{2}-\d{2})"', card)
+        url = re.search(r'href="(https://knusthamburg\.de/event/[^"]+)"', card)
+        name = re.search(r'kn-ethumb-name[^>]*aria-label="([^"]*)"', card) or re.search(
+            r'kn-ethumb-name[^>]*>(.*?)</a>', card, re.S
+        )
+        if not (day and url and name) or url.group(1) in seen:
+            continue
+        seen.add(url.group(1))
+        time = re.search(r'kn-ethumb-time[^>]*>\s*([0-9]{1,2}:[0-9]{2})', card)
+        genre = re.search(r'data-genre="([^"]*)"', card)
+        events.append(
+            {
+                "url": url.group(1),
+                "title": clean(name.group(1)),
+                "text": clean(genre.group(1)) if genre else "",
+                "starts_at": at(day.group(1), time.group(1) if time else None),
+                "venue": "Knust",
+            }
+        )
+    return events
+
+
+PARSERS = {
+    "gruenspan": parse_gruenspan,
+    "uebel": parse_uebel,
+    "molotow": parse_molotow,
+    "knust": parse_knust,
+}
