@@ -4,6 +4,7 @@ import urllib.request
 from datetime import datetime, timedelta
 
 import db
+from collector.dedup import AGGREGATORS, find_duplicate
 from collector.venues import BERLIN, HIDDEN, PARSERS
 
 SERVICE = "collector"
@@ -29,7 +30,22 @@ def upcoming(events, now=None):
     ]
 
 
-def save(conn, source_id, run_id, event):
+def save(conn, source_id, run_id, event, from_aggregator=False):
+    candidates = conn.execute(
+        """SELECT m.id, m.venue, m.title, s.kind = ANY(%s)
+           FROM materials m JOIN sources s ON s.id = m.source_id
+           WHERE m.source_id <> %s AND m.url <> %s
+             AND (m.starts_at AT TIME ZONE 'Europe/Berlin')::date = %s""",
+        (list(AGGREGATORS), source_id, event["url"], event["starts_at"].date()),
+    ).fetchall()
+    duplicate = find_duplicate(event, candidates)
+    if duplicate:
+        duplicate_id, _, _, duplicate_from_aggregator = duplicate
+        if from_aggregator or not duplicate_from_aggregator:
+            return False  # the venue's own row is already there
+        # the venue site wins over an aggregator: replace the aggregator's row
+        conn.execute("DELETE FROM findings WHERE material_id = %s", (duplicate_id,))
+        conn.execute("DELETE FROM materials WHERE id = %s", (duplicate_id,))
     row = conn.execute(
         """INSERT INTO materials (source_id, run_id, url, title, text, published_at, starts_at, venue)
            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
@@ -64,7 +80,7 @@ def main():
                 # one broken source does not stop the run
                 db.log(SERVICE, f"источник «{name}» недоступен: {error}")
                 continue
-            new = sum(save(conn, source_id, run_id, e) for e in events)
+            new = sum(save(conn, source_id, run_id, e, kind in AGGREGATORS) for e in events)
             total_new += new
             db.progress_run(
                 conn,
