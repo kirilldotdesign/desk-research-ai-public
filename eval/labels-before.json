@@ -1,0 +1,566 @@
+{
+ "labeled_at": "2026-11-04T18:22:13.659Z",
+ "events": [
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/scienceslam-4/",
+   "venue": "Uebel & Gefährlich",
+   "title": "SCIENCE SLAM",
+   "summary": "Wissenschaftlicher Vortragswettbewerb als Lesung",
+   "type": "Sonstiges",
+   "line": "Mi 04.11 20:00 · Uebel & Gefährlich · SCIENCE SLAM — Wissenschaftlicher Vortragswettbewerb als Lesung",
+   "text": "Lesung, Saal",
+   "interesting": true
+  },
+  {
+   "url": "https://knusthamburg.de/event/nichtseattle_111637923/",
+   "venue": "Knust",
+   "title": "NICHTSEATTLE - SUPPORT: BLUMES",
+   "summary": "Singer-Songwriter",
+   "type": "Konzert",
+   "line": "Mi 04.11 20:30 · Knust · NICHTSEATTLE - SUPPORT: BLUMES — Singer-Songwriter",
+   "text": "SINGER/SONGWRITER",
+   "interesting": false
+  },
+  {
+   "url": "https://www.gruenspan.de/konzerte/mammoth/",
+   "venue": "Grünspan",
+   "title": "Mammoth",
+   "summary": "Alternative- und Hardrock-Headliner-Show",
+   "type": "Konzert",
+   "line": "Do 05.11 19:00 · Grünspan · Mammoth — Alternative- und Hardrock-Headliner-Show",
+   "text": "Die Veranstaltung findet in der Lagerstraße 11, Halle D statt. — Auch im kommenden Sommer mit Guns N’ Roses unterwegs, waren Mammoth von Anfang an auf den allergrößten Bühnen zu Hause: Schon 2021 mit Hits wie „Don’t Back Down“ erstmals im Vorprogramm von GNR zu hören, folgten auf Shows für Def Leppa",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=66340",
+   "venue": "Molotow",
+   "title": "FAT DOG · Support: SILVERWINGKILLER",
+   "summary": "Ungezähmter Indie-Rock aus London, mit neuen Songs",
+   "type": "Konzert",
+   "line": "Do 05.11 19:00 · Molotow · FAT DOG · Support: SILVERWINGKILLER — Ungezähmter Indie-Rock aus London, mit neuen Songs",
+   "text": "Konzert, Club; Fat Dog – the undefinable, undeniable, raucous London band return after a period of clam with renewed ferocity, new tour dates and new music in 2026. The band, with chief rabble rouser Joe Love at t...",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=66342",
+   "venue": "Molotow",
+   "title": "DEATH VALLEY GIRLS",
+   "summary": "Psychedelic Garage Rock aus Los Angeles",
+   "type": "Konzert",
+   "line": "Do 05.11 19:00 · Molotow · DEATH VALLEY GIRLS — Psychedelic Garage Rock aus Los Angeles",
+   "text": "Konzert, Top Ten Bar; For the better part of a decade, LA’s scrappy rock n’ roll mystics Death Valley Girls have used their music as a means of tapping into a communal cosmic energy. On albums like Glow in the Dark (20...",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/jonny5_111569424/",
+   "venue": "Knust",
+   "title": "JONNY5 - DUNKLE LORD TOUR 2026 // Presented by Goodlive Artists",
+   "summary": "Hip-Hop-Liveauftritt",
+   "type": "Konzert",
+   "line": "Do 05.11 21:00 · Knust · JONNY5 - DUNKLE LORD TOUR 2026 // Presented by Goodlive Artists — Hip-Hop-Liveauftritt",
+   "text": "HIP HOP",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/jonny5/",
+   "venue": "Uebel & Gefährlich",
+   "title": "JONNY5",
+   "summary": "Live-Konzert",
+   "type": "Konzert",
+   "line": "Do 05.11 21:00 · Uebel & Gefährlich · JONNY5 — Live-Konzert",
+   "text": "Konzert",
+   "interesting": false
+  },
+  {
+   "url": "https://www.gruenspan.de/konzerte/enkay/",
+   "venue": "Grünspan",
+   "title": "Enkay",
+   "summary": "Singer-Songwriter mit urbanen Pop-Einflüssen",
+   "type": "Konzert",
+   "line": "Fr 06.11 18:00 · Grünspan · Enkay — Singer-Songwriter mit urbanen Pop-Einflüssen",
+   "text": "Die Veranstaltung findet in der Lagerstraße 11, Halle D statt. — Nach dem überwältigenden Erfolg seiner letzten Tour ist es nun offiziell: ENKAY wird das dritte Jahr in Folge auf zahlreichen Bühnen zu sehen sein! Im Rahmen seiner „Zwischen den Stühlen“-Tour spielt er 2026 in Deutschland, Österreich ",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/hardwick/",
+   "venue": "Uebel & Gefährlich",
+   "title": "HARDWICK",
+   "summary": "Live-Auftritt",
+   "type": "Konzert",
+   "line": "Fr 06.11 19:00 · Uebel & Gefährlich · HARDWICK — Live-Auftritt",
+   "text": "Konzert, Saal",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/burnout-ostwest_111569426/",
+   "venue": "Knust",
+   "title": "BURNOUT OSTWEST - Support: AG PLASTE // präsentiert von ByteFM",
+   "summary": "Punkrock-Konzert mit Support",
+   "type": "Konzert",
+   "line": "Fr 06.11 21:00 · Knust · BURNOUT OSTWEST - Support: AG PLASTE // präsentiert von ByteFM — Punkrock-Konzert mit Support",
+   "text": "PUNK",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=70428",
+   "venue": "Molotow",
+   "title": "TOP TEN BAR",
+   "summary": "Gemütliche Bar-Party mit St.-Pauli-Charme",
+   "type": "Party",
+   "line": "Fr 06.11 21:00 · Molotow · TOP TEN BAR — Gemütliche Bar-Party mit St.-Pauli-Charme",
+   "text": "Party, Top Ten Bar; Die Top Ten Bar im Herzen von St. Pauli direkt unter dem Molotow, dem ehemaligen Top Ten Club, dort wo einst die Beatles spielten. Gemütlich und eigenwillig versprüht sie den Charme von St. Pauli....",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=66347",
+   "venue": "Molotow",
+   "title": "DON'T YOU WANT ME - 80s Party",
+   "summary": "80er-Hits: New Wave, Synthpop und Pop-Klassiker",
+   "type": "Party",
+   "line": "Fr 06.11 23:00 · Molotow · DON'T YOU WANT ME - 80s Party — 80er-Hits: New Wave, Synthpop und Pop-Klassiker",
+   "text": "Party, Club; Don’t You Want Me Die 80er, ein unglaubliches Jahrzehnt mit wahnsinnig toller Musik. Das muss richtig gefeiert werden. Let's Dance Alphaville, A-Ha, Bonnie Tyler, Bronski Beat, David Bowie, Depe...",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/latin-rave-x-uebel-gefaehrlich/",
+   "venue": "Uebel & Gefährlich",
+   "title": "LATIN RAVE X UEBEL & GEFÄHRLICH",
+   "summary": "Tanznacht mit lateinamerikanischen Sounds in Klub und Saal",
+   "type": "Party",
+   "line": "Fr 06.11 23:00 · Uebel & Gefährlich · LATIN RAVE X UEBEL & GEFÄHRLICH — Tanznacht mit lateinamerikanischen Sounds in Klub und Saal",
+   "text": "Klub, Saal",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=66354",
+   "venue": "Molotow",
+   "title": "JACK AND THE WEATHERMAN · SUPPORT: NEON DREAMS",
+   "summary": "Niederländischer Folk-Pop",
+   "type": "Konzert",
+   "line": "Sa 07.11 19:00 · Molotow · JACK AND THE WEATHERMAN · SUPPORT: NEON DREAMS — Niederländischer Folk-Pop",
+   "text": "Konzert, Club; An international folk-pop band from the Netherlands. Jack and the Weatherman is a Dutch folk-pop band centered around lifelong friends Berry Krikken (Jack) and Sebastiaan Weerman (The Weatherman). As...",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/niklas-dee/",
+   "venue": "Uebel & Gefährlich",
+   "title": "NIKLAS DEE",
+   "summary": "Deutschpop, Singer-Songwriter",
+   "type": "Konzert",
+   "line": "Sa 07.11 19:45 · Uebel & Gefährlich · NIKLAS DEE — Deutschpop, Singer-Songwriter",
+   "text": "Konzert, Saal",
+   "interesting": false
+  },
+  {
+   "url": "https://www.gruenspan.de/konzerte/hgicht/",
+   "venue": "Grünspan",
+   "title": "HGich.T Live + Acid Aftershow",
+   "summary": "Elektronische Live-Show mit Acid-Aftershow",
+   "type": "Konzert",
+   "line": "Sa 07.11 20:00 · Grünspan · HGich.T Live + Acid Aftershow — Elektronische Live-Show mit Acid-Aftershow",
+   "text": "Die Veranstaltung findet in der Lagerstraße 11, Halle D statt. — Es wird eines der großen Konzerthighlights 2026 / 2027! HGich.T, das Künstlerkollektiv um Mastermind DJ Hundefriedhof gehen mit 34 Konzerten auf ihre letzte große Tournee durch Deutschland, Österreich und die Schweiz. Dazu erscheint zu",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/marc-atlas_111625073/",
+   "venue": "Knust",
+   "title": "MARC ATLAS - NOTHING TO LOSE – DEBUT TOUR 2026 // präsentiert von MusikBlog.de und event.",
+   "summary": "Pop mit Singer-Songwriter-Charme",
+   "type": "Konzert",
+   "line": "Sa 07.11 21:00 · Knust · MARC ATLAS - NOTHING TO LOSE – DEBUT TOUR 2026 // präsentiert von MusikBlog.de und event. — Pop mit Singer-Songwriter-Charme",
+   "text": "POP,SINGER/SONGWRITER",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=72891",
+   "venue": "Molotow",
+   "title": "TV PARTY MIT VJ WASTED - TOP TEN BAR",
+   "summary": "Musikvideo-Party mit Punk, Sixties und Garage",
+   "type": "Party",
+   "line": "Sa 07.11 21:00 · Molotow · TV PARTY MIT VJ WASTED - TOP TEN BAR — Musikvideo-Party mit Punk, Sixties und Garage",
+   "text": "Party, Top Ten Bar; Es gibt eine Auflegung mit Musikvideos GALORE. Punk, Sixties, Garage und alles was es sonst noch gut sein könnte oder ist oder wird. VJ Wasted freut sich auf euren Besuch!...",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=72886",
+   "venue": "Molotow",
+   "title": "COMING OF AGE! (GEN-Z PARTY)",
+   "summary": "Clubnacht über Subkultur, Generationen und Tanzfläche",
+   "type": "Party",
+   "line": "Sa 07.11 23:00 · Molotow · COMING OF AGE! (GEN-Z PARTY) — Clubnacht über Subkultur, Generationen und Tanzfläche",
+   "text": "Party, Club; Viele sagen das die Subkultur mit der Gen-Z schlussendlich gestorben sei. Ob das stimmt oder nicht weiß nur die liebe Goth. Dass diese Emotionale Diskussion aber Punktuell auf unserer Tanzfläche zum...",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/the-tunegirl_111695173/",
+   "venue": "Knust",
+   "title": "THE TUNEGIRL - LIVE - Rakäthe + Rob Strobe",
+   "summary": "Elektronische Live-Acts",
+   "type": "Konzert",
+   "line": "Sa 07.11 23:30 · Knust · THE TUNEGIRL - LIVE - Rakäthe + Rob Strobe — Elektronische Live-Acts",
+   "text": "ELECTRONIC",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/holler-at-me-w-noel-holler-ave/",
+   "venue": "Uebel & Gefährlich",
+   "title": "HOLLER AT ME W/ NOEL HOLLER & AVE",
+   "summary": "DJ-Sets und Clubnacht",
+   "type": "Party",
+   "line": "Sa 07.11 23:59 · Uebel & Gefährlich · HOLLER AT ME W/ NOEL HOLLER & AVE — DJ-Sets und Clubnacht",
+   "text": "Klub, Turmzimmer",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/1-fc-magdeburg-fc-st-pauli_111697728/",
+   "venue": "Knust",
+   "title": "1. FC MAGDEBURG - FC ST.PAULI - 2. Bundesliga auf dem Lattenplatz und in der Bar bei freiem Eintritt",
+   "summary": "Public Viewing mit Stadionstimmung, Eintritt frei",
+   "type": "Sonstiges",
+   "line": "So 08.11 13:30 · Knust · 1. FC MAGDEBURG - FC ST.PAULI - 2. Bundesliga auf dem Lattenplatz und in der Bar bei freiem Eintritt — Public Viewing mit Stadionstimmung, Eintritt frei",
+   "text": "FUSSBALL",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/georg-elser-lesung-3/",
+   "venue": "Uebel & Gefährlich",
+   "title": "GEORG ELSER LESUNG",
+   "summary": "Lesung über Widerstand im Nationalsozialismus",
+   "type": "Sonstiges",
+   "line": "So 08.11 19:00 · Uebel & Gefährlich · GEORG ELSER LESUNG — Lesung über Widerstand im Nationalsozialismus",
+   "text": "Lesung, Saal",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/zena_111677236/",
+   "venue": "Knust",
+   "title": "ZENA - präsentiert von Jazzhouse, Groove City Recordstore",
+   "summary": "Jazz, Jazzhouse und Trip-Hop",
+   "type": "Party",
+   "line": "So 08.11 20:00 · Knust · ZENA - präsentiert von Jazzhouse, Groove City Recordstore — Jazz, Jazzhouse und Trip-Hop",
+   "text": "JAZZ,JAZZHOUSE,TRIP HOP",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=66368",
+   "venue": "Molotow",
+   "title": "NO CIGAR · SUPPORT: MUROKI",
+   "summary": "Indie-Rock aus Großbritannien mit Vorband",
+   "type": "Konzert",
+   "line": "Mo 09.11 19:00 · Molotow · NO CIGAR · SUPPORT: MUROKI — Indie-Rock aus Großbritannien mit Vorband",
+   "text": "Konzert, Club; Off the back of recent sell-out tours in the UK and New Zealand, NO CIGAR are set to perform their largest headline shows to date across Australasia in October/November 2025. The five-piece band from ...",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/lords-of-lounge_111604316/",
+   "venue": "Knust",
+   "title": "LORDS OF LOUNGE - präsentiert von Jazzhouse, Groove City Recordstore",
+   "summary": "Jazz-House und Lounge-Grooves",
+   "type": "Party",
+   "line": "Mo 09.11 21:00 · Knust · LORDS OF LOUNGE - präsentiert von Jazzhouse, Groove City Recordstore — Jazz-House und Lounge-Grooves",
+   "text": "JAZZ,JAZZHOUSE",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=66377",
+   "venue": "Molotow",
+   "title": "DESOLAT · Support: ANNA GROB (LEFTOVERS) + DEWI",
+   "summary": "Deutschpunk, erste eigene Headline-Clubtour",
+   "type": "Konzert",
+   "line": "Di 10.11 19:00 · Molotow · DESOLAT · Support: ANNA GROB (LEFTOVERS) + DEWI — Deutschpunk, erste eigene Headline-Clubtour",
+   "text": "Konzert, Top Ten Bar; Nach ihrem vielbeachteten Debütalbum \"Ückendorfication\" und Toursupports für u. a. 24/7 Diva Heaven, Anda Morts und Pogendroblem gehen DESOLAT im Herbst 2026 erstmals auf eigene Headline-Clubtour. ...",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/die-verlierer-2/",
+   "venue": "Uebel & Gefährlich",
+   "title": "DIE VERLIERER",
+   "summary": "Deutschpunk",
+   "type": "Konzert",
+   "line": "Di 10.11 20:10 · Uebel & Gefährlich · DIE VERLIERER — Deutschpunk",
+   "text": "Konzert, Saal",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/valley-of-the-sun_111606643/",
+   "venue": "Knust",
+   "title": "VALLEY OF THE SUN - Support: Silverships // Sound of Liberation proudly present:",
+   "summary": "Rock-Konzert mit Support",
+   "type": "Konzert",
+   "line": "Di 10.11 21:00 · Knust · VALLEY OF THE SUN - Support: Silverships // Sound of Liberation proudly present: — Rock-Konzert mit Support",
+   "text": "ROCK",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=66384",
+   "venue": "Molotow",
+   "title": "COLA · Support: MAGASIN",
+   "summary": "Post-Punk aus Montreal",
+   "type": "Konzert",
+   "line": "Mi 11.11 19:00 · Molotow · COLA · Support: MAGASIN — Post-Punk aus Montreal",
+   "text": "Konzert, Top Ten Bar; COLA 10.11.2026 Berlin, Badehaus 11.11.2026 Hamburg, Molotow Top Ten Bar Cola – das Trio aus Montreal bestehend aus Tim Darcy (Gesang/Gitarre), Ben Stidworthy (Bass) und Evan Cartwright (Schl...",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/deluxe/",
+   "venue": "Uebel & Gefährlich",
+   "title": "JEVER LIVE ANTENNA PRäS.: DELUXE",
+   "summary": "Deutschsprachiger Pop mit Soul- und Funk-Einflüssen",
+   "type": "Konzert",
+   "line": "Mi 11.11 20:00 · Uebel & Gefährlich · JEVER LIVE ANTENNA PRäS.: DELUXE — Deutschsprachiger Pop mit Soul- und Funk-Einflüssen",
+   "text": "Konzert, Saal",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/koza-mostra_111606645/",
+   "venue": "Knust",
+   "title": "KOZA MOSTRA - DJ: Vasilis Migkoulis //",
+   "summary": "Rock-DJ-Set",
+   "type": "Party",
+   "line": "Mi 11.11 21:00 · Knust · KOZA MOSTRA - DJ: Vasilis Migkoulis // — Rock-DJ-Set",
+   "text": "ROCK",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/tom-hengst-release-show/",
+   "venue": "Uebel & Gefährlich",
+   "title": "TOM HENGST RELEASE SHOW",
+   "summary": "Live-Set mit neuen Songs",
+   "type": "Konzert",
+   "line": "Do 12.11 20:00 · Uebel & Gefährlich · TOM HENGST RELEASE SHOW — Live-Set mit neuen Songs",
+   "text": "Konzert, Saal",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/soffie_111606687/",
+   "venue": "Knust",
+   "title": "SOFFIE - „Für mich da“ Tour",
+   "summary": "Indie-Pop, deutschsprachig",
+   "type": "Konzert",
+   "line": "Do 12.11 21:00 · Knust · SOFFIE - „Für mich da“ Tour — Indie-Pop, deutschsprachig",
+   "text": "INDIE,POP",
+   "interesting": false
+  },
+  {
+   "url": "https://www.gruenspan.de/konzerte/our-promise/",
+   "venue": "Grünspan",
+   "title": "Our Promise",
+   "summary": "Live-Musik, Genre nicht angegeben",
+   "type": "Konzert",
+   "line": "Fr 13.11 18:30 · Grünspan · Our Promise — Live-Musik, Genre nicht angegeben",
+   "text": "Die Veranstaltung findet in der Lagerstraße 11, Halle D statt.",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=66398",
+   "venue": "Molotow",
+   "title": "SMAG På DIG SELV",
+   "summary": "Akustik-Techno, Punk und 90s-Dance mit zwei Saxofonen",
+   "type": "Konzert",
+   "line": "Fr 13.11 19:00 · Molotow · SMAG På DIG SELV — Akustik-Techno, Punk und 90s-Dance mit zwei Saxofonen",
+   "text": "Konzert, Top Ten Bar; Since 2018, Smag På Dig Selv (SPDS) has been pushing the boundaries of genre with their explosive fusion of acoustic techno, raw punk energy, and 90s-inspired dance music. With two saxophones, drums,...",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=66396",
+   "venue": "Molotow",
+   "title": "JOSIAH AND THE BONNEVILLES · Support: DYLAN FLYNN & THE DEAD POETS",
+   "summary": "Americana und Roots-Rock mit Singer-Songwriter-Wurzeln",
+   "type": "Konzert",
+   "line": "Fr 13.11 19:00 · Molotow · JOSIAH AND THE BONNEVILLES · Support: DYLAN FLYNN & THE DEAD POETS — Americana und Roots-Rock mit Singer-Songwriter-Wurzeln",
+   "text": "Konzert, Club; Er hat die Ochsentour bereits hinter sich: Schon mit Anfang 20 stand Josiah and the Bonnevilles nach einigen Jahren als Musiker kurz davor, seine Karriere zu beenden. Doch statt aufzugeben, erfand er ...",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/juse-ju-2/",
+   "venue": "Uebel & Gefährlich",
+   "title": "JUSE JU",
+   "summary": "Live-Konzert",
+   "type": "Konzert",
+   "line": "Fr 13.11 20:00 · Uebel & Gefährlich · JUSE JU — Live-Konzert",
+   "text": "Konzert, Saal",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/massendefekt-25-live_111569434/",
+   "venue": "Knust",
+   "title": "MASSENDEFEKT - 25 LIVE - SUPPORT: VON WELT | Die Jubiläumstour | Präsentatoren: punk*rockt!, Fuze, OxFanzine, Radio Bob",
+   "summary": "Punkrock-Jubiläumstour mit Support von Von Welt",
+   "type": "Konzert",
+   "line": "Fr 13.11 21:00 · Knust · MASSENDEFEKT - 25 LIVE - SUPPORT: VON WELT | Die Jubiläumstour | Präsentatoren: punk*rockt!, Fuze, OxFanzine, Radio Bob — Punkrock-Jubiläumstour mit Support von Von Welt",
+   "text": "PUNK",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=72888",
+   "venue": "Molotow",
+   "title": "MOTORBOOTY! · The Indie Dancefloor!",
+   "summary": "Indie-Disco mit Rock-Klassikern und aktuellen Hits",
+   "type": "Party",
+   "line": "Fr 13.11 23:00 · Molotow · MOTORBOOTY! · The Indie Dancefloor! — Indie-Disco mit Rock-Klassikern und aktuellen Hits",
+   "text": "Party, Top Ten Bar; LET‘S DANCE TO: Joy Division, Kraftklub, Amyl and The Sniffers, Arctic Monkeys, Foals, Bilderbuch, Bloc Party, The Beaches, Betterov, Editors, Fontaines D.C., La Femme, Edwin Rosen, The Cure, Circa ...",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/one-night-with-felix-kroecher-4h-set/",
+   "venue": "Uebel & Gefährlich",
+   "title": "ONE NIGHT WITH FELIX KRöCHER - 4H SET",
+   "summary": "Techno-DJ-Set über vier Stunden",
+   "type": "Party",
+   "line": "Fr 13.11 23:59 · Uebel & Gefährlich · ONE NIGHT WITH FELIX KRöCHER - 4H SET — Techno-DJ-Set über vier Stunden",
+   "text": "Klub, Saal",
+   "interesting": false
+  },
+  {
+   "url": "https://www.gruenspan.de/konzerte/april-art-2026/",
+   "venue": "Grünspan",
+   "title": "April Art",
+   "summary": "Kunstveranstaltung",
+   "type": "Sonstiges",
+   "line": "Sa 14.11 19:00 · Grünspan · April Art — Kunstveranstaltung",
+   "text": "Die Veranstaltung findet in der Lagerstraße 11, Halle D statt.",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/chris-klaefford/",
+   "venue": "Uebel & Gefährlich",
+   "title": "CHRIS KLäFFORD",
+   "summary": "Live-Auftritt im Saal",
+   "type": "Konzert",
+   "line": "Sa 14.11 19:00 · Uebel & Gefährlich · CHRIS KLäFFORD — Live-Auftritt im Saal",
+   "text": "Konzert, Saal",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/norlyz-feat-malika-alaoui_111606711/",
+   "venue": "Knust",
+   "title": "NORLYZ FEAT. MALIKA ALAOUI - präsentiert von Jazzhouse",
+   "summary": "Jazzhouse, Funk und Electronic mit Live-Gesang",
+   "type": "Konzert",
+   "line": "Sa 14.11 20:00 · Knust · NORLYZ FEAT. MALIKA ALAOUI - präsentiert von Jazzhouse — Jazzhouse, Funk und Electronic mit Live-Gesang",
+   "text": "ELECTRONIC,FUNK,JAZZ,JAZZHOUSE",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=72893",
+   "venue": "Molotow",
+   "title": "WILD IN BLUE - DJ MATS NORLYS - TOP TEN BAR",
+   "summary": "Vinyl-DJ-Set mit authentischer Musik",
+   "type": "Party",
+   "line": "Sa 14.11 21:00 · Molotow · WILD IN BLUE - DJ MATS NORLYS - TOP TEN BAR — Vinyl-DJ-Set mit authentischer Musik",
+   "text": "Party, Top Ten Bar; Die Top Ten Bar im Herzen von St. Pauli direkt unter dem Molotow, dem ehemaligen Top Ten Club präsentiert die Veranstaltung WILD IN BLUE “Entdeck authentische Musik gespielt auf Vinyl. Mats Norl...",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=72885",
+   "venue": "Molotow",
+   "title": "DEPRI DISKO - Melancholische Tanzmusik",
+   "summary": "Tanzbare Herzschmerz-Klassiker, DJ-Set",
+   "type": "Party",
+   "line": "Sa 14.11 23:00 · Molotow · DEPRI DISKO - Melancholische Tanzmusik — Tanzbare Herzschmerz-Klassiker, DJ-Set",
+   "text": "Party, Club; Kommt ins Molotow und tanzt und singt zu den schönsten, traurigsten Songs der Welt, liegt euch in den Armen. Max & Marc a.k.a. Wolfgang Depri & Sad Damon legen im wunderschönsten Molotow auf und...",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/regard_111632453/",
+   "venue": "Knust",
+   "title": "REGARD - Support: Thorn",
+   "summary": "Elektronische Musik, Live-Auftritt",
+   "type": "Konzert",
+   "line": "Sa 14.11 23:45 · Knust · REGARD - Support: Thorn — Elektronische Musik, Live-Auftritt",
+   "text": "ELECTRONIC",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/oliver-schories-all-night-long-2/",
+   "venue": "Uebel & Gefährlich",
+   "title": "OLIVER SCHORIES ALL NIGHT LONG",
+   "summary": "Techno-Clubnacht bis in den Morgen",
+   "type": "Party",
+   "line": "Sa 14.11 23:59 · Uebel & Gefährlich · OLIVER SCHORIES ALL NIGHT LONG — Techno-Clubnacht bis in den Morgen",
+   "text": "Klub, Saal",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/soli-kunst-auktion-sar-solidarity-resistance_111658231/",
+   "venue": "Knust",
+   "title": "Soli-Kunst-Auktion - SAR - SOLIDARITY & RESISTANCE - Eintritt gegen Spende",
+   "summary": "Kunstauktion mit Spenden für den guten Zweck",
+   "type": "Sonstiges",
+   "line": "So 15.11 17:00 · Knust · Soli-Kunst-Auktion - SAR - SOLIDARITY & RESISTANCE - Eintritt gegen Spende — Kunstauktion mit Spenden für den guten Zweck",
+   "text": "",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/ignite/",
+   "venue": "Uebel & Gefährlich",
+   "title": "JEVER LIVE ANTENNA PRäS.: IGNITE – SPECIAL GUESTS: CANCER BATS",
+   "summary": "Melodic Hardcore und Rock mit Support-Act",
+   "type": "Konzert",
+   "line": "So 15.11 19:00 · Uebel & Gefährlich · JEVER LIVE ANTENNA PRäS.: IGNITE – SPECIAL GUESTS: CANCER BATS — Melodic Hardcore und Rock mit Support-Act",
+   "text": "Konzert, Saal & Turmzimmer",
+   "interesting": false
+  },
+  {
+   "url": "https://www.gruenspan.de/konzerte/archspire/",
+   "venue": "Grünspan",
+   "title": "Archspire",
+   "summary": "Technical Death Metal, extrem schnell und virtuos",
+   "type": "Konzert",
+   "line": "Mo 16.11 18:00 · Grünspan · Archspire — Technical Death Metal, extrem schnell und virtuos",
+   "text": "! Neue Adresse: Die Veranstaltung findet in der Lagerstraße 11 (Sternschanze) statt ! — Since 2009, ARCHSPIRE has aimed to be one thing above all else: extreme. With their release ‘TOO FAST TO DIE,’ they’ve once again raised the bar for what extreme music can be. “We’re like a bit of meth in your ci",
+   "interesting": false
+  },
+  {
+   "url": "https://molotowclub.com/programm/programm.php?nr=66419",
+   "venue": "Molotow",
+   "title": "SPIKE FUCK",
+   "summary": "Experimenteller Pop aus Melbourne",
+   "type": "Konzert",
+   "line": "Mo 16.11 19:00 · Molotow · SPIKE FUCK — Experimenteller Pop aus Melbourne",
+   "text": "Konzert, Top Ten Bar; For ten years Melbourne’s Spike Fuck has existed more as a messy myth than an artist – sporadic works forever poised on the precipice of triumph, rumours of death or insanity and so on. Spike’s ...",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/napa_111606747/",
+   "venue": "Knust",
+   "title": "NAPA - Euro Tour 2026",
+   "summary": "Indie-Pop mit Live-Band",
+   "type": "Konzert",
+   "line": "Mo 16.11 20:00 · Knust · NAPA - Euro Tour 2026 — Indie-Pop mit Live-Band",
+   "text": "INDIE",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/leenalchi_111637963/",
+   "venue": "Knust",
+   "title": "LEENALCHI - DJ: Biggy Pop // Korean Food by Seoul Station 1988 // präsentiert von K-pop, SEOUL STATION 1988 und ByteFM",
+   "summary": "K-Pop-Party mit DJ-Set und koreanischem Essen",
+   "type": "Party",
+   "line": "Di 17.11 21:00 · Knust · LEENALCHI - DJ: Biggy Pop // Korean Food by Seoul Station 1988 // präsentiert von K-pop, SEOUL STATION 1988 und ByteFM — K-Pop-Party mit DJ-Set und koreanischem Essen",
+   "text": "K-POP",
+   "interesting": false
+  },
+  {
+   "url": "https://knusthamburg.de/event/bulgarian-cartrader_111606754/",
+   "venue": "Knust",
+   "title": "BULGARIAN CARTRADER - How to sell tickets online fast // präsent. ByteFM",
+   "summary": "Indie-Rock-Konzert",
+   "type": "Konzert",
+   "line": "Mi 18.11 21:00 · Knust · BULGARIAN CARTRADER - How to sell tickets online fast // präsent. ByteFM — Indie-Rock-Konzert",
+   "text": "INDIE",
+   "interesting": false
+  },
+  {
+   "url": "https://www.uebelundgefaehrlich.com/veranstaltungen/elder-island/",
+   "venue": "Uebel & Gefährlich",
+   "title": "ELDER ISLAND",
+   "summary": "Live-Band im Saal",
+   "type": "Konzert",
+   "line": "Mi 18.11 21:00 · Uebel & Gefährlich · ELDER ISLAND — Live-Band im Saal",
+   "text": "Konzert, Saal",
+   "interesting": false
+  }
+ ],
+ "note": "31 unlabeled = no (Kirill, 04.11)"
+}
