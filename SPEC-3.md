@@ -74,6 +74,16 @@ Elbphilharmonie (world / традиционная), rausgegangen.de.
 T14 последней.
 
 ## Бэклог
+- **T10 Clubplan / календарь Clubkombinat** — не подключён: данные идут через GraphQL Hamburg Tourismus
+  (`content-delivery.imxplatform.de/hht/imxplatform`), запрос требует API-токен. Токен, встроенный в чужой
+  виджет, не используем. Вариант: попросить доступ у Clubkombinat / Hamburg Tourismus.
+- **T11 Mojo Club** — не подключён: на сайте нет списка событий ни в HTML, ни в WordPress API. Mojo и
+  Jazz Café приходят через concert-news (без времени).
+- **T12 Elbphilharmonie** — не подключена: `robots.txt` прямо запрещает ClaudeBot. Решает Kirill.
+  Традиционная / world-музыка там есть (Shavnabada, грузинский хор), страницы событий `/de/programm/<slug>/<id>`.
+- **T13 rausgegangen.de** — не подключён: отдаёт 403 нашему боту; обходить защиту не будем. Вариант: спросить API.
+- **sperrstunde.org** — парсер готов (T3), но источник выключен (`active = FALSE`): `robots.txt` блокирует
+  ИИ-ботов (GPTBot, ClaudeBot). Без него пропадают Buttclub, Gängeviertel-DIY и часть Rote Flora. Решает Kirill.
 - Instagram через Apify (решение 2): кандидат Moloch, если он вообще работает.
 - Параллельный разбор моделью (первый прогон станет ~300+ событий).
 - Сторож (из SPEC 2).
