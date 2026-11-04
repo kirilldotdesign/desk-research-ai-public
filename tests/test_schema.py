@@ -22,6 +22,7 @@ CLUBS = {
     "Golden Pudel Club": "pudel",
     "Hafenklang": "hafenklang",
     "Südpol": "suedpol",
+    "Rote Flora": "roteflora",
 }
 
 

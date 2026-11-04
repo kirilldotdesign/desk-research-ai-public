@@ -360,7 +360,36 @@ def parse_suedpol(page):
     return events
 
 
+# ---------- Rote Flora: MEC list, date in ?occurrence=; only music nights (also: cinema, talks, bike workshop) ----------
+
+MUSIC_WORDS = re.compile(r"konzert|party|rave|punk|festival|\bdj|live|disco|techno|noise|hardcore|metal|soli-?show|tanz", re.I)
+
+
+def parse_roteflora(page):
+    events = []
+    for article in re.findall(r'<article class="mec-event-article.*?</article>', page, re.S):
+        link = re.search(r'class="mec-event-title"><a[^>]*href="([^"]+\?occurrence=(\d{4}-\d{2}-\d{2}))"[^>]*>(.*?)</a>', article, re.S)
+        if not link:
+            continue
+        description = re.search(r'mec-event-description">(.*?)</div>', article, re.S)
+        title, text = clean(link.group(3)), clean(description.group(1)) if description else ""
+        if not MUSIC_WORDS.search(f"{title} {text}"):
+            continue
+        time = re.search(r'mec-start-time">\s*([0-9]{1,2}:[0-9]{2})', article)
+        events.append(
+            {
+                "url": link.group(1),
+                "title": title,
+                "text": text[:1500],
+                "starts_at": at(link.group(2), time.group(1) if time else None),
+                "venue": "Rote Flora",
+            }
+        )
+    return events
+
+
 PARSERS = {
+    "roteflora": parse_roteflora,
     "suedpol": parse_suedpol,
     "hafenklang": parse_hafenklang,
     "pudel": parse_pudel,

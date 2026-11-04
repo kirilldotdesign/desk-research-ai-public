@@ -86,5 +86,6 @@ INSERT INTO sources (name, kind, url) VALUES
     ('sperrstunde',   'sperrstunde', 'https://www.sperrstunde.org/'),
     ('Golden Pudel Club', 'pudel',   'https://pudel.com/programm/'),
     ('Hafenklang',    'hafenklang',  'https://www.hafenklang.com/programm/'),
-    ('Südpol',        'suedpol',     'https://www.suedpol.org/')
+    ('Südpol',        'suedpol',     'https://www.suedpol.org/'),
+    ('Rote Flora',    'roteflora',   'https://www.rote-flora.de/programm/')
 ON CONFLICT (name) DO NOTHING;
