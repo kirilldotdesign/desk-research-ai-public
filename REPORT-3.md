@@ -20,7 +20,7 @@ MS Stubnitz 10, Grünspan 6, Südpol 2, Rote Flora 2. Типы: Party 89, Konzer
 T1 `05863b6` ohschonhell (JSON) · T2 `4cefa52` concert-news · T3 `92920b7` sperrstunde · T4 `6635ced` Golden Pudel ·
 T5 `36d58df` Hafenklang · T6 `02da563` Südpol · T7 `17fdd9c` Rote Flora · T8 `f2ef019` MS Stubnitz ·
 T9 `e2a946e` словарь площадок + дубли · T9 fix `62d0e87` · T10–T13 `297bc7f` кандидаты в бэклог ·
-T14 `08abf12` диагностика сбоев источников. Тестов: 96, все зелёные.
+T14 `08abf12` диагностика сбоев источников. Тестов: 95, все зелёные.
 
 ## Кандидаты T10–T13 — ни один не подключён
 | Кандидат | Почему нет |
