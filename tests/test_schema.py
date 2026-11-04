@@ -19,6 +19,7 @@ CLUBS = {
     "oh schon hell": "ohschonhell",
     "Concert News": "concertnews",
     "sperrstunde": "sperrstunde",
+    "Golden Pudel Club": "pudel",
 }
 
 

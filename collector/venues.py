@@ -247,7 +247,55 @@ def parse_sperrstunde(page):
     return events
 
 
+# ---------- Golden Pudel: pudel.com/programm, no event pages (link = programme + anchor) ----------
+
+PUDEL = "https://pudel.com/programm/"
+MONTHS_DE = {m: i for i, m in enumerate(
+    ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"], 1
+)}
+
+
+def de_long_date(text):
+    """'5. November 2026' -> '2026-11-05'."""
+    dom, month, year = re.match(r"(\d{1,2})\.\s*([A-Za-zä]+)\s+(\d{4})", text.strip()).groups()
+    return f"{year}-{MONTHS_DE[month]:02d}-{int(dom):02d}"
+
+
+def parse_pudel(page):
+    events, seen = [], set()
+    series = ""
+    for chunk in re.split(r'(<h3 class="event-cat">.*?</h3>)', page, flags=re.S):
+        head = re.match(r'<h3 class="event-cat">(.*?)</h3>', chunk, re.S)
+        if head:
+            series = clean(head.group(1))
+            continue
+        for block in re.split(r'<div class="vsel-content">', chunk)[1:]:
+            meta = re.search(r'vsel-meta-date">(.*?)</p>\s*<b class="vsel-meta-title">(.*?)</b>', block, re.S)
+            if not meta:
+                continue
+            when = clean(meta.group(1))
+            title = clean(meta.group(2))
+            time = re.search(r"(\d{1,2}:\d{2})", when)
+            day = de_long_date(when)
+            url = f"{PUDEL}#{day}-{slug(title)}"
+            if url in seen:
+                continue
+            seen.add(url)
+            links = re.findall(r'<a href="https?://(?:www\.)?([^"]+?)/?"', block)
+            events.append(
+                {
+                    "url": url,
+                    "title": title,
+                    "text": "; ".join(x for x in (series, ", ".join(links)) if x)[:1500],
+                    "starts_at": at(day, time.group(1) if time else None),
+                    "venue": "Golden Pudel Club",
+                }
+            )
+    return events
+
+
 PARSERS = {
+    "pudel": parse_pudel,
     "sperrstunde": parse_sperrstunde,
     "concertnews": parse_concertnews,
     "ohschonhell": parse_ohschonhell,

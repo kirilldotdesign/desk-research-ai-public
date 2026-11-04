@@ -83,5 +83,6 @@ UPDATE sources SET url = 'https://knusthamburg.de/programm/' WHERE name = 'Knust
 INSERT INTO sources (name, kind, url) VALUES
     ('oh schon hell', 'ohschonhell', 'https://ohschonhell.de/ajax/data_cache_db.php?load=initial&osh_page=hamburg'),
     ('Concert News',  'concertnews', 'https://www.concert-news.de/konzertkalender/'),
-    ('sperrstunde',   'sperrstunde', 'https://www.sperrstunde.org/')
+    ('sperrstunde',   'sperrstunde', 'https://www.sperrstunde.org/'),
+    ('Golden Pudel Club', 'pudel',   'https://pudel.com/programm/')
 ON CONFLICT (name) DO NOTHING;
