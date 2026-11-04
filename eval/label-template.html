@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><title>Разметка «до» — SPEC 2</title>
+<style>
+body{font:15px/1.4 -apple-system,system-ui,sans-serif;background:#111;color:#eee;max-width:820px;margin:0 auto;padding:24px}
+h1{font-size:20px;margin:0 0 4px}.sub{color:#999;margin:0 0 16px}
+.bar{position:sticky;top:0;background:#111;padding:10px 0;border-bottom:1px solid #333;display:flex;gap:12px;align-items:center;z-index:2}
+.ev{border:1px solid #333;border-radius:10px;padding:12px 14px;margin:10px 0;display:flex;gap:14px;align-items:center}
+.ev.yes{border-color:#7ccf5a;background:#1a2616}.ev.no{opacity:.45}.ev.cur{outline:2px solid #bfff00}
+.info{flex:1}.when{color:#bbb;font-size:13px}.t{font-weight:600}.s{color:#ccc}.ex{color:#888;font-size:12px;margin-top:4px}
+a{color:#8ab4ff}button{font:inherit;border:0;border-radius:8px;padding:8px 14px;cursor:pointer}
+.y{background:#2e4d22;color:#dfd}.n{background:#3a2a2a;color:#fdd}.done{background:#bfff00;color:#111;font-weight:600}
+.ev.yes .y,.ev.no .n{outline:2px solid #fff}
+</style></head><body>
+<h1>Что из этого тебе интересно?</h1>
+<p class="sub">Афиша на /*DATE*/, все события. «Интересно» = пошёл бы или хотел бы узнать. Клавиши: <b>J</b> — интересно, <b>K</b> — нет, стрелки — вверх/вниз.</p>
+<div class="bar"><span id="cnt"></span><button class="done" id="done">Готово — сохранить</button><span id="msg"></span></div>
+<div id="list"></div>
+<script>
+const EV = /*EVENTS*/;
+const KEY = "/*KEY*/"; const ans = JSON.parse(localStorage.getItem(KEY) || "{}"); let cur = 0;
+const esc = s => String(s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function render(){
+  document.getElementById("list").innerHTML = EV.map((e,i)=>`<div class="ev ${ans[e.url]===true?"yes":ans[e.url]===false?"no":""} ${i===cur?"cur":""}" id="e${i}">
+   <div class="info"><div class="when">${esc(e.line.split(" · ")[0])} · ${esc(e.venue)} · ${esc(e.type)}</div>
+   <div class="t"><a href="${esc(e.url)}" target="_blank">${esc(e.title)}</a></div><div class="s">${esc(e.summary)}</div>
+   ${e.text?`<div class="ex">${esc(e.text)}</div>`:""}</div>
+   <button class="y" data-i="${i}" data-v="1">интересно</button><button class="n" data-i="${i}" data-v="0">нет</button></div>`).join("");
+  const done = EV.filter(e=>e.url in ans).length, yes = EV.filter(e=>ans[e.url]===true).length;
+  document.getElementById("cnt").textContent = `размечено ${done} из ${EV.length} · интересно ${yes}`;
+  document.querySelectorAll("button[data-i]").forEach(b=>b.onclick=()=>set(+b.dataset.i, b.dataset.v==="1"));
+}
+function set(i,v){ ans[EV[i].url]=v; localStorage.setItem(KEY, JSON.stringify(ans)); cur=Math.min(i+1,EV.length-1); render(); document.getElementById("e"+cur).scrollIntoView({block:"center"}); }
+document.addEventListener("keydown", ev=>{ if(ev.key==="j")set(cur,true); else if(ev.key==="k")set(cur,false);
+  else if(ev.key==="ArrowDown"){cur=Math.min(cur+1,EV.length-1);render();document.getElementById("e"+cur).scrollIntoView({block:"center"});ev.preventDefault();}
+  else if(ev.key==="ArrowUp"){cur=Math.max(cur-1,0);render();document.getElementById("e"+cur).scrollIntoView({block:"center"});ev.preventDefault();} });
+document.getElementById("done").onclick=()=>{
+  const out = {labeled_at:new Date().toISOString(), events: EV.map(e=>({...e, interesting: e.url in ans ? ans[e.url] : null}))};
+  const left = out.events.filter(e=>e.interesting===null).length;
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(out,null,1)],{type:"application/json"}));
+  a.download = "/*KEY*/.json"; a.click();
+  document.getElementById("msg").textContent = left ? `сохранено, но ${left} без ответа` : "сохранено в Загрузки ✓";
+};
+render();
+</script></body></html>
