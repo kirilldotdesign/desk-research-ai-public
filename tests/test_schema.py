@@ -24,6 +24,7 @@ CLUBS = {
     "Südpol": "suedpol",
     "Rote Flora": "roteflora",
     "MS Stubnitz": "stubnitz",
+    "Elbphilharmonie": "elbphilharmonie",
 }
 
 
@@ -77,7 +78,7 @@ class SchemaDatabaseTest(unittest.TestCase):
         names = {r[0] for r in self.conn.execute("SELECT name FROM sources")}
         self.assertEqual(names, set(CLUBS))
         off = {r[0] for r in self.conn.execute("SELECT name FROM sources WHERE NOT active")}
-        self.assertEqual(off, {"sperrstunde"})  # robots.txt blocks AI crawlers, Kirill decides
+        self.assertEqual(off, set())  # sperrstunde switched on by Kirill 04.11
         self.assertEqual(self.conn.execute("SELECT count(*) FROM materials").fetchone()[0], 0)
         self.assertEqual(self.conn.execute("SELECT count(*) FROM findings").fetchone()[0], 0)
         self.apply()  # third run: still idempotent

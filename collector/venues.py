@@ -417,7 +417,34 @@ def parse_stubnitz(page):
     return events
 
 
+# ---------- Elbphilharmonie / Laeiszhalle: /de/programm/ first page (≈ next 1–2 days) ----------
+
+ELBPHILHARMONIE = "https://www.elbphilharmonie.de"
+
+
+def parse_elbphilharmonie(page):
+    events = []
+    for item in re.findall(r'<li id="event_id_[^"]*"[^>]*class="event-item".*?(?=<li id="event_id_|</ul>)', page, re.S):
+        start = re.search(r'<time datetime="(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})', item)
+        link = re.search(r'<p class="event-title[^"]*"><a href="([^"]+)">(.*?)</a>', item, re.S)
+        if not (start and link):
+            continue
+        place = re.search(r'place-cell"><span class="caption uppercase"><strong>(.*?)</strong>(.*?)</span>', item, re.S)
+        subtitle = re.search(r'<p class="event-subtitle">(.*?)</p>', item, re.S)
+        events.append(
+            {
+                "url": ELBPHILHARMONIE + link.group(1),
+                "title": clean(link.group(2)),
+                "text": "; ".join(x for x in (clean(subtitle.group(1)) if subtitle else "", clean(place.group(2)) if place else "") if x),
+                "starts_at": at(start.group(1), start.group(2)),
+                "venue": clean(place.group(1)) if place else "Elbphilharmonie",
+            }
+        )
+    return events
+
+
 PARSERS = {
+    "elbphilharmonie": parse_elbphilharmonie,
     "stubnitz": parse_stubnitz,
     "roteflora": parse_roteflora,
     "suedpol": parse_suedpol,

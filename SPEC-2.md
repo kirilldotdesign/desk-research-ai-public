@@ -35,7 +35,7 @@
 
 ## Список вкусов (стартовый, `taste.yaml`)
 - **Стили из папки:** все жанровые теги DADA DANCE, кроме личных меток и регионов
-  (Disco 914, House 372, Electro 304, Rap 243, Reggae 227, Synth-Pop 202, New Wave 185, Balearic 180,
+  (Disco 914, Electro 304, Rap 243, Reggae 227, Synth-Pop 202, New Wave 185, Balearic 180,
   Zouk 157, Afrobeat 155, Boogie 139, Funk 134, Dub 127, NDW 75, Acid 68, Kwaito 67, Highlife 63, Folk 62,
   Breaks 59, Italo-Disco 58, Hip-Hop 52, Raï 51, Garage 45 …). Порог: тег встречается ≥ 5 раз.
 - **Экстрим:** решение 2.
@@ -81,6 +81,10 @@
    во вкус не входят.
 3. Теги папки → во вкус только **≥ 5 треков**.
 4. Стоп-список: **Reggaeton, Schlager, Top 40 / Mainstream-Charts, Tribute / Cover-Bands.**
+5. (04.11, вечер) Стоп-список расширен: **Rock, Pop / Charts, Techno, House** (вкл. Tech House, Deep House, EDM).
+   **House убран и из вкуса** (ответ (б)), хотя в папке 372 трека с тегом House.
+6. (04.11, вечер) **Ручная разметка по тексту отменена:** вкус по описанию не оценить. Разметка будет со сниппетами
+   (30 с превью артиста, напр. Deezer) — задача SPEC 4. Замер «до» для SPEC 2 = только эти правила стоп-списка.
 
 ## Бэклог
 - Команды бота `/like`, `/unlike`, `/taste`.

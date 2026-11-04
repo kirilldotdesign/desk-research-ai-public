@@ -90,7 +90,13 @@ INSERT INTO sources (name, kind, url) VALUES
     ('MS Stubnitz',   'stubnitz',    'https://www.stubnitz.com/events/')
 ON CONFLICT (name) DO NOTHING;
 
--- sperrstunde.org blocks AI crawlers (GPTBot, ClaudeBot) in robots.txt: parser is ready, source stays OFF
--- until Kirill decides (REPORT-3.md). Inserted once; a later manual `active = TRUE` is kept.
-INSERT INTO sources (name, kind, url, active) VALUES ('sperrstunde', 'sperrstunde', 'https://www.sperrstunde.org/', FALSE)
+-- sperrstunde.org blocks AI crawlers (GPTBot, ClaudeBot) in robots.txt. Kirill decided 04.11: switch it on,
+-- collected from the server only (one request a day under the project's User-Agent).
+INSERT INTO sources (name, kind, url, active) VALUES ('sperrstunde', 'sperrstunde', 'https://www.sperrstunde.org/', TRUE)
+ON CONFLICT (name) DO NOTHING;
+UPDATE sources SET active = TRUE WHERE name = 'sperrstunde' AND NOT active;
+
+-- Elbphilharmonie: robots.txt disallows ClaudeBot, generic bots may read /de/programm/. Kirill decided 04.11: take it
+-- (traditional / world music). Only the first programme page (≈ next 1–2 days).
+INSERT INTO sources (name, kind, url) VALUES ('Elbphilharmonie', 'elbphilharmonie', 'https://www.elbphilharmonie.de/de/programm/')
 ON CONFLICT (name) DO NOTHING;
