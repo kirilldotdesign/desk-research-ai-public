@@ -107,4 +107,38 @@ def parse_uebel(page):
     return events
 
 
-PARSERS = {"gruenspan": parse_gruenspan, "uebel": parse_uebel}
+# ---------- Molotow: <div id='i<nr>' class='<room> <type>'> blocks ----------
+
+MOLOTOW_EVENT = "https://molotowclub.com/programm/programm.php?nr={}"
+
+
+def parse_molotow(page):
+    events = []
+    parts = re.split(r"<div id='i(\d+)' class = '([^']*)'", page)
+    # parts = [before, nr, classes, body, nr, classes, body, ...]
+    for nr, classes, body in zip(parts[1::3], parts[2::3], parts[3::3]):
+        day = re.search(r"(\d{2}\.\d{2}\.\d{4}):", body)
+        title = re.search(r"<div class='div_title'>(.*?)<span class='typ'", body, re.S) or re.search(
+            r"<div class='div_title'>(.*?)</div>", body, re.S
+        )
+        if not (day and title):
+            continue
+        time = re.search(r"(?:Beginn|Start):\s*([0-9]{1,2}[:.][0-9]{2})", body) or re.search(
+            r"Einlass:\s*([0-9]{1,2}[:.][0-9]{2})", body
+        )
+        info = re.search(r"<div class='div_info'>(.*?)<a ", body, re.S)
+        room, _, kind = classes.strip().rpartition(" ")
+        kind = f"{kind}, {room}" if room else kind  # "Top Ten Bar Konzert" -> "Konzert, Top Ten Bar"
+        events.append(
+            {
+                "url": MOLOTOW_EVENT.format(nr),
+                "title": clean(title.group(1).replace("<br />", " · ")),
+                "text": "; ".join(x for x in (kind, clean(info.group(1)) if info else "") if x)[:1500],
+                "starts_at": at(de_date(day.group(1)), time.group(1) if time else None),
+                "venue": "Molotow",
+            }
+        )
+    return events
+
+
+PARSERS = {"gruenspan": parse_gruenspan, "uebel": parse_uebel, "molotow": parse_molotow}
