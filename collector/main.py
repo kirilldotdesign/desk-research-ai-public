@@ -4,7 +4,7 @@ import urllib.request
 from datetime import datetime, timedelta
 
 import db
-from collector.dedup import AGGREGATORS, canonical_venue, find_duplicate
+from collector.dedup import AGGREGATORS, canonical_venue, find_duplicates
 from collector.venues import BERLIN, HIDDEN, PARSERS
 
 SERVICE = "collector"
@@ -39,14 +39,14 @@ def save(conn, source_id, run_id, event, from_aggregator=False):
              AND (m.starts_at AT TIME ZONE 'Europe/Berlin')::date = %s""",
         (list(AGGREGATORS), source_id, event["url"], event["starts_at"].date()),
     ).fetchall()
-    duplicate = find_duplicate(event, candidates)
-    if duplicate:
-        duplicate_id, _, _, duplicate_from_aggregator = duplicate
-        if from_aggregator or not duplicate_from_aggregator:
-            return False  # the venue's own row is already there
-        # the venue site wins over an aggregator: replace the aggregator's row
-        conn.execute("DELETE FROM findings WHERE material_id = %s", (duplicate_id,))
-        conn.execute("DELETE FROM materials WHERE id = %s", (duplicate_id,))
+    duplicates = find_duplicates(event, candidates)
+    if duplicates:
+        if from_aggregator or any(not from_agg for *_, from_agg in duplicates):
+            return False  # the event is already there (a venue's own row, or another aggregator first)
+        # the venue site wins over aggregators: replace every aggregator row of this event
+        for duplicate_id, *_ in duplicates:
+            conn.execute("DELETE FROM findings WHERE material_id = %s", (duplicate_id,))
+            conn.execute("DELETE FROM materials WHERE id = %s", (duplicate_id,))
     row = conn.execute(
         """INSERT INTO materials (source_id, run_id, url, title, text, published_at, starts_at, venue)
            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)

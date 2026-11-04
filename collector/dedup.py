@@ -3,6 +3,7 @@
 Same event = same venue + same day + similar title (SPEC decision 10).
 """
 
+import os
 import re
 import unicodedata
 from difflib import SequenceMatcher
@@ -57,14 +58,21 @@ def same_title(a, b):
         return False
     short, long = sorted((a, b), key=len)
     # "FAT DOG" vs "FAT DOG Support: SILVERWINGKILLER" is the same night
-    return long.startswith(short) or SequenceMatcher(None, a, b).ratio() >= 0.8
+    if long.startswith(short) or SequenceMatcher(None, a, b).ratio() >= 0.8:
+        return True
+    # "Radwan Ghazi Moumneh (Jerusalem In My Heart) …" vs "Radwan Ghazi Moumneh & …": same long beginning
+    common = len(os.path.commonprefix([a, b]))
+    return common >= 15
+
+
+def find_duplicates(event, candidates):
+    """candidates: [(id, venue, title, from_aggregator)] already saved for the same day.
+    Returns every matching candidate (one event can come from several aggregators)."""
+    return [
+        c for c in candidates if same_venue(event["venue"], c[1]) and same_title(event["title"], c[2])
+    ]
 
 
 def find_duplicate(event, candidates):
-    """candidates: [(id, venue, title, from_aggregator)] already saved for the same day.
-    Returns the matching candidate or None."""
-    for candidate in candidates:
-        _, venue, title, _ = candidate
-        if same_venue(event["venue"], venue) and same_title(event["title"], title):
-            return candidate
-    return None
+    matches = find_duplicates(event, candidates)
+    return matches[0] if matches else None
