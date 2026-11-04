@@ -70,6 +70,7 @@ def main():
     db.init_schema(conn)
     run_id = db.start_run(conn, SERVICE)
     total_new = 0
+    broken = []  # "Concert News: HTTP Error 403" — shown in the run note, /status and the feed
     try:
         sources = conn.execute(
             "SELECT id, name, kind, url FROM sources WHERE active"
@@ -80,7 +81,10 @@ def main():
             except Exception as error:
                 # one broken source does not stop the run
                 db.log(SERVICE, f"источник «{name}» недоступен: {error}")
+                broken.append(f"{name}: {str(error)[:80]}")
                 continue
+            if not events:  # the page came, but nothing was found: layout change or a block page
+                broken.append(f"{name}: 0 событий")
             new = sum(save(conn, source_id, run_id, e, kind in AGGREGATORS) for e in events)
             total_new += new
             db.progress_run(
@@ -90,9 +94,10 @@ def main():
                 total_new,
                 f"{name}: событий в окне {len(events)}, новых {new}",
             )
-        db.finish_run(
-            conn, SERVICE, run_id, total_new, f"новых событий в базе: {total_new}"
-        )
+        note = f"новых событий в базе: {total_new}"
+        if broken:
+            note += "; недоступны: " + "; ".join(broken)
+        db.finish_run(conn, SERVICE, run_id, total_new, note)
     except Exception as error:
         db.fail_run(conn, SERVICE, run_id, error)
         raise
