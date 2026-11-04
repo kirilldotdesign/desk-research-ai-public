@@ -10,14 +10,45 @@ from difflib import SequenceMatcher
 AGGREGATORS = {"ohschonhell", "clubkombinat", "concertnews", "sperrstunde", "rausgegangen"}  # source kinds that list other venues' events
 
 
+UMLAUTS = str.maketrans({"ä": "ae", "ö": "oe", "ü": "ue", "ß": "ss", "Ä": "ae", "Ö": "oe", "Ü": "ue"})
+
+
 def norm(text):
-    text = unicodedata.normalize("NFKD", text or "").encode("ascii", "ignore").decode().lower()
+    text = (text or "").translate(UMLAUTS)
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode().lower()
     return " ".join(re.sub(r"[^a-z0-9]+", " ", text).split())
 
 
+# SPEC 3 T9: one venue, one name — sources spell venues differently (norm(variant) -> canonical name)
+VENUE_ALIASES = {
+    "gruenspan": "Grünspan",
+    "uebel und gefaehrlich": "Uebel & Gefährlich",
+    "uebel gefaehrlich": "Uebel & Gefährlich",
+    "uebel gefaehrlich turmzimmer": "Uebel & Gefährlich",
+    "hafenklang goldener salon": "Hafenklang",
+    "goldener salon": "Hafenklang",
+    "golden pudel": "Golden Pudel Club",
+    "pudel": "Golden Pudel Club",
+    "haus73": "Haus 73",
+    "jazz cafe mojo club": "Mojo Club",
+    "mojo jazz cafe": "Mojo Club",
+    "stellwerk hamburg": "Stellwerk",
+    "fabrik im gaengeviertel": "Gängeviertel",
+    "fabrique im gaengeviertel": "Gängeviertel",
+    "suedpol hamburg": "Südpol",
+    "grosse freiheit": "Grosse Freiheit 36",
+    "ms stubnitz hamburg": "MS Stubnitz",
+}
+
+
+def canonical_venue(name):
+    name = " ".join((name or "").replace("[ ]", "").split())
+    return VENUE_ALIASES.get(norm(name), name)
+
+
 def same_venue(a, b):
-    a, b = norm(a), norm(b)
-    return bool(a and b) and (a == b or a in b or b in a)
+    a, b = norm(canonical_venue(a)), norm(canonical_venue(b))
+    return bool(a and b) and a == b
 
 
 def same_title(a, b):

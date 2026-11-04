@@ -4,7 +4,7 @@ import urllib.request
 from datetime import datetime, timedelta
 
 import db
-from collector.dedup import AGGREGATORS, find_duplicate
+from collector.dedup import AGGREGATORS, canonical_venue, find_duplicate
 from collector.venues import BERLIN, HIDDEN, PARSERS
 
 SERVICE = "collector"
@@ -31,6 +31,7 @@ def upcoming(events, now=None):
 
 
 def save(conn, source_id, run_id, event, from_aggregator=False):
+    event = dict(event, venue=canonical_venue(event["venue"]))
     candidates = conn.execute(
         """SELECT m.id, m.venue, m.title, s.kind = ANY(%s)
            FROM materials m JOIN sources s ON s.id = m.source_id
