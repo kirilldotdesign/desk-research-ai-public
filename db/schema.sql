@@ -113,3 +113,9 @@ INSERT INTO sources (name, kind, url) VALUES
     ('KENT Club',     'kentclub',   'https://www.kentclub.de/programm'),
     ('Cascadas',      'cascadas',   'https://cascadas.club/programm/')
 ON CONFLICT (name) DO NOTHING;
+
+-- SPEC-3 T19: concert-news.de times out from the course server. GitHub Actions mirrors it daily
+-- (.github/workflows/concertnews.yml) as facts-only JSON on the `data` branch; the collector reads that.
+UPDATE sources SET kind = 'concertnews_json',
+    url = 'https://raw.githubusercontent.com/kirilldotdesign/desk-research-ai-public/data/concertnews.json'
+WHERE name = 'Concert News';

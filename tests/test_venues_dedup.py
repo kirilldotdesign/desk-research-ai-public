@@ -99,7 +99,7 @@ class TwoAggregatorsTest(unittest.TestCase):
         # second aggregator, inserted directly as if the first match had been missed earlier
         self.conn.execute(
             "INSERT INTO materials (source_id, url, title, starts_at, venue) VALUES (%s, 'https://cn/1', %s, %s, 'Hafenklang')",
-            (kind("concertnews"), base["title"], base["starts_at"]),
+            (kind("concertnews_json"), base["title"], base["starts_at"]),
         )
         save(self.conn, kind("hafenklang"), None, dict(base, url="https://www.hafenklang.com/programm?cpnr=1", starts_at=at("2026-11-06", "20:00")), False)
         urls = [r[0] for r in self.conn.execute("SELECT url FROM materials")]

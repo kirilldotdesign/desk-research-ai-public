@@ -50,6 +50,13 @@ class SchemaTextTest(unittest.TestCase):
         for name, kind in CLUBS.items():
             self.assertRegex(self.sql, rf"\('{re.escape(name)}',\s*'{kind}'")
 
+    def test_concert_news_read_from_github_mirror(self):
+        self.assertRegex(
+            self.sql,
+            r"UPDATE sources SET kind = 'concertnews_json',\s*url = 'https://raw\.githubusercontent\.com/"
+            r"kirilldotdesign/desk-research-ai-public/data/concertnews\.json'\s*WHERE name = 'Concert News'",
+        )
+
     def test_new_columns(self):
         for column in ("starts_at", "venue", "event_type"):
             self.assertIn(f"ADD COLUMN IF NOT EXISTS {column}", self.sql)
