@@ -219,6 +219,20 @@ def parse_concertnews(page):
     return events
 
 
+def parse_concertnews_json(page):
+    """Concert News mirrored by GitHub Actions (SPEC-3 T17–T18): the site times out from the course server."""
+    return [
+        {
+            "url": row["url"],
+            "title": row["title"],
+            "text": "",
+            "starts_at": datetime.fromisoformat(row["starts_at"]).astimezone(BERLIN),
+            "venue": row["venue"],
+        }
+        for row in json.loads(page)
+    ]
+
+
 # ---------- sperrstunde.org (aggregator, DIY / punk): event blocks, date in the event URL ----------
 
 SPERRSTUNDE = "https://www.sperrstunde.org"
@@ -726,6 +740,7 @@ PARSERS = {
     "pudel": parse_pudel,
     "sperrstunde": parse_sperrstunde,
     "concertnews": parse_concertnews,
+    "concertnews_json": parse_concertnews_json,
     "ohschonhell": parse_ohschonhell,
     "gruenspan": parse_gruenspan,
     "uebel": parse_uebel,

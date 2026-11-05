@@ -8,7 +8,7 @@ import re
 import unicodedata
 from difflib import SequenceMatcher
 
-AGGREGATORS = {"ohschonhell", "clubkombinat", "concertnews", "sperrstunde", "rausgegangen", "krach", "vamh"}  # source kinds that list other venues' events
+AGGREGATORS = {"ohschonhell", "clubkombinat", "concertnews", "concertnews_json", "sperrstunde", "rausgegangen", "krach", "vamh"}  # source kinds that list other venues' events
 
 
 UMLAUTS = str.maketrans({"ä": "ae", "ö": "oe", "ü": "ue", "ß": "ss", "Ä": "ae", "Ö": "oe", "Ü": "ue"})
