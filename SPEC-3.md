@@ -79,6 +79,63 @@ T14 последней.
 - **T15** sperrstunde **включить** — сбор только с сервера (как и все источники). `active = TRUE` в схеме.
 - **T16** Elbphilharmonie **подключить** (первая страница программы ≈ ближайшие 1–2 дня; традиционная / world).
 
+## Concert News через GitHub Actions (05.11)
+
+**Для кого и зачем.** Concert News с сервера курса (TimeWeb) даёт `urlopen error timed out`, с Mac работает —
+похоже на блок IP. Без него в ленте нет Mojo, Mojo Jazz Café, Bahnhof Pauli, Astra Stube и мелких концертных
+площадок. GitHub Actions раз в день забирает страницу со своих IP, бесплатно, в форке
+`kirilldotdesign/desk-research-ai-public`. `robots.txt` concert-news.de закрывает только `/wp-admin/`.
+
+**Как.** Action скачивает `/konzertkalender/`, разбирает нашим `parse_concertnews` и пишет в ветку `data`
+только факты: дата, название, площадка, ссылка → `concertnews.json`. Сырой HTML в публичный репо не кладём.
+Collector на сервере читает JSON с `raw.githubusercontent.com` (GitHub с сервера доступен — Coolify тянет код оттуда).
+Дедупликация, окно 14 дней, разбор моделью — без изменений.
+
+### KPI
+| KPI | Тип | Порог | До (05.11) | После |
+|---|---|---|---|---|
+| concert-news.de отвечает с GitHub (разовый `curl` в `workflow_dispatch`) | работает ли | HTTP 200, страница со списком | — | |
+| Событий в `concertnews.json` после прогона Action | работает ли | > 0 | — | |
+| Concert News в прогоне collector на сервере | работает ли | ≥ 1 событие, нет «timed out» в `/status` | timeout | |
+| Площадок в афише за 14 дней | полезно ли | > 73 | 73 (REPORT-4) | |
+| Mojo / Bahnhof Pauli в живой ленте | полезно ли | есть | нет | |
+
+### Что меняем и где
+- новые: `.github/workflows/concertnews.yml`, `collector/mirror_concertnews.py`, `tests/test_concertnews_json.py`
+- правки: `collector/venues.py` (парсер `parse_concertnews_json` + `PARSERS`), `collector/dedup.py` (`AGGREGATORS`),
+  `db/schema.sql` (UPDATE источника Concert News)
+
+### Задачи
+- **T0 (проверка, без кода в `collector/`)** Разовый workflow `workflow_dispatch` с одним `curl` на
+  `https://www.concert-news.de/konzertkalender/`: код ответа и есть ли `id="myFuture"`. Тайм-аут / 403 →
+  стоп, задачи T17–T19 не делаем, возвращаемся к вариантам Hetzner / Apify. Этот workflow потом заменяется T17.
+- **T17** `.github/workflows/concertnews.yml`: cron `30 4 * * *` UTC (до collector в 06:00) + `workflow_dispatch`.
+  Checkout `master` → Python 3 → `pip install -r requirements.txt` (`collector.main` импортирует `psycopg`) →
+  `python -m collector.mirror_concertnews` → commit `concertnews.json` в ветку `data` через `GITHUB_TOKEN`
+  (`permissions: contents: write`), только если файл изменился.
+- **T18** `collector/mirror_concertnews.py`: `fetch` из `collector/main.py` → `parse_concertnews` → JSON
+  (`starts_at` в ISO) → файл. В `collector/venues.py` — `parse_concertnews_json(page)`: `json.loads`, ISO обратно
+  в datetime с `BERLIN`; в `PARSERS` как `concertnews_json`; в `dedup.AGGREGATORS` добавить `concertnews_json`.
+  Тест `tests/test_concertnews_json.py`: fixture HTML → mirror → JSON → `parse_concertnews_json` дают те же
+  события (название, площадка, дата, url). Старый `test_concertnews` не меняется.
+- **T19** `db/schema.sql`: `UPDATE sources SET kind = 'concertnews_json', url =
+  'https://raw.githubusercontent.com/kirilldotdesign/desk-research-ai-public/data/concertnews.json'
+  WHERE name = 'Concert News'` (как для sperrstunde). Затем push → Redeploy → Action вручную → collector Execute Now →
+  замер KPI «после» сюда.
+
+Зависимости: T0 → T17 → T18 → T19. T18 можно писать параллельно с T17, но коммит после зелёного T0.
+
+### Риски
+- Коммит Action'а в `data` не должен запускать деплой Coolify (он следит за `master`). Проверить после первого прогона.
+- Action упал → JSON вчерашний, `upcoming` отрежет прошедшие дни. Свежесть видна по коммитам ветки `data`.
+- GitHub отключает cron через 60 дней без активности в репо — пока репо живой, не проблема.
+- `upstream` (курс) этой ветки и workflow не получает — правка только в форке.
+
+### Открытые вопросы
+- Нет.
+
+Утверждено: Kirill, 05.11.2026 («утверждаю»)
+
 ## Бэклог
 - **Concert News с сервера** — `urlopen error timed out` (с Mac работает). Похоже на блок IP дата-центров; не обходим. Источник оставлен включённым, в `/status` видно «недоступны».
 - **T10 Clubplan / календарь Clubkombinat** — не подключён: данные идут через GraphQL Hamburg Tourismus
