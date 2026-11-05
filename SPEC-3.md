@@ -94,11 +94,11 @@ Collector на сервере читает JSON с `raw.githubusercontent.com` (
 ### KPI
 | KPI | Тип | Порог | До (05.11) | После |
 |---|---|---|---|---|
-| concert-news.de отвечает с GitHub (разовый `curl` в `workflow_dispatch`) | работает ли | HTTP 200, страница со списком | — | |
-| Событий в `concertnews.json` после прогона Action | работает ли | > 0 | — | |
-| Concert News в прогоне collector на сервере | работает ли | ≥ 1 событие, нет «timed out» в `/status` | timeout | |
-| Площадок в афише за 14 дней | полезно ли | > 73 | 73 (REPORT-4) | |
-| Mojo / Bahnhof Pauli в живой ленте | полезно ли | есть | нет | |
+| concert-news.de отвечает с GitHub (разовый `curl` в `workflow_dispatch`) | работает ли | HTTP 200, страница со списком | — | **HTTP 200, 185 КБ, `myFuture` есть** ✅ (05.11, run 41976498775) |
+| Событий в `concertnews.json` после прогона Action | работает ли | > 0 | — | **1570 событий, 70 площадок** ✅ (05.11, run 41976773851; Bahnhof Pauli, Mojo есть) |
+| Concert News в прогоне collector на сервере | работает ли | ≥ 1 событие, нет «timed out» в `/status` | timeout | **208 в окне, 117 новых, без ошибок** ✅ (прогон 50, 05.11 05:58 UTC) |
+| Площадок в афише за 14 дней | полезно ли | > 73 | 73 (REPORT-4) | **97** ✅ (433 события; 117 от Concert News, все разобраны моделью) |
+| Mojo / Bahnhof Pauli в живой ленте | полезно ли | есть | нет | **есть** ✅ (Mojo Club, Bahnhof Pauli; Jazz Café в ближайшие 14 дней нет) |
 
 ### Что меняем и где
 - новые: `.github/workflows/concertnews.yml`, `collector/mirror_concertnews.py`, `tests/test_concertnews_json.py`
@@ -126,7 +126,7 @@ Collector на сервере читает JSON с `raw.githubusercontent.com` (
 Зависимости: T0 → T17 → T18 → T19. T18 можно писать параллельно с T17, но коммит после зелёного T0.
 
 ### Риски
-- Коммит Action'а в `data` не должен запускать деплой Coolify (он следит за `master`). Проверить после первого прогона.
+- Коммит Action'а в `data` не должен запускать деплой Coolify (он следит за `master`). Проверено 05.11: пуши в `master` и `data` деплой не запустили, все деплои ручные.
 - Action упал → JSON вчерашний, `upcoming` отрежет прошедшие дни. Свежесть видна по коммитам ветки `data`.
 - GitHub отключает cron через 60 дней без активности в репо — пока репо живой, не проблема.
 - `upstream` (курс) этой ветки и workflow не получает — правка только в форке.
@@ -135,6 +135,9 @@ Collector на сервере читает JSON с `raw.githubusercontent.com` (
 - Нет.
 
 Утверждено: Kirill, 05.11.2026 («утверждаю»)
+
+Замер «после»: 05.11.2026, деплой `6390e35`, Action run 41976773851, прогон collector 50. Тестов 121, все зелёные.
+Вне спеки: поправлены `test_collector_note` и `test_venues_dedup` (искали источник по старому `kind`; первый ещё зависел от порядка строк); `mirror_concertnews` при 0 событий падает и оставляет вчерашний JSON.
 
 ## Бэклог
 - **Concert News с сервера** — `urlopen error timed out` (с Mac работает). Похоже на блок IP дата-центров; не обходим. Источник оставлен включённым, в `/status` видно «недоступны».
