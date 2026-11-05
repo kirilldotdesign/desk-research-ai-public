@@ -1,0 +1,42 @@
+name: concertnews
+# SPEC-3 T17: concert-news.de times out from the course server, so GitHub fetches it once a day
+# and keeps only facts (date, title, venue, link) in concertnews.json on the `data` branch.
+# The collector reads that file from raw.githubusercontent.com. No raw HTML is committed.
+on:
+  schedule:
+    - cron: "30 4 * * *"  # UTC, before the collector at 06:00
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python -m collector.mirror_concertnews concertnews.json
+      - name: commit to data branch if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git fetch --depth 1 origin data; then
+            git worktree add -B data out FETCH_HEAD
+          else
+            git worktree add --orphan -b data out
+          fi
+          cp concertnews.json out/
+          cd out
+          git add concertnews.json
+          if git diff --cached --quiet; then
+            echo "concertnews.json unchanged"
+            exit 0
+          fi
+          git commit -m "concertnews.json $(date -u +%F)"
+          git push origin data
