@@ -1,95 +1,5 @@
 [
  {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "Boo Seeka",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-boo-seeka-hebeb-hne",
-  "venue": "Hebebühne"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "Danielle Nicole Band",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-danielle-nicole-band-nica-jazz-club",
-  "venue": "Nica Jazz Club"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "daoud - ok",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-daoud-ok-mojo-club",
-  "venue": "Mojo Club"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "Desolat",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-desolat-molotow",
-  "venue": "Molotow"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "Devlerin Savasi - Okan Bayülgen & Celal Kadri Kinoglu",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-devlerin-savasi-okan-bay-lgen-celal-kadri-kinoglu-friedrich-ebert-halle",
-  "venue": "Friedrich-Ebert-Halle"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "Eagles of Death Metal",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-eagles-of-death-metal-fabrik",
-  "venue": "Fabrik"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "Farveblind",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-farveblind-uebel-gef-hrlich",
-  "venue": "Uebel & Gefährlich"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "Montell Fish",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-montell-fish-georg-elser-halle",
-  "venue": "Georg Elser Halle"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "Nick Hakim",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-nick-hakim-bahnhof-pauli",
-  "venue": "Bahnhof Pauli"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "Son Mieux",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-son-mieux-kent-club",
-  "venue": "KENT Club"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "Stefanie Heinzmann - Circles Tour 2026",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-stefanie-heinzmann-circles-tour-2026-laeiszhalle",
-  "venue": "Laeiszhalle"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "The Cinelli Brothers",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-the-cinelli-brothers-nochtspeicher",
-  "venue": "Nochtspeicher"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "The Howlers",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-the-howlers-betty",
-  "venue": "BETTY"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "VALLEY OF THE SUN",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-valley-of-the-sun-knust",
-  "venue": "Knust"
- },
- {
-  "starts_at": "2026-11-10T00:00:00+01:00",
-  "title": "YARIS",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-10-yaris-logo",
-  "venue": "Logo"
- },
- {
   "starts_at": "2026-11-11T00:00:00+01:00",
   "title": "Billie Bird - Soledad Tour 2026",
   "url": "https://www.concert-news.de/konzertkalender/#2026-11-11-billie-bird-soledad-tour-2026-nochtspeicher",
@@ -292,6 +202,12 @@
   "title": "Coogans Bluff",
   "url": "https://www.concert-news.de/konzertkalender/#2026-11-13-coogans-bluff-hafenklang",
   "venue": "Hafenklang"
+ },
+ {
+  "starts_at": "2026-11-13T00:00:00+01:00",
+  "title": "David Nesselhauf Live Impro-Apéro",
+  "url": "https://www.concert-news.de/konzertkalender/#2026-11-13-david-nesselhauf-live-impro-ap-ro-hanseplatte",
+  "venue": "Hanseplatte"
  },
  {
   "starts_at": "2026-11-13T00:00:00+01:00",
@@ -1519,6 +1435,12 @@
  },
  {
   "starts_at": "2026-11-27T00:00:00+01:00",
+  "title": "DJ Sadface",
+  "url": "https://www.concert-news.de/konzertkalender/#2026-11-27-dj-sadface-hanseplatte",
+  "venue": "Hanseplatte"
+ },
+ {
+  "starts_at": "2026-11-27T00:00:00+01:00",
   "title": "Dominik Hartz - verstr!ckt Tour 2026",
   "url": "https://www.concert-news.de/konzertkalender/#2026-11-27-dominik-hartz-verstr-ckt-tour-2026-docks",
   "venue": "Docks"
@@ -1723,6 +1645,12 @@
  },
  {
   "starts_at": "2026-11-28T00:00:00+01:00",
+  "title": "Rathmann",
+  "url": "https://www.concert-news.de/konzertkalender/#2026-11-28-rathmann-hanseplatte",
+  "venue": "Hanseplatte"
+ },
+ {
+  "starts_at": "2026-11-28T00:00:00+01:00",
   "title": "The Last Internationale",
   "url": "https://www.concert-news.de/konzertkalender/#2026-11-28-the-last-internationale-nochtspeicher",
   "venue": "Nochtspeicher"
@@ -1866,6 +1794,12 @@
   "venue": "Mojo Club"
  },
  {
+  "starts_at": "2026-11-30T00:00:00+01:00",
+  "title": "The Dead South",
+  "url": "https://www.concert-news.de/konzertkalender/#2026-11-30-the-dead-south-grosse-freiheit-36",
+  "venue": "Grosse Freiheit 36"
+ },
+ {
   "starts_at": "2026-12-01T00:00:00+01:00",
   "title": "AFAR, Anadol",
   "url": "https://www.concert-news.de/konzertkalender/#2026-12-01-afar-anadol-ms-stubnitz",
@@ -1876,12 +1810,6 @@
   "title": "Alex Henry Foster",
   "url": "https://www.concert-news.de/konzertkalender/#2026-12-01-alex-henry-foster-nochtspeicher",
   "venue": "Nochtspeicher"
- },
- {
-  "starts_at": "2026-12-01T00:00:00+01:00",
-  "title": "Ben Folds",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-12-01-ben-folds-laeiszhalle",
-  "venue": "Laeiszhalle"
  },
  {
   "starts_at": "2026-12-01T00:00:00+01:00",
@@ -4243,6 +4171,12 @@
  },
  {
   "starts_at": "2027-02-04T00:00:00+01:00",
+  "title": "Ben Folds",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-02-04-ben-folds-laeiszhalle",
+  "venue": "Laeiszhalle"
+ },
+ {
+  "starts_at": "2027-02-04T00:00:00+01:00",
   "title": "BSK",
   "url": "https://www.concert-news.de/konzertkalender/#2027-02-04-bsk-hafenklang",
   "venue": "Hafenklang"
@@ -5803,6 +5737,12 @@
  },
  {
   "starts_at": "2027-03-10T00:00:00+01:00",
+  "title": "Basht.",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-03-10-basht-uebel-gef-hrlich",
+  "venue": "Uebel & Gefährlich"
+ },
+ {
+  "starts_at": "2027-03-10T00:00:00+01:00",
   "title": "EALA - Symposion Tour 2027",
   "url": "https://www.concert-news.de/konzertkalender/#2027-03-10-eala-symposion-tour-2027-hebeb-hne",
   "venue": "Hebebühne"
@@ -7051,6 +6991,12 @@
  },
  {
   "starts_at": "2027-04-13T00:00:00+02:00",
+  "title": "Cowboy Hunters",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-04-13-cowboy-hunters-betty",
+  "venue": "BETTY"
+ },
+ {
+  "starts_at": "2027-04-13T00:00:00+02:00",
   "title": "Dominic Miller",
   "url": "https://www.concert-news.de/konzertkalender/#2027-04-13-dominic-miller-nica-jazz-club",
   "venue": "Nica Jazz Club"
@@ -8280,6 +8226,12 @@
   "venue": "Schmidtchen"
  },
  {
+  "starts_at": "2027-06-29T00:00:00+02:00",
+  "title": "Sam Barber & Dylan Gossett",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-06-29-sam-barber-dylan-gossett-stadtpark",
+  "venue": "Stadtpark"
+ },
+ {
   "starts_at": "2027-07-02T00:00:00+02:00",
   "title": "The Hooters - Every Ticket Tells A Story",
   "url": "https://www.concert-news.de/konzertkalender/#2027-07-02-the-hooters-every-ticket-tells-a-story-laeiszhalle",
@@ -8332,6 +8284,12 @@
   "title": "Weltturbojugendtage XXI 29. - 31.07.27",
   "url": "https://www.concert-news.de/konzertkalender/#2027-07-29-weltturbojugendtage-xxi-29-31-07-27-molotow",
   "venue": "Molotow"
+ },
+ {
+  "starts_at": "2027-07-30T00:00:00+02:00",
+  "title": "Freundeskreis",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-07-30-freundeskreis-stadtpark",
+  "venue": "Stadtpark"
  },
  {
   "starts_at": "2027-08-06T00:00:00+02:00",
