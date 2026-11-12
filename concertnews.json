@@ -1,83 +1,5 @@
 [
  {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "Bloc Party & Interpol",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-bloc-party-interpol-barclays-arena",
-  "venue": "Barclays Arena"
- },
- {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "Dan Owen - Neptune Tour Germany 2026",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-dan-owen-neptune-tour-germany-2026-stellwerk",
-  "venue": "Stellwerk"
- },
- {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "FATCAT",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-fatcat-nochtspeicher",
-  "venue": "Nochtspeicher"
- },
- {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "Kids With Buns",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-kids-with-buns-nochtwache",
-  "venue": "Nochtwache"
- },
- {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "Kreidler, Die Wilde Jagd",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-kreidler-die-wilde-jagd-ms-stubnitz",
-  "venue": "MS Stubnitz"
- },
- {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "Miss Ivanka T.",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-miss-ivanka-t-kent-club",
-  "venue": "KENT Club"
- },
- {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "Phil Campbell's Bastard Sons - The Phil Forever Tour",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-phil-campbell-s-bastard-sons-the-phil-forever-tour-betty",
-  "venue": "BETTY"
- },
- {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "Phil Campbell’s Bastard Sons",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-phil-campbell-s-bastard-sons-betty",
-  "venue": "BETTY"
- },
- {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "Plattenbau + Lauren Lakis",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-plattenbau-lauren-lakis-hafenklang",
-  "venue": "Hafenklang"
- },
- {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "Sharp Pins",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-sharp-pins-aalhaus",
-  "venue": "Aalhaus"
- },
- {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "Soffie",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-soffie-knust",
-  "venue": "Knust"
- },
- {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "The Dire Straits Experience",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-the-dire-straits-experience-laeiszhalle",
-  "venue": "Laeiszhalle"
- },
- {
-  "starts_at": "2026-11-12T00:00:00+01:00",
-  "title": "THE SILVERETTES",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-12-the-silverettes-logo",
-  "venue": "Logo"
- },
- {
   "starts_at": "2026-11-13T00:00:00+01:00",
   "title": "Adult DVD - UK/EU Tour",
   "url": "https://www.concert-news.de/konzertkalender/#2026-11-13-adult-dvd-uk-eu-tour-betty",
@@ -7579,6 +7501,12 @@
  },
  {
   "starts_at": "2027-05-05T00:00:00+02:00",
+  "title": "Matt Andersen | Dave Sampson",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-05-05-matt-andersen-dave-sampson-kulturkirche-altona",
+  "venue": "Kulturkirche Altona"
+ },
+ {
+  "starts_at": "2027-05-05T00:00:00+02:00",
   "title": "Nikki @ Nica & NDR Bigband",
   "url": "https://www.concert-news.de/konzertkalender/#2027-05-05-nikki-nica-ndr-bigband-nica-jazz-club",
   "venue": "Nica Jazz Club"
@@ -8370,6 +8298,12 @@
   "venue": "Hebebühne"
  },
  {
+  "starts_at": "2027-09-12T00:00:00+02:00",
+  "title": "Jacob Fortyhands",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-09-12-jacob-fortyhands-betty",
+  "venue": "BETTY"
+ },
+ {
   "starts_at": "2027-09-13T00:00:00+02:00",
   "title": "Archive",
   "url": "https://www.concert-news.de/konzertkalender/#2027-09-13-archive-georg-elser-halle",
@@ -8944,6 +8878,12 @@
   "title": "dIRE sTRATS",
   "url": "https://www.concert-news.de/konzertkalender/#2027-12-19-dire-strats-laeiszhalle",
   "venue": "Laeiszhalle"
+ },
+ {
+  "starts_at": "2027-12-19T00:00:00+01:00",
+  "title": "Samy Deluxe & DJ Desue",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-12-19-samy-deluxe-dj-desue-barclays-arena",
+  "venue": "Barclays Arena"
  },
  {
   "starts_at": "2028-01-15T00:00:00+01:00",
