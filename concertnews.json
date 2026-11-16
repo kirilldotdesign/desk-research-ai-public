@@ -1,59 +1,5 @@
 [
  {
-  "starts_at": "2026-11-16T00:00:00+01:00",
-  "title": "Archspire + Crown Magnetar, The Zenith Passage & Analepsy - European Vacation 26",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-16-archspire-crown-magnetar-the-zenith-passage-analepsy-european-vacation-26-gruenspan",
-  "venue": "Gruenspan"
- },
- {
-  "starts_at": "2026-11-16T00:00:00+01:00",
-  "title": "Eric Bibb - One Mississippi Tour",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-16-eric-bibb-one-mississippi-tour-nica-jazz-club",
-  "venue": "Nica Jazz Club"
- },
- {
-  "starts_at": "2026-11-16T00:00:00+01:00",
-  "title": "Filow",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-16-filow-docks",
-  "venue": "Docks"
- },
- {
-  "starts_at": "2026-11-16T00:00:00+01:00",
-  "title": "Hatebreed & Life of Agony",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-16-hatebreed-life-of-agony-markthalle",
-  "venue": "Markthalle"
- },
- {
-  "starts_at": "2026-11-16T00:00:00+01:00",
-  "title": "King No-One",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-16-king-no-one-hebeb-hne",
-  "venue": "Hebebühne"
- },
- {
-  "starts_at": "2026-11-16T00:00:00+01:00",
-  "title": "Kingfishr",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-16-kingfishr-grosse-freiheit-36",
-  "venue": "Grosse Freiheit 36"
- },
- {
-  "starts_at": "2026-11-16T00:00:00+01:00",
-  "title": "Mic Donet - Memories Tour 2026",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-16-mic-donet-memories-tour-2026-mojo-club",
-  "venue": "Mojo Club"
- },
- {
-  "starts_at": "2026-11-16T00:00:00+01:00",
-  "title": "NAPA - Euro Tour",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-16-napa-euro-tour-knust",
-  "venue": "Knust"
- },
- {
-  "starts_at": "2026-11-16T00:00:00+01:00",
-  "title": "Spike Fuck",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-16-spike-fuck-molotow",
-  "venue": "Molotow"
- },
- {
   "starts_at": "2026-11-17T00:00:00+01:00",
   "title": "Adam Ben Ezra ft. Shayan Fathi",
   "url": "https://www.concert-news.de/konzertkalender/#2026-11-17-adam-ben-ezra-ft-shayan-fathi-nica-jazz-club",
@@ -988,12 +934,6 @@
   "title": "Drei Meter Feldweg",
   "url": "https://www.concert-news.de/konzertkalender/#2026-11-27-drei-meter-feldweg-markthalle",
   "venue": "Markthalle"
- },
- {
-  "starts_at": "2026-11-27T00:00:00+01:00",
-  "title": "Elif",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-27-elif-inselpark-arena",
-  "venue": "Inselpark Arena"
  },
  {
   "starts_at": "2026-11-27T00:00:00+01:00",
@@ -3700,12 +3640,6 @@
   "title": "Antifuchs - STour 2027",
   "url": "https://www.concert-news.de/konzertkalender/#2027-02-04-antifuchs-stour-2027-bahnhof-pauli",
   "venue": "Bahnhof Pauli"
- },
- {
-  "starts_at": "2027-02-04T00:00:00+01:00",
-  "title": "Ben Folds",
-  "url": "https://www.concert-news.de/konzertkalender/#2027-02-04-ben-folds-laeiszhalle",
-  "venue": "Laeiszhalle"
  },
  {
   "starts_at": "2027-02-04T00:00:00+01:00",
@@ -7681,6 +7615,18 @@
  },
  {
   "starts_at": "2027-06-04T00:00:00+02:00",
+  "title": "DOPPELSECHS",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-06-04-doppelsechs-fabrik",
+  "venue": "Fabrik"
+ },
+ {
+  "starts_at": "2027-06-04T00:00:00+02:00",
+  "title": "Leon Bridges",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-06-04-leon-bridges-stadtpark",
+  "venue": "Stadtpark"
+ },
+ {
+  "starts_at": "2027-06-04T00:00:00+02:00",
   "title": "Tim Garland Lighthouse Trio",
   "url": "https://www.concert-news.de/konzertkalender/#2027-06-04-tim-garland-lighthouse-trio-nica-jazz-club",
   "venue": "Nica Jazz Club"
@@ -7696,6 +7642,12 @@
   "title": "Luka Bloom",
   "url": "https://www.concert-news.de/konzertkalender/#2027-06-07-luka-bloom-fabrik",
   "venue": "Fabrik"
+ },
+ {
+  "starts_at": "2027-06-07T00:00:00+02:00",
+  "title": "Noga Erez",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-06-07-noga-erez-stadtpark",
+  "venue": "Stadtpark"
  },
  {
   "starts_at": "2027-06-09T00:00:00+02:00",
@@ -7914,9 +7866,21 @@
   "venue": "MS Dockville Gelände"
  },
  {
+  "starts_at": "2027-08-26T00:00:00+02:00",
+  "title": "Das Lumpenpack",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-08-26-das-lumpenpack-stadtpark",
+  "venue": "Stadtpark"
+ },
+ {
   "starts_at": "2027-08-29T00:00:00+02:00",
   "title": "Helge Schneider",
   "url": "https://www.concert-news.de/konzertkalender/#2027-08-29-helge-schneider-stadtpark",
+  "venue": "Stadtpark"
+ },
+ {
+  "starts_at": "2027-09-03T00:00:00+02:00",
+  "title": "Ziggy Alberts",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-09-03-ziggy-alberts-stadtpark",
   "venue": "Stadtpark"
  },
  {
@@ -8029,6 +7993,12 @@
  },
  {
   "starts_at": "2027-09-17T00:00:00+02:00",
+  "title": "Elif",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-09-17-elif-georg-elser-halle",
+  "venue": "Georg Elser Halle"
+ },
+ {
+  "starts_at": "2027-09-17T00:00:00+02:00",
   "title": "Reeperbahn Festival",
   "url": "https://www.concert-news.de/konzertkalender/#2027-09-17-reeperbahn-festival-diverse-spielst-tten",
   "venue": "Diverse Spielstätten"
@@ -8041,9 +8011,21 @@
  },
  {
   "starts_at": "2027-09-18T00:00:00+02:00",
+  "title": "KPop Demon Hunters",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-09-18-kpop-demon-hunters-barclays-arena",
+  "venue": "Barclays Arena"
+ },
+ {
+  "starts_at": "2027-09-18T00:00:00+02:00",
   "title": "Reeperbahn Festival",
   "url": "https://www.concert-news.de/konzertkalender/#2027-09-18-reeperbahn-festival-diverse-spielst-tten",
   "venue": "Diverse Spielstätten"
+ },
+ {
+  "starts_at": "2027-09-19T00:00:00+02:00",
+  "title": "Tord Gustavsen Trio",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-09-19-tord-gustavsen-trio-laeiszhalle",
+  "venue": "Laeiszhalle"
  },
  {
   "starts_at": "2027-09-23T00:00:00+02:00",
@@ -8596,6 +8578,12 @@
   "title": "Alex im Westerland - a Tribute to Die Toten Hosen & Die Ärzte",
   "url": "https://www.concert-news.de/konzertkalender/#2028-01-22-alex-im-westerland-a-tribute-to-die-toten-hosen-die-rzte-kent-club",
   "venue": "KENT Club"
+ },
+ {
+  "starts_at": "2028-02-04T00:00:00+01:00",
+  "title": "Ben Folds",
+  "url": "https://www.concert-news.de/konzertkalender/#2028-02-04-ben-folds-laeiszhalle",
+  "venue": "Laeiszhalle"
  },
  {
   "starts_at": "2028-02-04T00:00:00+01:00",
