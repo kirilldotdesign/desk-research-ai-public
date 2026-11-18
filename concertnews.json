@@ -1,89 +1,5 @@
 [
  {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "***Off The Radar Club*** live: La Tène (CH/FRA) support: Nova Sprrrk",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-off-the-radar-club-live-la-t-ne-ch-fra-support-nova-sprrrk-hafenklang",
-  "venue": "Hafenklang"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "Bulgarian Cartrader",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-bulgarian-cartrader-knust",
-  "venue": "Knust"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "Elder Island",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-elder-island-uebel-gef-hrlich",
-  "venue": "Uebel & Gefährlich"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "ELUVEITIE",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-eluveitie-markthalle",
-  "venue": "Markthalle"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "Eric Johanson",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-eric-johanson-nica-jazz-club",
-  "venue": "Nica Jazz Club"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "Glaive",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-glaive-bahnhof-pauli",
-  "venue": "Bahnhof Pauli"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "Haddaway & Friends - Dr. Alban, LayZee Ex of Mr. President & Eric Martin",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-haddaway-friends-dr-alban-layzee-ex-of-mr-president-eric-martin-inselpark-arena",
-  "venue": "Inselpark Arena"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "HAIL THE SUN",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-hail-the-sun-betty",
-  "venue": "BETTY"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "Infinity Song",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-infinity-song-mojo-club",
-  "venue": "Mojo Club"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "Saint Stacy - Beginner Again Tour",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-saint-stacy-beginner-again-tour-nochtspeicher",
-  "venue": "Nochtspeicher"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "Sarah Lesch",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-sarah-lesch-ms-stubnitz",
-  "venue": "MS Stubnitz"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "Solomon Fox - EuroTour ’26",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-solomon-fox-eurotour-26-nochtspeicher",
-  "venue": "Nochtspeicher"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "Tina Dico",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-tina-dico-laeiszhalle",
-  "venue": "Laeiszhalle"
- },
- {
-  "starts_at": "2026-11-18T00:00:00+01:00",
-  "title": "Titanic Boygroup - 300 Jahre Krawall für Deutschland",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-18-titanic-boygroup-300-jahre-krawall-f-r-deutschland-centralkomitee",
-  "venue": "Centralkomitee"
- },
- {
   "starts_at": "2026-11-19T00:00:00+01:00",
   "title": "BRUCHBUDE",
   "url": "https://www.concert-news.de/konzertkalender/#2026-11-19-bruchbude-nochtspeicher",
@@ -3782,8 +3698,8 @@
  {
   "starts_at": "2027-02-07T00:00:00+01:00",
   "title": "Two Door Cinema Club",
-  "url": "https://www.concert-news.de/konzertkalender/#2027-02-07-two-door-cinema-club-inselpark-arena",
-  "venue": "Inselpark Arena"
+  "url": "https://www.concert-news.de/konzertkalender/#2027-02-07-two-door-cinema-club-sporthalle-hamburg",
+  "venue": "Sporthalle Hamburg"
  },
  {
   "starts_at": "2027-02-08T00:00:00+01:00",
@@ -6799,6 +6715,12 @@
  },
  {
   "starts_at": "2027-04-25T00:00:00+02:00",
+  "title": "The Kairos",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-04-25-the-kairos-molotow",
+  "venue": "Molotow"
+ },
+ {
+  "starts_at": "2027-04-25T00:00:00+02:00",
   "title": "Tilar",
   "url": "https://www.concert-news.de/konzertkalender/#2027-04-25-tilar-nica-jazz-club",
   "venue": "Nica Jazz Club"
@@ -8236,6 +8158,12 @@
   "title": "Any Given Day",
   "url": "https://www.concert-news.de/konzertkalender/#2027-10-17-any-given-day-markthalle",
   "venue": "Markthalle"
+ },
+ {
+  "starts_at": "2027-10-21T00:00:00+02:00",
+  "title": "Moka Efti Orchestra & Benno Fürmann",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-10-21-moka-efti-orchestra-benno-f-rmann-laeiszhalle",
+  "venue": "Laeiszhalle"
  },
  {
   "starts_at": "2027-10-22T00:00:00+02:00",
