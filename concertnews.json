@@ -1,83 +1,5 @@
 [
  {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "Anneke Van Giersbergen + Band - Echoes in November - Tour 2026",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-anneke-van-giersbergen-band-echoes-in-november-tour-2026-fabrik",
-  "venue": "Fabrik"
- },
- {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "Beast in Black + Supports: Frozen Crown & Sonata Artica",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-beast-in-black-supports-frozen-crown-sonata-artica-inselpark-arena",
-  "venue": "Inselpark Arena"
- },
- {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "C.O.F.F.I.N",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-c-o-f-f-i-n-molotow",
-  "venue": "Molotow"
- },
- {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "CATT",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-catt-mojo-club",
-  "venue": "Mojo Club"
- },
- {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "Jazz at Lincoln Center - Sing & Swing",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-jazz-at-lincoln-center-sing-swing-nica-jazz-club",
-  "venue": "Nica Jazz Club"
- },
- {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "Katja Berlin",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-katja-berlin-markthalle",
-  "venue": "Markthalle"
- },
- {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "KIDD KAWAKI - Shinigami Tour",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-kidd-kawaki-shinigami-tour-uebel-gef-hrlich",
-  "venue": "Uebel & Gefährlich"
- },
- {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "Morpheuz - Leeres Herz Tour",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-morpheuz-leeres-herz-tour-kent-club",
-  "venue": "KENT Club"
- },
- {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "SALOMEA",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-salomea-knust",
-  "venue": "Knust"
- },
- {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "Sing & Swing",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-sing-swing-nica-jazz-club",
-  "venue": "Nica Jazz Club"
- },
- {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "Suma (SWE)",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-suma-swe-hafenklang",
-  "venue": "Hafenklang"
- },
- {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "TC.Kylie x Joya - Somewhere Between Tour 2026",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-tc-kylie-x-joya-somewhere-between-tour-2026-nochtspeicher",
-  "venue": "Nochtspeicher"
- },
- {
-  "starts_at": "2026-11-23T00:00:00+01:00",
-  "title": "The Pogues",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-23-the-pogues-grosse-freiheit-36",
-  "venue": "Grosse Freiheit 36"
- },
- {
   "starts_at": "2026-11-24T00:00:00+01:00",
   "title": "Boy Harsher",
   "url": "https://www.concert-news.de/konzertkalender/#2026-11-24-boy-harsher-gruenspan",
@@ -1270,6 +1192,12 @@
   "title": "Dillon",
   "url": "https://www.concert-news.de/konzertkalender/#2026-12-08-dillon-mojo-club",
   "venue": "Mojo Club"
+ },
+ {
+  "starts_at": "2026-12-08T00:00:00+01:00",
+  "title": "Gisbert zu Knyphausen",
+  "url": "https://www.concert-news.de/konzertkalender/#2026-12-08-gisbert-zu-knyphausen-knust",
+  "venue": "Knust"
  },
  {
   "starts_at": "2026-12-08T00:00:00+01:00",
@@ -6199,6 +6127,12 @@
  },
  {
   "starts_at": "2027-04-22T00:00:00+02:00",
+  "title": "Gail Ann Dorsey",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-04-22-gail-ann-dorsey-mojo-club",
+  "venue": "Mojo Club"
+ },
+ {
+  "starts_at": "2027-04-22T00:00:00+02:00",
   "title": "JOY OLADOKUN",
   "url": "https://www.concert-news.de/konzertkalender/#2027-04-22-joy-oladokun-knust",
   "venue": "Knust"
@@ -8044,6 +7978,12 @@
   "title": "FiNCH - FREiKÖRPERKULTOUR 2027",
   "url": "https://www.concert-news.de/konzertkalender/#2027-12-11-finch-freik-rperkultour-2027-sporthalle-hamburg",
   "venue": "Sporthalle Hamburg"
+ },
+ {
+  "starts_at": "2027-12-17T00:00:00+01:00",
+  "title": "ENKAY",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-12-17-enkay-fabrik",
+  "venue": "Fabrik"
  },
  {
   "starts_at": "2027-12-19T00:00:00+01:00",
