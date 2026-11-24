@@ -1,53 +1,5 @@
 [
  {
-  "starts_at": "2026-11-24T00:00:00+01:00",
-  "title": "Boy Harsher",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-24-boy-harsher-gruenspan",
-  "venue": "Gruenspan"
- },
- {
-  "starts_at": "2026-11-24T00:00:00+01:00",
-  "title": "Chameleons & Special Guest - \"Arctic Moon\" Tour 2026",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-24-chameleons-special-guest-arctic-moon-tour-2026-knust",
-  "venue": "Knust"
- },
- {
-  "starts_at": "2026-11-24T00:00:00+01:00",
-  "title": "Chelsea Wolfe",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-24-chelsea-wolfe-grosse-freiheit-36",
-  "venue": "Grosse Freiheit 36"
- },
- {
-  "starts_at": "2026-11-24T00:00:00+01:00",
-  "title": "In Extremo - Tranquilo II - Akustik Tour 2026",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-24-in-extremo-tranquilo-ii-akustik-tour-2026-laeiszhalle",
-  "venue": "Laeiszhalle"
- },
- {
-  "starts_at": "2026-11-24T00:00:00+01:00",
-  "title": "Long Distance Calling",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-24-long-distance-calling-markthalle",
-  "venue": "Markthalle"
- },
- {
-  "starts_at": "2026-11-24T00:00:00+01:00",
-  "title": "Nights on Broadway - A Tribute to the Bee Gees performed by Night Fever",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-24-nights-on-broadway-a-tribute-to-the-bee-gees-performed-by-night-fever-inselpark-arena",
-  "venue": "Inselpark Arena"
- },
- {
-  "starts_at": "2026-11-24T00:00:00+01:00",
-  "title": "The Jack Knives",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-24-the-jack-knives-hafenklang",
-  "venue": "Hafenklang"
- },
- {
-  "starts_at": "2026-11-24T00:00:00+01:00",
-  "title": "Venjent",
-  "url": "https://www.concert-news.de/konzertkalender/#2026-11-24-venjent-uebel-gef-hrlich",
-  "venue": "Uebel & Gefährlich"
- },
- {
   "starts_at": "2026-11-25T00:00:00+01:00",
   "title": "Artemas - Lovercore / Getting up to no good Tour",
   "url": "https://www.concert-news.de/konzertkalender/#2026-11-25-artemas-lovercore-getting-up-to-no-good-tour-docks",
@@ -7068,6 +7020,18 @@
   "venue": "Stadtpark"
  },
  {
+  "starts_at": "2027-06-08T00:00:00+02:00",
+  "title": "The Grogans",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-06-08-the-grogans-molotow",
+  "venue": "Molotow"
+ },
+ {
+  "starts_at": "2027-06-08T00:00:00+02:00",
+  "title": "The Robert Cray Band",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-06-08-the-robert-cray-band-fabrik",
+  "venue": "Fabrik"
+ },
+ {
   "starts_at": "2027-06-09T00:00:00+02:00",
   "title": "Alex Ffrench",
   "url": "https://www.concert-news.de/konzertkalender/#2027-06-09-alex-ffrench-elbphilharmonie",
@@ -7474,6 +7438,12 @@
   "title": "Ronan Keating",
   "url": "https://www.concert-news.de/konzertkalender/#2027-09-24-ronan-keating-barclays-arena",
   "venue": "Barclays Arena"
+ },
+ {
+  "starts_at": "2027-09-24T00:00:00+02:00",
+  "title": "The Mavericks",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-09-24-the-mavericks-gruenspan",
+  "venue": "Gruenspan"
  },
  {
   "starts_at": "2027-09-25T00:00:00+02:00",
@@ -7960,6 +7930,12 @@
   "title": "GYMMICK UND DIE ERBEN",
   "url": "https://www.concert-news.de/konzertkalender/#2027-12-01-gymmick-und-die-erben-logo",
   "venue": "Logo"
+ },
+ {
+  "starts_at": "2027-12-01T00:00:00+01:00",
+  "title": "PIL",
+  "url": "https://www.concert-news.de/konzertkalender/#2027-12-01-pil-uebel-gef-hrlich",
+  "venue": "Uebel & Gefährlich"
  },
  {
   "starts_at": "2027-12-02T00:00:00+01:00",
